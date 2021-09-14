@@ -38,6 +38,7 @@
 	// 회원가입 insertMember 메서드 호출
 	MemberDao memberDao = new MemberDao();
 	memberDao.insertMember(paramMember);
+	// 회원가입 insertMeber 메서드 호출 후 메인페이지로 이동
 	response.sendRedirect(request.getContextPath()+"/index.jsp");
 	return;
 	
