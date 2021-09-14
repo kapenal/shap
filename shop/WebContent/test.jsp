@@ -8,8 +8,7 @@
 <body>
 	<!-- start : submenu include -->
 	<div>
-		<!-- 상대주소 <jsp:include page="./partial/submenu.jsp"> -->
-		<!-- 절대주소 <jsp:include page="/shop/partial/submenu.jsp"> /으로 시작-->
+		<!-- 절대주소 /으로 시작-->
 		<jsp:include page="/partial/submenu.jsp"></jsp:include> 
 	</div>
 	<!-- end : submenu include -->
