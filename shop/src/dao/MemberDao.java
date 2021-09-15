@@ -84,44 +84,44 @@ public class MemberDao {
 	}
 
 	// [관리자] 회원 목록 아이디 검색 출력
-		public ArrayList<Member> selectMemberListAllBySearchMemberId(int beginRow, int rowPerPage, String searchMemberId) throws ClassNotFoundException, SQLException {
-			// 리턴값
-			ArrayList<Member> list = new ArrayList<Member>();
-			// 매개변수 디버깅
-			System.out.println(beginRow + "< MemberDao.selectMemberListAllBySearchMemberId param : geginRow");
-			System.out.println(rowPerPage + "< MemberDao.selectMemberListAllBySearchMemberId param : rowPerPage");
-			System.out.println(searchMemberId + "< MemberDao.selectMemberListAllBySearchMemberId param : searchMemberId");
-			// DB연결 메서드 호출
-			DBUtil dbUtil = new DBUtil();
-			Connection conn = dbUtil.getConnection();
-			// 쿼리문 생성
-			String sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, member_age memberAge, member_gender memberGender, update_date updateDate, create_date createDate FROM member WHERE member_id LIKE ? ORDER BY create_date DESC LIMIT ?,?";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, "%"+searchMemberId+"%");
-			stmt.setInt(2, beginRow);
-			stmt.setInt(3, rowPerPage);
-			// 디버깅
-			System.out.println(stmt + " < memberDao.selectMemberListAllByPaeg stmt");
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
-				Member member = new Member();
-				member.setMemberNo(rs.getInt("memberNo"));
-				member.setMemberId(rs.getString("memberId"));
-				member.setMemberLevel(rs.getInt("memberLevel"));
-				member.setMemberName(rs.getString("memberName"));
-				member.setMemberAge(rs.getInt("memberAge"));
-				member.setMemberGender(rs.getString("memberGender"));
-				member.setUpdateDate(rs.getString("updateDate"));
-				member.setCreatDate(rs.getString("createDate"));
-				list.add(member);
-	         }
-			// 자원 해제
-			conn.close();
-			stmt.close();
-			rs.close();
-			
-			return list;
-		}
+	public ArrayList<Member> selectMemberListAllBySearchMemberId(int beginRow, int rowPerPage, String searchMemberId) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		ArrayList<Member> list = new ArrayList<Member>();
+		// 매개변수 디버깅
+		System.out.println(beginRow + "< MemberDao.selectMemberListAllBySearchMemberId param : geginRow");
+		System.out.println(rowPerPage + "< MemberDao.selectMemberListAllBySearchMemberId param : rowPerPage");
+		System.out.println(searchMemberId + "< MemberDao.selectMemberListAllBySearchMemberId param : searchMemberId");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, member_age memberAge, member_gender memberGender, update_date updateDate, create_date createDate FROM member WHERE member_id LIKE ? ORDER BY create_date DESC LIMIT ?,?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%"+searchMemberId+"%");
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, rowPerPage);
+		// 디버깅
+		System.out.println(stmt + " < memberDao.selectMemberListAllByPaeg stmt");
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Member member = new Member();
+			member.setMemberNo(rs.getInt("memberNo"));
+			member.setMemberId(rs.getString("memberId"));
+			member.setMemberLevel(rs.getInt("memberLevel"));
+			member.setMemberName(rs.getString("memberName"));
+			member.setMemberAge(rs.getInt("memberAge"));
+			member.setMemberGender(rs.getString("memberGender"));
+			member.setUpdateDate(rs.getString("updateDate"));
+			member.setCreatDate(rs.getString("createDate"));
+			list.add(member);
+         }
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return list;
+	}
 	
 	// [관리자] 회원 목록 출력
 	public ArrayList<Member> selectMemberListAllByPage(int beginRow, int rowPerPage) throws ClassNotFoundException, SQLException {
