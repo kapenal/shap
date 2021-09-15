@@ -10,7 +10,6 @@ import commons.DBUtil;
 import vo.*;
 
 public class MemberDao {
-	
 	// 회원 목록의 검색 아이디 전체 페이지
 	public int selectMemberListAllBySearchMemberIdTotalPage(String searchMemberId) throws ClassNotFoundException, SQLException {
 		// 리턴값
@@ -19,15 +18,15 @@ public class MemberDao {
 		System.out.println(searchMemberId + "< MemberDao.selectMemberListAllBySearchMemberIdTotalPage param : searchMemberId");
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
-	    Connection conn = dbUtil.getConnection();
-	    // 쿼리문 생성
-	    String sql = "SELECT count(*) FROM member WHERE member_id LIKE ?";
-	    // 쿼리문 실행
-	    PreparedStatement stmt = conn.prepareStatement(sql);
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "SELECT count(*) FROM member WHERE member_id LIKE ?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, "%"+searchMemberId+"%");
-	    // 디버깅
-	    System.out.println(stmt + " < MemberDao.selectMemberListAllByTotalPage stmt");
-	    ResultSet rs = stmt.executeQuery();
+		// 디버깅
+		System.out.println(stmt + " < MemberDao.selectMemberListAllByTotalPage stmt");
+		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
 			totalCount = rs.getInt("count(*)");
 		}
@@ -36,7 +35,7 @@ public class MemberDao {
 		stmt.close();
 		rs.close();
 		
-	    return totalCount;
+		return totalCount;
 	}
 	
 	// 회원 목록의 전체 페이지
@@ -45,14 +44,14 @@ public class MemberDao {
 		int totalCount = 0;
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
-	    Connection conn = dbUtil.getConnection();
-	    // 쿼리문 생성
-	    String sql = "SELECT count(*) FROM member ";
-	    // 쿼리문 실행
-	    PreparedStatement stmt = conn.prepareStatement(sql);
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "SELECT count(*) FROM member ";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
 		// 디버깅
-	    System.out.println(stmt + " < MemberDao.selectMemberListAllByTotalPage stmt");
-	    ResultSet rs = stmt.executeQuery();
+		System.out.println(stmt + " < MemberDao.selectMemberListAllByTotalPage stmt");
+		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
 			totalCount = rs.getInt("count(*)");
 		}
@@ -61,7 +60,7 @@ public class MemberDao {
 		stmt.close();
 		rs.close();
 		
-	    return totalCount;
+		return totalCount;
 	}
 	
 	// 회원 목록의 마지막 페이지
@@ -114,7 +113,7 @@ public class MemberDao {
 			member.setUpdateDate(rs.getString("updateDate"));
 			member.setCreatDate(rs.getString("createDate"));
 			list.add(member);
-         }
+	     }
 		// 자원 해제
 		conn.close();
 		stmt.close();
