@@ -23,9 +23,9 @@
 		<!-- 관리자 메뉴 include 절대 주소 -->
 		<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
 		<div class="jumbotron">
-	         <h1>관리자페이지</h1>
+	         <h1>관리자 페이지</h1>
 		</div>
-		<div><h2><a class="text-warning"><%=loginMember.getMemberName()%></a>님 반갑습니다.</h2></div>
+		<div><h2><span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다.</h2></div>
 	</div>
 </body>
 </html>

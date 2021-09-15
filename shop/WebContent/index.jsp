@@ -16,7 +16,7 @@
 		</div>
 		<!-- end : mainMenu include -->
 		<div class="jumbotron">
-	         <h1>메인페이지</h1>
+	         <h1>메인 페이지</h1>
 		</div>
 		<div>
 		<%
@@ -32,7 +32,7 @@
 				Member loginMember = (Member)session.getAttribute("loginMember");
 		%>
 			<!-- 로그인 성공 or 유지 -->
-			<div><h2><a class="text-warning"><%=loginMember.getMemberName()%></a>님 반갑습니다.</h2></div>
+			<div><h2><span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다.</h2></div>
 			<br>
 		<%
 				if(loginMember.getMemberLevel() > 0){

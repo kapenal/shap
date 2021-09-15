@@ -71,6 +71,7 @@
 		<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
 		<div class="jumbotron">
 	         <h1>회원 목록</h1>
+	         <h3><span class="badge badge-light"><a href ="<%=request.getContextPath()%>/index.jsp" class="text-dark">메인페이지</a></span></h3>
 		</div>
 		<div>
 			<h2>회원 목록</h2>
