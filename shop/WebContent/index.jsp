@@ -43,7 +43,7 @@
 		<%
 				}
 		%>
-			<div><a href ="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-info">로그아웃</a></div>
+			<div><a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-info">로그아웃</a></div>
 		<%
 			}
 		%>
