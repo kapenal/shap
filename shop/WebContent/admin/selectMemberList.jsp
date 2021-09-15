@@ -145,7 +145,7 @@
 			// 화면에 보여질 시작 페이지 번호가 화면에 보여질 페이지 번호의 갯수보다 크다면 이전 버튼을 생성
 			if(currentPage > displayPage){
 		%>
-			<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=<%=startPage-displayPage%>&searchMemberId=<%=searchMemberId%>">이전</a>
+			<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=<%=startPage-1%>&searchMemberId=<%=searchMemberId%>">이전</a>
 		<%
 			}
 			// 페이지 번호 버튼
