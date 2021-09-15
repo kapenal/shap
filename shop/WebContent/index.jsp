@@ -9,12 +9,12 @@
 </head>
 <body>
 	<div class="container">
-		<!-- start : submenu include -->
+		<!-- start : mainMenu include -->
 		<div>
 			<!-- 절대주소 /으로 시작-->
-		<!-- <jsp:include page="/partial/submenu.jsp"></jsp:include> --> 
+		<!-- <jsp:include page="/partial/mainMenu.jsp"></jsp:include> --> 
 		</div>
-		<!-- end : submenu include -->
+		<!-- end : mainMenu include -->
 		<div class="jumbotron">
 	         <h1>메인페이지</h1>
 		</div>
@@ -34,6 +34,15 @@
 			<!-- 로그인 성공 or 유지 -->
 			<div><h2><a class="text-warning"><%=loginMember.getMemberName()%></a>님 반갑습니다.</h2></div>
 			<br>
+		<%
+				if(loginMember.getMemberLevel() > 0){
+		%>
+					<!-- 관리자 페이지로 가는 링크 -->
+					<div><a href ="<%=request.getContextPath()%>/admin/adminIndex.jsp" class="btn btn-info">관리자 페이지가기</a></div>
+					<br>
+		<%
+				}
+		%>
 			<div><a href ="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-info">로그아웃</a></div>
 		<%
 			}

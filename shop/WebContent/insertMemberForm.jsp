@@ -3,7 +3,7 @@
 		//인증 방어 코드 : 로그인 전에만 페이지 열람 가능
 		if(session.getAttribute("loginMember") != null){
 			System.out.println("이미 로그인 되어 있습니다.");
-			response.sendRedirect(request.getContextPath()+"/shop/index.jsp");
+			response.sendRedirect(request.getContextPath()+"/index.jsp");
 			return;
 		}
 		//한글 깨짐 방지
