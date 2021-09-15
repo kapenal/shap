@@ -163,6 +163,7 @@
 				<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=<%=i%>&searchMemberId=<%=searchMemberId%>"><%=i%></a>
 		<%	
 			}
+				// 검색한 결과가 없을시 숫자 페이징이 10까지 나오는 것을 lastPage==0 을 if문에 or로 추가하여 해결
 				if(i == lastPage || lastPage == 0) {	
 					break;
 				}
