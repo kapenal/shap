@@ -33,6 +33,7 @@ public class MemberDao {
 		}
 		// 자원 해제
 		conn.close();
+		stmt.close();
 		rs.close();
 		
 	    return totalCount;
@@ -57,6 +58,7 @@ public class MemberDao {
 		}
 		// 자원 해제
 		conn.close();
+		stmt.close();
 		rs.close();
 		
 	    return totalCount;
