@@ -34,7 +34,7 @@
 			<!-- 로그인 성공 or 유지 -->
 			<div><h2><a class="text-warning"><%=loginMember.getMemberName()%></a>님 반갑습니다.</h2></div>
 			<br>
-			<div><a href = "" class="btn btn-info">???</a></div>
+			<div><a href ="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-info">로그아웃</a></div>
 		<%
 			}
 		%>
