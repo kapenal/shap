@@ -10,7 +10,7 @@ import commons.DBUtil;
 import vo.*;
 
 public class MemberDao {
-	// 전체 페이지 구함
+	// 회원 목록의 전체 페이지
 	public int selectMemberListAllByTotalPage() throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int totalCount = 0;

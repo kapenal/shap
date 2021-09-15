@@ -101,7 +101,7 @@
 			</tbody>
 		</table>
 <%
-		if(totalCount > ROW_PER_PAGE && currentPage > 1 ){
+		if(totalCount > ROW_PER_PAGE && currentPage > 1 ) {
 %>
 			<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=1">처음으로</a>
 <%
@@ -112,31 +112,35 @@
 %>
 		<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=<%=currentPage-displayPage%>">이전</a>
 <%
-}
+		}
 		// 페이지 번호 버튼
 		for(int i=startPage; i<=endPage; i++) {
-			if(endPage<=lastPage){
+			if(currentPage == i){
 %>
-				<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=<%=i%>"><%=i%></a>
+				<a class="btn btn-primary" href="./selectMemberList.jsp?currentPage=<%=i%>"><%=i%></a>
+<%	
+			} else if(endPage<=lastPage) {
+%>
+				<a class="btn btn-info" class="text-warning" href="./selectMemberList.jsp?currentPage=<%=i%>"><%=i%></a>
 <%
-			} else if(endPage>lastPage){
+			} else if(endPage>lastPage) {
 %>
 				<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=<%=i%>"><%=i%></a>
 <%	
 			}
-			if(i == lastPage){	
+			if(i == lastPage) {	
 				break;
 			}
 		}
 		//다음 버튼
 		// 화면에 보여질 마지막 페이지 번호가 마지막페이지보다 작다다면 이전 버튼을 생성
-		if(endPage < lastPage){
+		if(endPage < lastPage) {
 %>
 		<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=<%=currentPage+displayPage%>">다음</a>
 <%
 		}
 		// totalCount가 10보다 크면 다음페이지가 있기때문에 끝으로 보이도록 설정
-		if(totalCount > ROW_PER_PAGE && currentPage != lastPage ){
+		if(totalCount > ROW_PER_PAGE && currentPage != lastPage ) {
 %>
 			<a class="btn btn-info" href="./selectMemberList.jsp?currentPage=<%=lastPage%>">끝으로</a>
 <%
