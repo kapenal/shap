@@ -47,7 +47,8 @@
 					</td>
 				<tr>
 			</table>
-			<button type="submit">회원가입</button>
+			<button type="submit" class="btn btn-light">회원가입</button>
+			<a href ="<%=request.getContextPath()%>/index.jsp" class="btn btn-light">취소</a>
 		</form>
 	</div>
 </body>

@@ -54,8 +54,8 @@
 					<td><input type="password" name="memberNewPw"></td>
 				</tr>
 			 </table>
-			 <button type="submit">비밀번호 수정</button>
-			 <a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp" class="text-dark"><button>취소</button></a>
+			 <button type="submit" class="btn btn-light">비밀번호 수정</button>
+			 <a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>" class="btn btn-light">취소</a>
 		</form>
 	</div>
 </body>

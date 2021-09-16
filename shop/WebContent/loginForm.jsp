@@ -32,7 +32,8 @@
 					<td><input type="password" name="memberPw"></td>
 				</tr>
 			</table>
-			<button type="submit">로그인</button>
+			<button type="submit" class="btn btn-light">로그인</button>
+			<a href ="<%=request.getContextPath()%>/index.jsp" class="btn btn-light">취소</a>
 		</form>
 	</div>
 </body>

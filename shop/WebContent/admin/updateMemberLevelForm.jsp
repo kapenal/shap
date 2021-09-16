@@ -80,8 +80,8 @@
 					<td><input type="text" name="creatDate" value="<%=member.getCreatDate()%>" readonly="readonly"></td>
 				<tr>
 			</table>
-			<button type="submit">수정 완료</button>
-			<a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>" class="text-dark"><button>취소</button></a>
+			<button type="submit" class="btn btn-light">수정 완료</button>
+			<a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>" class="btn btn-light">취소</a>
 		</form>
 		
 	</div>
