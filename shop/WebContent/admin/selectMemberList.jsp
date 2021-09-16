@@ -87,7 +87,9 @@
 					<th>성별</th>
 					<th>최근 갱신 날짜</th>
 					<th>계정 생성 날짜</th>
-					<th></th>
+					<th>등급수정</th>
+					<th>비밀번호수정</th>
+					<th>강제탈퇴</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -102,11 +104,11 @@
 							<%
 								if(m.getMemberLevel() == 0) {
 							%>
-									<span>일반회원</span>
+									<span>일반 계정</span>
 							<%		
 								} else if(m.getMemberLevel() == 1) {
 							%>
-									<span>관리자</span>
+									<span>관리자 계정</span>
 							<%
 								}
 							%>
@@ -116,6 +118,18 @@
 							<td><%=m.getMemberGender()%></td>
 							<td><%=m.getUpdateDate()%></td>
 							<td><%=m.getCreatDate()%></td>
+							<td>
+								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원의 등급을 수정 -->
+								<a href="<%=request.getContextPath()%>/admin/updateMemberLevelForm.jsp?memberNo=<%=m.getMemberNo()%>">등급수정</a>
+							</td>
+							<td>
+								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원의 비밀번호를 수정 -->
+								<a href="<%=request.getContextPath()%>/admin/updateMemberPwForm.jsp?memberNo=<%=m.getMemberNo()%>">비밀번호수정</a>
+							</td>
+							<td>
+								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원을 강제 탈퇴 -->
+								<a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberNo=<%=m.getMemberNo()%>">강제탈퇴</a>
+							</td>
 						</tr>
 				<%
 					}

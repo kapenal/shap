@@ -10,7 +10,80 @@ import commons.DBUtil;
 import vo.*;
 
 public class MemberDao {
-	// 회원 목록의 검색 아이디 전체 페이지
+	// [관리자] 회원 등급 수정
+	public void updateMemberLevelByAdmin(Member member) throws ClassNotFoundException, SQLException {
+		// 매개변수 디버깅
+		System.out.println(member.getMemberNo() + " < MemberDao.updateMemberLevelByAdmin param : member.memberNo");
+		System.out.println(member.getMemberLevel() + " < MemberDao.updateMemberLevelByAdmin param : member.memberLevel");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "UPDATE member SET member_level=? WHERE member_no=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, member.getMemberLevel());
+		stmt.setInt(2, member.getMemberNo());
+		// 디버깅
+		System.out.println(stmt + " < MemberDao.updateMemberPwByAdmin stmt");
+		int row = stmt.executeUpdate();
+		if(row == 1) {
+			System.out.println("비밀번호 수정되었습니다.");
+		}
+		//자원 해제
+		conn.close();
+		stmt.close();
+	}
+	
+	// [관리자] 회원 비밀번호 수정
+	public void updateMemberPwByAdmin(Member member) throws ClassNotFoundException, SQLException {
+		// 매개변수 디버깅
+		System.out.println(member.getMemberNo() + " < MemberDao.updateMemberPwByAdmin param : member.memberNo");
+		System.out.println(member.getMemberPw() + " < MemberDao.updateMemberPwByAdmin param : member.memberPw");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "UPDATE member SET member_pw=PASSWORD(?) WHERE member_no=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, member.getMemberPw());
+		stmt.setInt(2, member.getMemberNo());
+		// 디버깅
+		System.out.println(stmt + " < MemberDao.updateMemberPwByAdmin stmt");
+		int row = stmt.executeUpdate();
+		if(row == 1) {
+			System.out.println("비밀번호 수정되었습니다.");
+		}
+		//자원 해제
+		conn.close();
+		stmt.close();
+	}
+	
+	// [관리자] 회원 목록에서 회원 강제탈퇴(회원의 No를 받아서 DB에서 삭제)
+	public void deleteMemberByKey(int memberNo) throws ClassNotFoundException, SQLException {
+		// 매개변수 디버깅
+		System.out.println(memberNo + " < MemberDao.deleteMemberByKey param : memberNo");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "DELETE From member WHERE member_no=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, memberNo);
+		// 디버깅
+		System.out.println(stmt + " < MemberDao.deleteMemeberByKey stmt");
+		int row = stmt.executeUpdate();
+		if(row == 1) {
+			System.out.println("강제 회원탈퇴되었습니다.");
+		}
+		//자원 해제
+		conn.close();
+		stmt.close();
+	}
+	
+	// [관리자] 회원 목록의 검색 아이디 전체 페이지
 	public int selectMemberListAllBySearchMemberIdTotalPage(String searchMemberId) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int totalCount = 0;
@@ -38,7 +111,7 @@ public class MemberDao {
 		return totalCount;
 	}
 	
-	// 회원 목록의 전체 페이지
+	// [관리자] 회원 목록의 전체 페이지
 	public int selectMemberListAllByTotalPage() throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int totalCount = 0;
@@ -63,7 +136,7 @@ public class MemberDao {
 		return totalCount;
 	}
 	
-	// 회원 목록의 마지막 페이지
+	// [관리자] 회원 목록의 마지막 페이지
 	public int selectMemberListAllByLastPage(int totalCount, int rowPerPage) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int lastPage = 0;

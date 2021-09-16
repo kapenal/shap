@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="vo.*" %>
+<%
+	//인증 방어 코드 : 로그인 후에만 페이지 열람 가능
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	if(loginMember == null || loginMember.getMemberLevel() < 1){
+		System.out.println("관리자계정으로 로그인하십시오.");
+		response.sendRedirect(request.getContextPath()+"/index.jsp");
+		return;
+	}
+	//한글 깨짐 방지
+	request.setCharacterEncoding("utf-8");
+	// 방어 코드
+	if(request.getParameter("memberNo")==null){
+		response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
+		return;
+	}
+	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+	// 디버깅
+	System.out.println(memberNo + " < updateMemberPwForm.jsp param : memberNo");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>updateMemberPwForm.jsp</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+	         <h1>비밀번호 수정</h1>
+		</div>
+		<form method="post" action="<%=request.getContextPath()%>/admin/updateMemberPwAction.jsp?memberNo=<%=memberNo%>">
+			 <table class="table table-bordered">
+			 	<tr>
+					<td>변경할 비밀번호를 입력하세요</td>
+					<td><input type="password" name="memberNewPw"></td>
+				</tr>
+			 </table>
+			 <button type="submit">비밀번호 수정</button>
+		</form>
+	</div>
+</body>
+</html>
