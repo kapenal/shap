@@ -12,15 +12,18 @@
 	// 한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
 	// 방어 코드
-	if(request.getParameter("memberNo")==null){
-		response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
+	if(request.getParameter("memberNo")==null || request.getParameter("searchMemberId")==null || request.getParameter("currentPage")==null){
+		response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp?searchMemberId="+request.getParameter("searchMemberId")+"&currentPage="+request.getParameter("currentPage"));
 		return;
 	}
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+	String searchMemberId = request.getParameter("searchMemberId");
+	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	// 디버깅
 	System.out.println(memberNo + " < deleteMember.jsp param : memberNo");
+	
 	MemberDao memberDao = new MemberDao();
 	memberDao.deleteMemberByKey(memberNo);
-	response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
+	response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp?searchMemberId="+searchMemberId+"&currentPage="+currentPage);
 	return;
 %>

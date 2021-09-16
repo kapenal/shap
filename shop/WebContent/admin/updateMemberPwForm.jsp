@@ -12,11 +12,13 @@
 	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
 	// 방어 코드
-	if(request.getParameter("memberNo")==null){
+	if(request.getParameter("memberNo")==null || request.getParameter("searchMemberId")==null || request.getParameter("currentPage")==null){
 		response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
 		return;
 	}
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+	String searchMemberId = request.getParameter("searchMemberId");
+	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	// 디버깅
 	System.out.println(memberNo + " < updateMemberPwForm.jsp param : memberNo");
 	
@@ -37,7 +39,7 @@
 		<div class="jumbotron">
 	         <h1>비밀번호 수정</h1>
 		</div>
-		<form method="post" action="<%=request.getContextPath()%>/admin/updateMemberPwAction.jsp?memberNo=<%=memberNo%>">
+		<form method="post" action="<%=request.getContextPath()%>/admin/updateMemberPwAction.jsp?memberNo=<%=memberNo%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">
 			 <table class="table table-bordered">
 			 	<tr>
 					<td>번호</td>

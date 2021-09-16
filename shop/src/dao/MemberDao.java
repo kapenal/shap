@@ -96,6 +96,8 @@ public class MemberDao {
 		int row = stmt.executeUpdate();
 		if(row == 1) {
 			System.out.println("비밀번호 수정되었습니다.");
+		} else {
+			System.out.println("비밀번호 수정 실패했습니다");
 		}
 		//자원 해제
 		conn.close();

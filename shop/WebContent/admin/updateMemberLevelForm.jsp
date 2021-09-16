@@ -12,11 +12,13 @@
 	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
 	// 방어 코드
-	if(request.getParameter("memberNo")==null){
+	if(request.getParameter("memberNo")==null || request.getParameter("searchMemberId")==null || request.getParameter("currentPage")==null){
 		response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
 		return;
 	}
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+	String searchMemberId = request.getParameter("searchMemberId");
+	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	// 디버깅
 	System.out.println(memberNo + " < updateMemberLevelForm.jsp param : memberNo");
 	
@@ -38,7 +40,7 @@
 		<div class="jumbotron">
 	         <h1>등급 수정</h1>
 		</div>
-		<form method="post" action="<%=request.getContextPath()%>/admin/updateMemberLevelAction.jsp?memberNo=<%=memberNo%>">
+		<form method="post" action="<%=request.getContextPath()%>/admin/updateMemberLevelAction.jsp?memberNo=<%=memberNo%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">
 			<table class="table table-bordered">
 				<tr>
 					<td>번호</td>
@@ -79,8 +81,9 @@
 				<tr>
 			</table>
 			<button type="submit">수정 완료</button>
-			<a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp" class="text-dark"><button>취소</button></a>
+			<a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>" class="text-dark"><button>취소</button></a>
 		</form>
+		
 	</div>
 </body>
 </html>

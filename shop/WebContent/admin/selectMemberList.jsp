@@ -120,15 +120,15 @@
 							<td><%=m.getCreatDate()%></td>
 							<td>
 								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원의 등급을 수정 -->
-								<a href="<%=request.getContextPath()%>/admin/updateMemberLevelForm.jsp?memberNo=<%=m.getMemberNo()%>">등급수정</a>
+								<a href="<%=request.getContextPath()%>/admin/updateMemberLevelForm.jsp?memberNo=<%=m.getMemberNo()%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">등급수정</a>
 							</td>
 							<td>
 								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원의 비밀번호를 수정 -->
-								<a href="<%=request.getContextPath()%>/admin/updateMemberPwForm.jsp?memberNo=<%=m.getMemberNo()%>">비밀번호수정</a>
+								<a href="<%=request.getContextPath()%>/admin/updateMemberPwForm.jsp?memberNo=<%=m.getMemberNo()%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">비밀번호수정</a>
 							</td>
 							<td>
 								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원을 강제 탈퇴 -->
-								<a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberNo=<%=m.getMemberNo()%>">강제탈퇴</a>
+								<a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberNo=<%=m.getMemberNo()%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">강제탈퇴</a>
 							</td>
 						</tr>
 				<%

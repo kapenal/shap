@@ -11,14 +11,19 @@
 	}
 	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
+	// 디버깅
+		System.out.println(request.getParameter("memberNo") + " < updateMemberPwAction.jsp param : memberNo");
+		System.out.println(request.getParameter("memberNewPw") + " < updateMemberPwAction.jsp param : memberNewPw");
+		System.out.println(request.getParameter("searchMemberId") + " < updateMemberPwAction.jsp param : searchMemberId");
+		System.out.println(request.getParameter("currentPage") + " < updateMemberPwAction.jsp param : currentPage");
 	// 방어 코드
-	if(request.getParameter("memberNo")==null || request.getParameter("memberPw")==null){
-		response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
+	if(request.getParameter("memberNo")==null || request.getParameter("memberNewPw")==null ||  request.getParameter("memberNewPw")=="" ||request.getParameter("searchMemberId")==null || request.getParameter("currentPage")==null){
+		response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp?searchMemberId="+request.getParameter("searchMemberId")+"&currentPage="+request.getParameter("currentPage"));
 		return;
 	}	
-	// 디버깅
-	System.out.println(request.getParameter("memberNo") + " < updateMemberPwAction.jsp param : memberNo");
-	System.out.println(request.getParameter("memberNewPw") + " < updateMemberPwAction.jsp param : memberNewPw");
+	
+	String searchMemberId = request.getParameter("searchMemberId");
+	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	
 	Member paramMember = new Member();
 	paramMember.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
@@ -26,6 +31,6 @@
 	
 	MemberDao memberDao = new MemberDao();
 	memberDao.updateMemberPwByAdmin(paramMember);
-	response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
+	response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp?searchMemberId="+searchMemberId+"&currentPage="+currentPage);
 	return;
 %>

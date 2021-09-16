@@ -12,7 +12,7 @@
 	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
 	// 방어 코드
-	if(request.getParameter("memberNo")==null || request.getParameter("memberLevel")==null){
+	if(request.getParameter("memberNo")==null || request.getParameter("memberLevel")==null || request.getParameter("searchMemberId")==null || request.getParameter("currentPage")==null){
 		response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
 		return;
 	}	
@@ -20,12 +20,15 @@
 	System.out.println(request.getParameter("memberNo") + " < updateMemberPwAction.jsp param : memberNo");
 	System.out.println(request.getParameter("memberLevel") + " < updateMemberPwAction.jsp param : memberLevel");
 	
+	String searchMemberId = request.getParameter("searchMemberId");
+	int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	
 	Member paramMember = new Member();
 	paramMember.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
 	paramMember.setMemberLevel(Integer.parseInt(request.getParameter("memberLevel")));
 	
 	MemberDao memberDao = new MemberDao();
 	memberDao.updateMemberLevelByAdmin(paramMember);
-	response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp");
+	response.sendRedirect(request.getContextPath()+"/admin/selectMemberList.jsp?searchMemberId="+searchMemberId+"&currentPage="+currentPage);
 	return;
 %>
