@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
+<%@ page import="dao.*" %>
 <%
 	//인증 방어 코드 : 로그인 후에만 페이지 열람 가능
 	Member loginMember = (Member)session.getAttribute("loginMember");
@@ -18,6 +19,9 @@
 	int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 	// 디버깅
 	System.out.println(memberNo + " < updateMemberPwForm.jsp param : memberNo");
+	
+	MemberDao memberDao = new MemberDao();
+	Member member = memberDao.selectMemberOne(memberNo);
 %>
 <!DOCTYPE html>
 <html>
@@ -28,17 +32,28 @@
 </head>
 <body>
 	<div class="container">
+		<!-- 관리자 메뉴 include 절대 주소 -->
+		<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
 		<div class="jumbotron">
 	         <h1>비밀번호 수정</h1>
 		</div>
 		<form method="post" action="<%=request.getContextPath()%>/admin/updateMemberPwAction.jsp?memberNo=<%=memberNo%>">
 			 <table class="table table-bordered">
 			 	<tr>
+					<td>번호</td>
+					<td><input type="text" name="memberNo" value="<%=member.getMemberNo()%>" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<td>아이디</td>
+					<td><input type="text" name="memberId" value="<%=member.getMemberId()%>" readonly="readonly"></td>
+				</tr>
+			 	<tr>
 					<td>변경할 비밀번호를 입력하세요</td>
 					<td><input type="password" name="memberNewPw"></td>
 				</tr>
 			 </table>
 			 <button type="submit">비밀번호 수정</button>
+			 <a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp" class="text-dark"><button>취소</button></a>
 		</form>
 	</div>
 </body>

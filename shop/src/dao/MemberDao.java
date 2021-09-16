@@ -10,6 +10,48 @@ import commons.DBUtil;
 import vo.*;
 
 public class MemberDao {
+	// 회원 상세 정보
+	public Member selectMemberOne(int memberNo) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		Member returnMember = null;
+		// 매개변수 디버깅
+		System.out.println(memberNo + " < MemberDao.selectMemberOne param : memberNo");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "SELECT  member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, member_age memberAge, member_gender memberGender, update_date updateDate, create_date createDate FROM member WHERE member_no=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, memberNo);
+		// 디버깅
+		System.out.println(stmt + " < MemberDao.updateMemberPwByAdmin stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			returnMember = new Member();
+			returnMember.setMemberNo(rs.getInt("memberNo"));
+			returnMember.setMemberId(rs.getString("memberId"));
+			returnMember.setMemberLevel(rs.getInt("memberLevel"));
+			returnMember.setMemberName(rs.getString("memberName"));
+			returnMember.setMemberAge(rs.getInt("memberAge"));
+			returnMember.setMemberGender(rs.getString("memberGender"));
+			returnMember.setUpdateDate(rs.getString("updateDate"));
+			returnMember.setCreatDate(rs.getString("createDate"));
+			System.out.println("조회 성공");
+			// 자원 해제
+			stmt.close();
+			conn.close();
+			rs.close();
+			return returnMember;
+		}
+		System.out.println("조회 실패");
+		// 자원 해제
+		stmt.close();
+		conn.close();
+		rs.close();
+		return returnMember;
+	}
+	
 	// [관리자] 회원 등급 수정
 	public void updateMemberLevelByAdmin(Member member) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
