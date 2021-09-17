@@ -10,6 +10,35 @@ import commons.DBUtil;
 import vo.*;
 
 public class MemberDao {
+	// [회원] 멤버 아이디 중복 검사
+	public String selectMemberId(String memberIdCheck) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		String memberId = null;
+		// 매개변수 디버깅
+		System.out.println(memberIdCheck + " < MemberDao.selectMemberId param : memberIdCheck");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "SELECT member_id memberId FROM member WHERE member_id=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, memberIdCheck);
+		// 디버깅
+		System.out.println(stmt + " < MemberDao.selectMemberId stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			memberId = rs.getString("memberId");
+		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		// null이면 사용가능한 ID, null이 아니면 사용중인 ID
+		return memberId;
+	}
+	
 	// 회원 상세 정보
 	public Member selectMemberOne(int memberNo) throws ClassNotFoundException, SQLException {
 		// 리턴값
@@ -43,12 +72,14 @@ public class MemberDao {
 			conn.close();
 			rs.close();
 			return returnMember;
+		}else {
+			System.out.println("조회 실패");
 		}
-		System.out.println("조회 실패");
 		// 자원 해제
 		stmt.close();
 		conn.close();
 		rs.close();
+		
 		return returnMember;
 	}
 	

@@ -23,7 +23,7 @@
 	System.out.println(memberAge + " < insertMemberAction param : memberAge");
 	System.out.println(memberGender + " < insertMemberAction param : memberGender");
 	//방어 코드
-	if( memberId == null || memberPw == null || memberName == null || memberAge == 0 || memberGender == null){
+	if( memberId == null || memberId.equals("") || memberPw == null || memberPw.equals("") || memberName == null || memberName.equals("") || memberAge == 0 || memberGender == null || memberGender.equals("")){
 		System.out.println("제대로된 회원가입 정보를 입력하십쇼.");
 		response.sendRedirect(request.getContextPath()+"/insertMemberForm.jsp");
 		return;

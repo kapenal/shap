@@ -21,11 +21,30 @@
 		<div class="jumbotron">
 	         <h1>회원가입</h1>
 		</div>
+		<%
+			String memberIdCheck = "";
+			if(request.getParameter("memberIdCheck") != null) {
+				memberIdCheck = request.getParameter("memberIdCheck");
+			}
+		%>
+		<div><%=request.getParameter("idCheckResult")%></div>
+		<!-- memberId가 사용가능한지 확인 폼 -->
+		<form method="post" action="<%=request.getContextPath()%>/selectMemberIdCheckAction.jsp">
+			<table class="table table-bordered">
+				<tr>
+					<td>아이디</td>
+					<td><input type="text" name="memberIdCheck">
+						<button type="submit">아이디 중복 검사</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+		<!-- 회원가입 폼 -->
 		<form method="post" action="<%=request.getContextPath()%>/insertMemberAction.jsp">
 			 <table class="table table-bordered">
 				<tr>
 					<td>아이디</td>
-					<td><input type="text" name="memberId"></td>
+					<td><input type="text" name="memberId" readonly="readonly" value="<%=memberIdCheck%>"></td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
