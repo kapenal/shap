@@ -320,7 +320,7 @@ public class MemberDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 설정
-		String sql = "INSERT INTO member( member_id, member_pw, member_level, member_name, member_age, member_gender, update_date, create_date) Values(?,PASSWORD(?),0,?,?,?,NOW(),NOW())";
+		String sql = "INSERT INTO member( member_id, member_pw, member_level, member_name, member_age, member_gender, update_date, create_date) VALUES(?,PASSWORD(?),0,?,?,?,NOW(),NOW())";
 		// 쿼리 실행
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, member.getMemberId());

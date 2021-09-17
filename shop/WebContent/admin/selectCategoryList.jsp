@@ -31,11 +31,11 @@
 		<!-- 관리자 메뉴 include 절대 주소 -->
 		<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
 		<div class="jumbotron">
-	         <h1>회원 목록</h1>
+	         <h1>카테고리 목록</h1>
 	         <h3><span class="badge badge-light"><a href ="<%=request.getContextPath()%>/index.jsp" class="text-dark">메인페이지</a></span></h3>
 		</div>
 		<div>
-			<h2>회원 목록</h2>
+			<h2>카테고리 목록</h2>
 		</div>
 		<table class="table table-bordered">
 			<thead>
@@ -70,8 +70,8 @@
 							</td>
 									
 							<td>
-								<form method="post" action="<%=request.getContextPath()%>/admin/updateCategoryStateAction.jsp">
-								<select name="cateogoryState">
+								<form method="post" action="<%=request.getContextPath()%>/admin/updateCategoryStateAction.jsp?categoryName=<%=c.getCategoryName()%>">
+								<select name="categoryState">
 									<option value="N">미사용</option>
 									<option value="Y">사용</option>
 								</select>
@@ -82,8 +82,9 @@
 				<%
 					}
 				%>
-
+			</tbody>
 		</table>
+		<a href="<%=request.getContextPath()%>/admin/insertCategoryForm.jsp"><button >카테고리 추가</button></a>
 	</div>
 </body>
 </html>

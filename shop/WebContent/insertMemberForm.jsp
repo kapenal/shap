@@ -8,6 +8,12 @@
 		}
 		//한글 깨짐 방지
 		request.setCharacterEncoding("utf-8");
+		
+		// 맴버 아이디 체크 방어코드
+		String memberIdCheck = "";
+		if(request.getParameter("memberIdCheck") != null) {
+			memberIdCheck = request.getParameter("memberIdCheck");
+		}
 %>
 <!DOCTYPE html>
 <html>
@@ -21,20 +27,14 @@
 		<div class="jumbotron">
 	         <h1>회원가입</h1>
 		</div>
-		<%
-			String memberIdCheck = "";
-			if(request.getParameter("memberIdCheck") != null) {
-				memberIdCheck = request.getParameter("memberIdCheck");
-			}
-		%>
-		<div><%=request.getParameter("idCheckResult")%></div>
 		<!-- memberId가 사용가능한지 확인 폼 -->
 		<form method="post" action="<%=request.getContextPath()%>/selectMemberIdCheckAction.jsp">
 			<table class="table table-bordered">
 				<tr>
 					<td>아이디</td>
-					<td><input type="text" name="memberIdCheck">
+					<td><input type="text" name="memberIdCheck" value="<%=memberIdCheck%>">
 						<button type="submit">아이디 중복 검사</button>
+						<div><%=request.getParameter("idCheckResult")%></div>
 					</td>
 				</tr>
 			</table>
