@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*"%>
 <%@ page import="dao.*"%>
-
 <%
 	//인증 방어 코드 : 로그인 후에만 페이지 열람 가능
 	Member loginMember = (Member)session.getAttribute("loginMember");
@@ -15,6 +14,7 @@
 	// 카테고리 이름 체크 방어코드
 	String categoryCheckName = "";
 	if(request.getParameter("categoryCheckName") != null) {
+		// 한글을 받을 시 ??로 표현됨 \u0000000000uuulml
 		categoryCheckName = request.getParameter("categoryCheckName");
 	}
 %>
