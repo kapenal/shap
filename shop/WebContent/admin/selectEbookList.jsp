@@ -21,6 +21,12 @@
 		}
 		// 한글 깨짐 방지
 		request.setCharacterEncoding("utf-8");
+		// 검색어
+		String searchEbookTitle = "";
+		if(request.getParameter("searchEbookTitle") != null) {
+			searchEbookTitle = request.getParameter("searchEbookTitle");
+		}
+		System.out.println(searchEbookTitle + "< 검색어");
 		// 선택한 카테고리
 		String categoryName = "";
 		if(request.getParameter("categoryName") != null) {
@@ -46,11 +52,11 @@
 		int totalCount = 0;
 		// 회원 목록 출력 메서드 호출
 		if(categoryName.equals("") == true) { // 카테고리 없을때
-			ebookList = ebookDao.selectEbookList(beginRow, ROW_PER_PAGE);
-			totalCount = ebookDao.selectEbookListAllByTotalPage();
+			ebookList = ebookDao.selectEbookList(beginRow, ROW_PER_PAGE, searchEbookTitle);
+			totalCount = ebookDao.selectEbookListAllByTotalPage(searchEbookTitle);
 		}else { // 카테고리 있을때
-			ebookList = ebookDao.selectEbookListByCategory(beginRow, ROW_PER_PAGE, categoryName);
-			totalCount = ebookDao.selectEbookListAllByCategoryNameTotalPage(categoryName);
+			ebookList = ebookDao.selectEbookListByCategory(beginRow, ROW_PER_PAGE, categoryName, searchEbookTitle);
+			totalCount = ebookDao.selectEbookListAllByCategoryNameTotalPage(categoryName, searchEbookTitle);
 		}
 		// 화면에 보여질 페이지 번호의 갯수
 		int displayPage = 10;
@@ -121,7 +127,7 @@
 				<table>
 					<tr>
 						<td>제목 검색</td>
-						<td><input type="text" name="searchEbookId"></td>
+						<td><input type="text" name="searchEbookTitle"></td>
 						<td><button type="submit">검색</button></td>
 					</tr>
 				</table>
@@ -131,29 +137,29 @@
 		<%
 			if(totalCount > ROW_PER_PAGE && currentPage > 1 ) {
 		%>
-				<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=1&categoryName=<%=categoryName%>">처음으로</a>
+				<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=1&categoryName=<%=categoryName%>&searchEbookTitle=<%=searchEbookTitle%>">처음으로</a>
 		<%
 			}
 			// 이전 버튼
 			// 화면에 보여질 시작 페이지 번호가 화면에 보여질 페이지 번호의 갯수보다 크다면 이전 버튼을 생성
 			if(currentPage > displayPage){
 		%>
-			<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=startPage-1%>&categoryName=<%=categoryName%>">이전</a>
+			<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=startPage-1%>&categoryName=<%=categoryName%>&searchEbookTitle=<%=searchEbookTitle%>">이전</a>
 		<%
 			}
 			// 페이지 번호 버튼
 			for(int i=startPage; i<=endPage; i++) {
 				if(currentPage == i){
 		%>
-					<a class="btn btn-primary" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=i%>&categoryName=<%=categoryName%>"><%=i%></a>
+					<a class="btn btn-primary" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=i%>&categoryName=<%=categoryName%>&searchEbookTitle=<%=searchEbookTitle%>"><%=i%></a>
 		<%	
 			} else if(endPage<=lastPage) {
 		%>
-				<a class="btn btn-info" class="text-warning" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=i%>&categoryName=<%=categoryName%>"><%=i%></a>
+				<a class="btn btn-info" class="text-warning" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=i%>&categoryName=<%=categoryName%>&searchEbookTitle=<%=searchEbookTitle%>"><%=i%></a>
 		<%
 			} else if(endPage>lastPage) {
 		%>
-				<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=i%>&categoryName=<%=categoryName%>"><%=i%></a>
+				<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=i%>&categoryName=<%=categoryName%>&searchEbookTitle=<%=searchEbookTitle%>"><%=i%></a>
 		<%	
 			}
 				// 카테고리 없을시 숫자 페이징이 10까지 나오는 것을 lastPage==0 을 if문에 or로 추가하여 이슈 해결
@@ -165,13 +171,13 @@
 			// 화면에 보여질 마지막 페이지 번호가 마지막페이지보다 작다다면 이전 버튼을 생성
 			if(endPage < lastPage) {
 		%>
-			<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=startPage+displayPage%>&categoryName=<%=categoryName%>">다음</a>
+			<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=startPage+displayPage%>&categoryName=<%=categoryName%>&searchEbookTitle=<%=searchEbookTitle%>">다음</a>
 		<%
 			}
 			// totalCount가 10보다 크면 다음페이지가 있기때문에 끝으로 보이도록 설정
 			if(totalCount > ROW_PER_PAGE && currentPage != lastPage ) {
 		%>
-				<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=lastPage%>&categoryName=<%=categoryName%>">끝으로</a>
+				<a class="btn btn-info" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?currentPage=<%=lastPage%>&categoryName=<%=categoryName%>&searchEbookTitle=<%=searchEbookTitle%>">끝으로</a>
 		<%
 			}
 		%>

@@ -12,7 +12,7 @@ import vo.Ebook;
 public class EbookDao {
 	
 	// 전체 전자책 목록 출력
-	public ArrayList<Ebook> selectEbookList(int beginRow, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException{
+	public ArrayList<Ebook> selectEbookList(int beginRow, int ROW_PER_PAGE, String searchEbookTitle) throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMit ? , ?
 		 */
@@ -21,14 +21,26 @@ public class EbookDao {
 		// 매개변수 디버깅
 		System.out.println(beginRow + "< EbookDao.selectEbookList param : geginRow");
 		System.out.println(ROW_PER_PAGE + "< EbookDao.selectEbookList param : ROW_PER_PAGE");
+		System.out.println(searchEbookTitle + "< EbookDao.selectEbookList param : searchEbookTitle");
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		// 쿼리문 생성
-		String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMIT ?,?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, beginRow);
-		stmt.setInt(2, ROW_PER_PAGE);
+		PreparedStatement stmt = null;
+		if(searchEbookTitle.equals("")== true) {
+			// 쿼리문 생성
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMIT ?,?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, beginRow);
+			stmt.setInt(2, ROW_PER_PAGE);
+		} else {
+			// 쿼리문 생성
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook  WHERE ebook_title LIKE ?ORDER BY create_date DESC LIMIT ?,?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+searchEbookTitle+"%");
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, ROW_PER_PAGE);
+		}
+		
 		// 디버깅
 		System.out.println(stmt + " < EbookDao.selectEbookList stmt");
 		ResultSet rs = stmt.executeQuery();
@@ -49,7 +61,7 @@ public class EbookDao {
 	}
 	
 	// 특정 카테고리 전자책 출력
-	public ArrayList<Ebook> selectEbookListByCategory(int beginRow, int ROW_PER_PAGE, String categoryName) throws ClassNotFoundException, SQLException{
+	public ArrayList<Ebook> selectEbookListByCategory(int beginRow, int ROW_PER_PAGE, String categoryName, String searchEbookTitle) throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook WHERE category_name=? ORDER BY create_date DESC LIMit ? , ?
 		 */
@@ -58,15 +70,28 @@ public class EbookDao {
 		System.out.println(beginRow + "< EbookDao.selectEbookListByCategory param : geginRow");
 		System.out.println(ROW_PER_PAGE + "< EbookDao.selectEbookListByCategory param : ROW_PER_PAGE");
 		System.out.println(categoryName + "< EbookDao.selectEbookListByCategory param : categoryName");
+		System.out.println(searchEbookTitle + "< EbookDao.selectEbookListByCategory param : searchEbookTitle");
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		// 쿼리문 생성
-		String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook WHERE category_name=? ORDER BY create_date DESC LIMIT ?,?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, categoryName);
-		stmt.setInt(2, beginRow);
-		stmt.setInt(3, ROW_PER_PAGE);
+		PreparedStatement stmt = null;
+		if(searchEbookTitle.equals("")== true) {
+			// 쿼리문 생성
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook WHERE category_name=? ORDER BY create_date DESC LIMIT ?,?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, categoryName);
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, ROW_PER_PAGE);
+		}else {
+			// 쿼리문 생성
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook WHERE category_name=? AND ebook_title LIKE ? ORDER BY create_date DESC LIMIT ?,?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, categoryName);
+			stmt.setString(2, "%"+searchEbookTitle+"%");
+			stmt.setInt(3, beginRow);
+			stmt.setInt(4, ROW_PER_PAGE);
+		}
+		
 		// 디버깅
 		System.out.println(stmt + " < EbookDao.selectEbookListByCategory stmt");
 		ResultSet rs = stmt.executeQuery();
@@ -87,7 +112,7 @@ public class EbookDao {
 	}
 	
 	// [관리자] 전자책 목록의 특정 카테고리 페이지
-		public int selectEbookListAllByCategoryNameTotalPage(String categoryName) throws ClassNotFoundException, SQLException {
+		public int selectEbookListAllByCategoryNameTotalPage(String categoryName, String searchEbookTitle) throws ClassNotFoundException, SQLException {
 			// 리턴값
 			int totalCount = 0;
 			// 매개변수 디버깅
@@ -95,11 +120,22 @@ public class EbookDao {
 			// DB연결 메서드 호출
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			// 쿼리문 생성
-			String sql = "SELECT count(*) FROM ebook WHERE category_name=?";
-			// 쿼리문 실행
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, categoryName);
+			PreparedStatement stmt = null;
+			if(searchEbookTitle.equals("")== true) {
+				// 쿼리문 생성
+				String sql = "SELECT count(*) FROM ebook WHERE category_name=?";
+				// 쿼리문 실행
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, categoryName);
+			}else {
+				// 쿼리문 생성
+				String sql = "SELECT count(*) FROM ebook WHERE category_name=? AND ebook_title LIKE ?";
+				// 쿼리문 실행
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, categoryName);
+				stmt.setString(2, "%"+searchEbookTitle+"%");
+			}
+			
 			// 디버깅
 			System.out.println(stmt + " < EbookDao.selectEbookListAllByCategoryNameTotalPage stmt");
 			ResultSet rs = stmt.executeQuery();
@@ -115,16 +151,26 @@ public class EbookDao {
 		}
 		
 		// [관리자] 전자책 목록의 전체 페이지
-		public int selectEbookListAllByTotalPage() throws ClassNotFoundException, SQLException {
+		public int selectEbookListAllByTotalPage(String searchEbookTitle) throws ClassNotFoundException, SQLException {
 			// 리턴값
 			int totalCount = 0;
 			// DB연결 메서드 호출
 			DBUtil dbUtil = new DBUtil();
 			Connection conn = dbUtil.getConnection();
-			// 쿼리문 생성
-			String sql = "SELECT count(*) FROM ebook ";
-			// 쿼리문 실행
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			PreparedStatement stmt = null;
+			if(searchEbookTitle.equals("")== true) {
+				// 쿼리문 생성
+				String sql = "SELECT count(*) FROM ebook ";
+				// 쿼리문 실행
+				stmt = conn.prepareStatement(sql);
+			}else {
+				// 쿼리문 생성
+				String sql = "SELECT count(*) FROM ebook WHERE ebook_title LIKE ?";
+				// 쿼리문 실행
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, "%"+searchEbookTitle+"%");
+			}
+			
 			// 디버깅
 			System.out.println(stmt + " < EbookDao.selectEbookListAllByTotalPage stmt");
 			ResultSet rs = stmt.executeQuery();
