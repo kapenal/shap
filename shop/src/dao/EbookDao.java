@@ -10,6 +10,24 @@ import commons.DBUtil;
 import vo.Ebook;
 
 public class EbookDao {
+	//  [관리자] 가격 수정
+	public void updateEbookPrice(Ebook ebook) throws ClassNotFoundException, SQLException {
+		// DB연결 메서드 호출  
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성, 실행
+		String sql="UPDATE ebook SET ebook_price=? WHERE ebook_no=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, ebook.getEbookPrice());
+		stmt.setInt(2, ebook.getEbookNo());
+		// 디버깅
+		System.out.println(stmt + "< EbookDao.updateEbookPrice stmt");
+		stmt.executeUpdate();
+		//자원 해제
+		conn.close();
+		stmt.close();
+	}
+	
 	// [관리자] Ebook삭제
 	public void deleteEbook(int ebookNo) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
@@ -50,7 +68,7 @@ public class EbookDao {
 	}
 	
 	
-	// [관리자] 상세보기 (가)
+	// [관리자] 상세보기
 	public Ebook selectEbookOne(int ebookNo) throws ClassNotFoundException, SQLException {
 		Ebook ebook = null;
 		// DB연결 메서드 호출

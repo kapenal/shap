@@ -36,8 +36,8 @@
 		<table class="table table-bordered">
 		<tr>
 			<td><%=ebook.getEbookNo()%></td>
-			<td><%=ebook.getEbookIsbn() %>
-			<td colspan="2"><%=ebook.getCategoryName()%></td>
+			<td colspan="2"><%=ebook.getEbookIsbn() %>
+			<td><%=ebook.getCategoryName()%></td>
 			
 		</tr>
 		<tr>
@@ -51,8 +51,9 @@
 			<td colspan="3"><%=ebook.getEbookSummary()%></td>
 		</tr>
 		<tr>
+			<td></td>
 			<td><a href="<%=request.getContextPath()%>/admin/deleteEbook.jsp?ebookNo=<%=ebook.getEbookNo()%>">삭제</a></td>
-			<td><a href="">가격 수정</a></td>
+			<td><a href="<%=request.getContextPath()%>/admin/updateEbookPriceForm.jsp?ebookNo=<%=ebook.getEbookNo()%>">가격 수정</a></td>
 			<td><a href="<%=request.getContextPath()%>/admin/updateEbookImgForm.jsp?ebookNo=<%=ebook.getEbookNo()%>">이미지 수정</a></td>
 		</tr>
 		</table>

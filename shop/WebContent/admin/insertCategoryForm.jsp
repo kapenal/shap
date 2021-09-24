@@ -14,7 +14,7 @@
 	// 카테고리 이름 체크 방어코드
 	String categoryCheckName = "";
 	if(request.getParameter("categoryCheckName") != null) {
-		// 한글을 받을 시 ??로 표현됨 \u0000000000uuulml
+		// 한글을 받을 시 ??로 표현됨
 		categoryCheckName = request.getParameter("categoryCheckName");
 	}
 %>

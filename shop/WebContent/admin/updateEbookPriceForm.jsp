@@ -18,7 +18,10 @@
 	}
 	int ebookNo = Integer.parseInt(request.getParameter("ebookNo"));
 	// 디버깅
-	System.out.println(ebookNo + " < updateEbookImgForm param : ebookNo");
+	System.out.println(ebookNo + " < updateEbookPriceForm param : ebookNo");
+	
+	EbookDao ebookDao = new EbookDao();
+	Ebook ebook = ebookDao.selectEbookOne(ebookNo);
 %>
 <!DOCTYPE html>
 <html>
@@ -32,16 +35,18 @@
 		<!-- 관리자 메뉴 include 절대 주소 -->
 		<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
 		<div class="jumbotron">
-	         <h1>이미지 수정</h1>
+	         <h1>가격 수정</h1>
 	         <h3><span class="badge badge-light"><a href ="<%=request.getContextPath()%>/index.jsp" class="text-dark">메인페이지</a></span></h3>
 		</div>
-		<!-- mult/form-data : 액션으로 기계어코드를 넘길때 사용-->
-		<!-- application/x-www-form-urlencoded : 액션으로 문자열 넘길때 사용-->	
-		<form action="<%=request.getContextPath()%>/admin/updateEbookImgAction.jsp" method="post" enctype="multipart/form-data">
-			<input type="text" name="ebookNo" value="<%=ebookNo%>"readonly="readonly"> <!-- type="hidden" -->
-			<input type="file" name="ebookImg">
-			<button type="submit" class="btn btn-light">이미지파일 수정</button>
-		</form>
+		<form action="<%=request.getContextPath()%>/admin/updateEbookPriceAction.jsp" method="post" > 
+		   <div>넘버</div>
+		   <input type="text" name="ebookNo" readonly="readonly" value="<%=ebook.getEbookNo()%>">
+		   <div>책 이름</div>
+		   <input type="text" name="ebookTitle" readonly="readonly" value="<%=ebook.getEbookTitle()%>">
+		   <div>변경할 가격</div>
+		   <input type="text" name="ebookPrice">
+		   <button type="submit" class="btn btn-light">가격 수정</button>
+	   </form>
 	</div>
 </body>
 </html>
