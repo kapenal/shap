@@ -25,7 +25,7 @@
 	}
 	System.out.println(categoryName + "< 선택된 카테고리");
 	CategoryDao categoryDao = new CategoryDao();
-	 ArrayList<Category> categoryList = categoryDao.selectCategoryList();
+	ArrayList<Category> categoryList = categoryDao.selectCategoryList();
 	 
 	// 현재 페이지
 	int currentPage = 1;

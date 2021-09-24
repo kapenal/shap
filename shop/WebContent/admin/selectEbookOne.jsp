@@ -37,7 +37,7 @@
 		<tr>
 			<td><%=ebook.getEbookNo()%></td>
 			<td><%=ebook.getEbookIsbn() %>
-			<td><%=ebook.getCategoryName()%></td>
+			<td colspan="2"><%=ebook.getCategoryName()%></td>
 			
 		</tr>
 		<tr>
@@ -51,7 +51,7 @@
 			<td colspan="3"><%=ebook.getEbookSummary()%></td>
 		</tr>
 		<tr>
-			<td><a href="">삭제</a></td>
+			<td><a href="<%=request.getContextPath()%>/admin/deleteEbook.jsp?ebookNo=<%=ebook.getEbookNo()%>">삭제</a></td>
 			<td><a href="">가격 수정</a></td>
 			<td><a href="<%=request.getContextPath()%>/admin/updateEbookImgForm.jsp?ebookNo=<%=ebook.getEbookNo()%>">이미지 수정</a></td>
 		</tr>

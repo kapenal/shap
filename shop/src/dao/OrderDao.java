@@ -12,7 +12,7 @@ import vo.OrderEbookMember;
 
 public class OrderDao {
 	
-	// 주문 관리 목록 출력
+	// [관리자]주문 관리 목록 출력
 	public ArrayList<OrderEbookMember> selectOrderList(int beginRow, int rowPerPage) throws ClassNotFoundException, SQLException {
 		ArrayList<OrderEbookMember> list = new ArrayList<OrderEbookMember>();
 		// DB연결 메서드 호출
@@ -62,7 +62,7 @@ public class OrderDao {
 		return list;
 	}
 	
-	// 전자책 목록의 전체 페이지
+	// [관리자] 주문 목록의 전체 페이지
 	public int selectOrderListAllByTotalPage() throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int totalCount = 0;
@@ -89,7 +89,7 @@ public class OrderDao {
 		return totalCount;
 	}
 	
-	// 전자책 목록의 마지막 페이지
+	// [관리자] 주문 목록의 마지막 페이지
 	public int selectOrderListAllByLastPage(int totalCount, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int lastPage = 0;

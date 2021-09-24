@@ -10,7 +10,30 @@ import commons.DBUtil;
 import vo.Ebook;
 
 public class EbookDao {
-	// 이미지 수정
+	// [관리자] Ebook삭제
+	public void deleteEbook(int ebookNo) throws ClassNotFoundException, SQLException {
+		// 매개변수 디버깅
+		System.out.println(ebookNo + " < EbookDao.deleteMemberByKey param : ebookNo");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "DELETE FROM ebook WHERE ebook_no=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, ebookNo);
+		// 디버깅
+		System.out.println(stmt + " < EbookDao.deleteMemeberByKey stmt");
+		int row = stmt.executeUpdate();
+		if(row == 1) {
+			System.out.println("Ebook 삭제 완료");
+		}
+		//자원 해제
+		conn.close();
+		stmt.close();
+	}
+	
+	// [관리자] 이미지 수정
 	public void updateEbookImg(Ebook ebook) throws ClassNotFoundException, SQLException {
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
@@ -27,7 +50,7 @@ public class EbookDao {
 	}
 	
 	
-	// 상세보기 (가)
+	// [관리자] 상세보기 (가)
 	public Ebook selectEbookOne(int ebookNo) throws ClassNotFoundException, SQLException {
 		Ebook ebook = null;
 		// DB연결 메서드 호출
@@ -63,7 +86,7 @@ public class EbookDao {
 	}
 	
 	
-	// 전체 전자책 목록 출력
+	// [관리자 & 고객]전체 전자책 목록 출력
 	public ArrayList<Ebook> selectEbookList(int beginRow, int ROW_PER_PAGE, String searchEbookTitle) throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMit ? , ?
@@ -80,13 +103,13 @@ public class EbookDao {
 		PreparedStatement stmt = null;
 		if(searchEbookTitle.equals("")== true) {
 			// 쿼리문 생성
-			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMIT ?,?";
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_price ebookPrice, ebook_img ebookImg, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMIT ?,?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, beginRow);
 			stmt.setInt(2, ROW_PER_PAGE);
 		} else {
 			// 쿼리문 생성
-			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook  WHERE ebook_title LIKE ?ORDER BY create_date DESC LIMIT ?,?";
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_price ebookPrice, ebook_img ebookImg, ebook_state ebookState FROM ebook  WHERE ebook_title LIKE ?ORDER BY create_date DESC LIMIT ?,?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, "%"+searchEbookTitle+"%");
 			stmt.setInt(2, beginRow);
@@ -101,6 +124,8 @@ public class EbookDao {
 			ebook.setEbookNo(rs.getInt("ebookNo"));
 			ebook.setCategoryName(rs.getString("categoryName"));
 			ebook.setEbookTitle(rs.getString("ebookTitle"));
+			ebook.setEbookPrice(rs.getInt("ebookPrice"));
+			ebook.setEbookImg(rs.getString("ebookImg"));
 			ebook.setEbookState(rs.getString("ebookState"));
 			list.add(ebook);
          }
