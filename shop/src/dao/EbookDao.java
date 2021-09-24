@@ -10,6 +10,58 @@ import commons.DBUtil;
 import vo.Ebook;
 
 public class EbookDao {
+	// 이미지 수정
+	public void updateEbookImg(Ebook ebook) throws ClassNotFoundException, SQLException {
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		String sql = "UPDATE ebook SET ebook_img=? WHERE ebook_no=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, ebook.getEbookImg());
+		stmt.setInt(2, ebook.getEbookNo());
+		System.out.println(stmt);
+		stmt.executeUpdate();
+		// 자원 해제
+		stmt.close();
+		conn.close();
+	}
+	
+	
+	// 상세보기 (가)
+	public Ebook selectEbookOne(int ebookNo) throws ClassNotFoundException, SQLException {
+		Ebook ebook = null;
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		String sql = "SELECT ebook_no ebookNo, ebook_isbn ebookIsbn, category_name categoryName, ebook_title ebookTitle, ebook_author ebookAuthor, ebook_company ebookCompany, ebook_page_count ebookPageCount, ebook_price ebookPrice, ebook_img ebookImg, ebook_summary ebookSummary, ebook_state ebookState, create_date createDate, update_date updateDate  FROM ebook WHERE ebook_no=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, ebookNo);
+		System.out.println(stmt+ "< selectEbookOne stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			ebook = new Ebook();
+			ebook.setEbookNo(rs.getInt("ebookNo"));
+			ebook.setEbookIsbn(rs.getString("ebookIsbn"));
+			ebook.setCategoryName(rs.getString("categoryName"));
+			ebook.setEbookTitle(rs.getString("ebookTitle"));
+			ebook.setEbookAuthor(rs.getString("ebookAuthor"));
+			ebook.setEbookCompany(rs.getString("ebookCompany"));
+			ebook.setEbookPageCount(rs.getInt("ebookPageCount"));
+			ebook.setEbookPrice(rs.getInt("ebookPrice"));
+			ebook.setEbookSummary(rs.getString("ebookSummary"));
+			ebook.setEbookState(rs.getString("ebookState"));
+			ebook.setCreateDate(rs.getString("createDate"));
+			ebook.setUpdateDate(rs.getString("updateDate"));
+			ebook.setEbookImg(rs.getString("ebookImg"));
+		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return ebook;
+	}
+	
 	
 	// 전체 전자책 목록 출력
 	public ArrayList<Ebook> selectEbookList(int beginRow, int ROW_PER_PAGE, String searchEbookTitle) throws ClassNotFoundException, SQLException{

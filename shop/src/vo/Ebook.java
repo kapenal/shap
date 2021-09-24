@@ -2,7 +2,7 @@ package vo;
 
 public class Ebook {
 	   private int ebookNo;
-	   private String ebookISBN;
+	   private String ebookIsbn;
 	   private String categoryName;
 	   private String ebookTitle;
 	   private String ebookAuthor;
@@ -21,11 +21,11 @@ public class Ebook {
 	public void setEbookNo(int ebookNo) {
 		this.ebookNo = ebookNo;
 	}
-	public String getEbookISBN() {
-		return ebookISBN;
+	public String getEbookIsbn() {
+		return ebookIsbn;
 	}
-	public void setEbookISBN(String ebookISBN) {
-		this.ebookISBN = ebookISBN;
+	public void setEbookIsbn(String ebookIsbn) {
+		this.ebookIsbn = ebookIsbn;
 	}
 	public String getCategoryName() {
 		return categoryName;
