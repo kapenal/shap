@@ -11,7 +11,7 @@
 	}
 	// 한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
-	// categoryName값이 공백, null인지 유효성 검사
+	// categoryName값이 공백, null인지 방어 코드
 	if(request.getParameter("categoryCheckName") == null || request.getParameter("categoryCheckName").equals("")) {
 		response.sendRedirect(request.getContextPath()+"/admin/insertCategoryForm.jsp");
 		return;

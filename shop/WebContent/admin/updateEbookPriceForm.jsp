@@ -11,7 +11,7 @@
 	}
 	// 한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
-	// 유효성 검사
+	// 방어 코드
 	if(request.getParameter("ebookNo") == null){
 		response.sendRedirect(request.getContextPath()+"/admin/selectEbookList.jsp?");
 		return;

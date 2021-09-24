@@ -14,7 +14,7 @@
 	// 디버깅
 		System.out.println(request.getParameter("categoryName") + " < insertCategoryAction param : categoryName");
 		System.out.println(request.getParameter("categoryState") + " < insertCategoryAction param : categoryState");
-	//방어 코드
+	// 방어 코드
 	if( request.getParameter("categoryName") == null || request.getParameter("categoryName").equals("") || request.getParameter("categoryState") == null || request.getParameter("categoryState").equals("")){
 		System.out.println("제대로된 카테고리 정보를 입력하세요.");
 		response.sendRedirect(request.getContextPath()+"/admin/insertCategoryForm.jsp");

@@ -14,7 +14,7 @@
 	// 디버깅
 	System.out.println(request.getParameter("categoryName") + " < updateCategoryStateAction param : categoryName");
 	System.out.println(request.getParameter("categoryState") + " < updateCategoryStateAction param : categoryState");
-	//방어 코드
+	// 방어 코드
 	if( request.getParameter("categoryName") == null || request.getParameter("categoryName").equals("") || request.getParameter("categoryState") == null || request.getParameter("categoryState").equals("")){
 		System.out.println("사용 여부를 정확히 입력하세요.");
 		response.sendRedirect(request.getContextPath()+"/admin/selectCategoryList.jsp");

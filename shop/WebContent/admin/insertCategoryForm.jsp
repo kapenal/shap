@@ -11,7 +11,7 @@
 	}
 	// 한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
-	// 카테고리 이름 체크 방어코드
+	// 카테고리 이름 체크 방어 코드
 	String categoryCheckName = "";
 	if(request.getParameter("categoryCheckName") != null) {
 		// 한글을 받을 시 ??로 표현됨

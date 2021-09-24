@@ -11,7 +11,11 @@
 	}
 	// 한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
-	
+	// 방어 코드
+	if(request.getParameter("ebookNo") == null){
+		response.sendRedirect(request.getContextPath()+"/admin/selectEbookList.jsp?");
+		return;
+	}
 	int ebookNo = Integer.parseInt(request.getParameter("ebookNo"));
 	
 	EbookDao ebookDao = new EbookDao();
