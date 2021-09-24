@@ -51,7 +51,7 @@
 			<td><%=ebook.getEbookPrice()%>원</td>
 		</tr>
 		<tr>
-			<td><img src="<%=request.getContextPath()%>/image/<%=ebook.getEbookImg()%>"></td>
+			<td><img src="<%=request.getContextPath()%>/image/<%=ebook.getEbookImg()%>" width="200" height="200"></td>
 			<td colspan="3"><%=ebook.getEbookSummary()%></td>
 		</tr>
 		<tr>

@@ -8,10 +8,47 @@ import java.util.ArrayList;
 import vo.*;
 
 import commons.DBUtil;
-import vo.OrderEbookMember;
 
 public class OrderDao {
+	// [관리자] 주문 상세보기
+	public OrderEbookMember selectOrderNoOne(int orderNo) throws ClassNotFoundException, SQLException {
+		OrderEbookMember oem = null;
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		String sql = "SELECT o.order_no orderNo, o.order_price orderPrice, o.create_date createDate, e.ebook_no ebookNo, e.ebook_title ebookTitle, e.ebook_img ebookImg, m.member_id memberId FROM orders o INNER JOIN ebook e INNER JOIN member m ON o.ebook_no = e.ebook_no AND o.member_no = m.member_no WHERE order_no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderNo);
+		System.out.println(stmt+ "< selectOrderNoOne stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			oem = new OrderEbookMember();
 	
+			Order o = new Order();
+			o.setOrderNo(rs.getInt("orderNo"));
+			o.setOrderPrice(rs.getInt("orderPrice"));
+			o.setCreateDate(rs.getString("createDate"));
+			oem.setOrder(o);
+			
+			Ebook e = new Ebook();
+			e.setEbookNo(rs.getInt("ebookNo"));
+			e.setEbookTitle(rs.getString("ebookTitle"));
+			e.setEbookImg(rs.getString("ebookImg"));
+			oem.setEbook(e);
+			
+			Member m = new Member();
+			m.setMemberId(rs.getString("memberId"));
+			oem.setMember(m);
+
+		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return oem;
+	}
+
 	// [관리자]주문 관리 목록 출력
 	public ArrayList<OrderEbookMember> selectOrderList(int beginRow, int rowPerPage) throws ClassNotFoundException, SQLException {
 		ArrayList<OrderEbookMember> list = new ArrayList<OrderEbookMember>();

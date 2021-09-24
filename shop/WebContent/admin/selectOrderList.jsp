@@ -81,11 +81,11 @@
 				%>
 						<tr>
 							<td><%=oem.getOrder().getOrderNo()%></td>
-							<td><%=oem.getEbook().getEbookTitle()%></td>
+							<td><a href="<%=request.getContextPath()%>/admin/selectEbookOne.jsp?ebookNo=<%=oem.getEbook().getEbookNo()%>"><%=oem.getEbook().getEbookTitle()%></a></td>
 							<td><%=oem.getOrder().getOrderPrice()%></td>
 							<td><%=oem.getOrder().getCreateDate()%></td>
-							<td><%=oem.getMember().getMemberId() %></td>
-							<td><a href="">상세주문내역</a></td>
+							<td><a href="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=oem.getMember().getMemberId()%>"><%=oem.getMember().getMemberId()%></a></td>
+							<td><a href="<%=request.getContextPath()%>/admin/selectOrderOne.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>">상세주문내역</a></td>
 						</tr>
 				<%
 					}
