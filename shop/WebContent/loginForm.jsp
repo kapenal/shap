@@ -18,6 +18,8 @@
 </head>
 <body>
 	<div class="container">
+		<!-- 메인 메뉴 include 절대 주소 -->
+		<jsp:include page="/partial/mainMenu.jsp"></jsp:include>
 		<div class="jumbotron">
 	         <h1>로그인</h1>
 		</div>

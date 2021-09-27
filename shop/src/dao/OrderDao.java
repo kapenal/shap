@@ -10,6 +10,89 @@ import vo.*;
 import commons.DBUtil;
 
 public class OrderDao {
+	// [고객] 후기 입력
+	public void insertOrderComment(OrderComment orderComment) throws ClassNotFoundException, SQLException {
+		// 매개변수 디버깅
+		System.out.println(orderComment.getOrderNo() + "< OrderDao.insertOrderComment param : orderNo");
+		System.out.println(orderComment.getEbookNo() + "< OrderDaoDao.insertOrderComment param : ebookNo");
+		System.out.println(orderComment.getOrderScore() + "< OrderDaoDao.insertOrderComment param : orderScore");
+		System.out.println(orderComment.getOrderCommentContent() + "< OrderDaoDao.insertOrderComment param : orderCommentContent");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 설정
+		String sql = "INSERT INTO order_comment( order_no, ebook_no, order_score, order_comment_content, create_date, update_date) VALUES(?,?,?,?,NOW(),NOW())";
+		// 쿼리 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderComment.getOrderNo());
+		stmt.setInt(2, orderComment.getEbookNo());
+		stmt.setInt(3, orderComment.getOrderScore());
+		stmt.setString(4, orderComment.getOrderCommentContent());
+		// 디버깅
+		System.out.println(stmt + " < OrderDao.insertOrderComment stmt");
+		int row = stmt.executeUpdate();
+		if(row == 1) {
+			System.out.println("후기 작성 완료");
+			// 자원 해제
+			stmt.close();
+			conn.close();
+			return;
+		}
+		// 자원 해제
+		stmt.close();
+		conn.close();
+		System.out.println("후기 작성 실패");
+	}
+		
+	// [고객] 주문 목록 출력
+	public ArrayList<OrderEbookMember> selectOrderListByMember(int memberNo) throws ClassNotFoundException, SQLException {
+		ArrayList<OrderEbookMember> list = new ArrayList<OrderEbookMember>();
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		/*
+		 * SELECT 
+				o.order_no orderNo, o.order_price orderPrice, o.create_date createDate,
+				e.ebook_no ebookNo, e.ebook_title ebookTitle, 
+				m.member_no memberNo, m.member_id  memberId
+			FROM orders o INNER JOIN ebook e INNER JOIN member m
+			ON o.ebook_no = e.ebook_no AND o.member_no = m.member_no
+			ORDER BY o.create_date DESC
+			Limit ?, ?
+		 */
+		String sql = "SELECT o.order_no orderNo, o.order_price orderPrice, o.create_date createDate, e.ebook_no ebookNo, e.ebook_title ebookTitle, m.member_no memberNo, m.member_id  memberId FROM orders o INNER JOIN ebook e INNER JOIN member m ON o.ebook_no = e.ebook_no AND o.member_no = m.member_no WHERE m.member_no=? ORDER BY o.create_date DESC";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, memberNo);
+		System.out.println(stmt + "< OrderDao.selectOrderList stmt");
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			OrderEbookMember oem = new OrderEbookMember();
+			
+			Order o = new Order();
+			o.setOrderNo(rs.getInt("orderNo"));
+			o.setOrderPrice(rs.getInt("orderPrice"));
+			o.setCreateDate(rs.getString("createDate"));
+			oem.setOrder(o);
+			
+			Ebook e = new Ebook();
+			e.setEbookNo(rs.getInt("ebookNo"));
+			e.setEbookTitle(rs.getString("ebookTitle"));
+			oem.setEbook(e);
+			
+			Member m = new Member();
+			m.setMemberNo(rs.getInt("memberNo"));
+			m.setMemberId(rs.getString("memberId"));
+			oem.setMember(m);
+			
+			list.add(oem);
+		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		return list;
+	}
+	
 	// [관리자] 주문 상세보기
 	public OrderEbookMember selectOrderNoOne(int orderNo) throws ClassNotFoundException, SQLException {
 		OrderEbookMember oem = null;
