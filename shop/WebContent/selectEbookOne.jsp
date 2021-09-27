@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
@@ -16,10 +17,12 @@
 		return;
 	}
 	int ebookNo = Integer.parseInt(request.getParameter("ebookNo"));
-	
+	// 상세 보기 호출
 	EbookDao ebookDao = new EbookDao();
 	Ebook ebook = ebookDao.selectEbookOne(ebookNo);
-	System.out.println(ebook.getEbookImg());
+	
+	// 댓글 목록 호출
+   	ArrayList<OrderComment> orderComment = ebookDao.selectCommentList(ebookNo);
 %>
 <!DOCTYPE html>
 <html>
@@ -54,6 +57,19 @@
 			<td colspan="3"><%=ebook.getEbookSummary()%></td>
 		</tr>
 		</table>
+	<div>
+		<table class="table table-bordered">
+			<%
+			for(OrderComment c : orderComment) {     
+            %>
+				<tr>
+					<td>별점 : <%=c.getOrderScore()%></td><td><%=c.getOrderCommentContent()%></td><td><%=c.getCreateDate()%></td>
+				</tr>
+            <%   
+            	 }
+            %>
+           </table>
+		</div>
 	</div>
 </body>
 </html>

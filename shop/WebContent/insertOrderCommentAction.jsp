@@ -32,6 +32,6 @@
 	OrderDao orderDao = new OrderDao();
 	orderDao.insertOrderComment(orderComment);
 	// 후기 입력 메서드 호출 후 주문 목록으로 이동?
-	response.sendRedirect(request.getContextPath()+"/selectOrderListByMember.jsp");
+	response.sendRedirect(request.getContextPath() + "/selectOrderListByMember.jsp");
 	return;
 %>

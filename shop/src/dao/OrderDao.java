@@ -20,27 +20,52 @@ public class OrderDao {
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		// 쿼리문 설정
-		String sql = "INSERT INTO order_comment( order_no, ebook_no, order_score, order_comment_content, create_date, update_date) VALUES(?,?,?,?,NOW(),NOW())";
-		// 쿼리 실행
+		// 쿼리문 생성, 이미 있는 후기인지 찾는 sql문
+		String sql = "SELECT order_no FROM order_comment WHERE order_no=?";
+		// 쿼리문 실행
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, orderComment.getOrderNo());
+		// 디버깅
+		System.out.println(stmt + " < MemberDao.selectMemberId stmt");
+		ResultSet rs = stmt.executeQuery();
+		// 이미 입력된 후기가 있는지 확인하는 if문
+		if(rs.next()) {
+			System.out.println("이미 입력된 후기가 존재합니다.");
+			// 자원 해제
+			stmt.close();
+			conn.close();
+			rs.close();
+			return;
+		}
+		
+		Connection conn2 = dbUtil.getConnection();
+		// 쿼리문 설정
+		String sql2 = "INSERT INTO order_comment( order_no, ebook_no, order_score, order_comment_content, create_date, update_date) VALUES(?,?,?,?,NOW(),NOW())";
+		// 쿼리 실행
+		PreparedStatement stmt2 = conn2.prepareStatement(sql2);
 		stmt.setInt(1, orderComment.getOrderNo());
 		stmt.setInt(2, orderComment.getEbookNo());
 		stmt.setInt(3, orderComment.getOrderScore());
 		stmt.setString(4, orderComment.getOrderCommentContent());
 		// 디버깅
 		System.out.println(stmt + " < OrderDao.insertOrderComment stmt");
-		int row = stmt.executeUpdate();
+		int row = stmt2.executeUpdate();
 		if(row == 1) {
 			System.out.println("후기 작성 완료");
 			// 자원 해제
 			stmt.close();
 			conn.close();
+			stmt2.close();
+			conn2.close();
+			rs.close();
 			return;
 		}
 		// 자원 해제
 		stmt.close();
 		conn.close();
+		stmt2.close();
+		conn2.close();
+		rs.close();
 		System.out.println("후기 작성 실패");
 	}
 		

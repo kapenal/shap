@@ -5,11 +5,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import commons.DBUtil;
 import vo.Ebook;
+import vo.OrderComment;
 
 public class EbookDao {
+	// [고객] 댓글 출력
+	public ArrayList<OrderComment> selectCommentList(int ebookNo) throws ClassNotFoundException, SQLException {
+		ArrayList<OrderComment> list = new ArrayList<>();
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+	    Connection conn = dbUtil.getConnection();
+		String sql = "SELECT order_no orderNo, ebook_no ebookNo, order_score orderScore, order_comment_content orderCommentContent, create_date createDate, update_date updateDate FROM order_comment WHERE ebook_no=? ORDER BY create_date DESC";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, ebookNo);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			OrderComment orderComment = new OrderComment();
+			orderComment.setOrderNo(rs.getInt("orderNo"));
+			orderComment.setOrderNo(rs.getInt("ebookNo"));
+			orderComment.setOrderScore(rs.getInt("orderScore"));
+			orderComment.setOrderCommentContent(rs.getString("orderCommentContent"));
+			orderComment.setCreateDate(rs.getString("createDate"));
+			list.add(orderComment);
+		}
+		return list;
+	}
+	
 	// [고객] 신상 전자책 목록(5개) 출력
 	public ArrayList<Ebook> selectNewProductEbookList(	) throws ClassNotFoundException, SQLException{
 		/*
