@@ -65,35 +65,81 @@
 			}
 			EbookDao ebookDao = new EbookDao();
 			
-			// 한 페이지에 보여질 리스트의 행 수
-			final int ROW_PER_PAGE = 20; // 상수 : 10으로 초기화와 동시에 끝까지 변하지 않는 수, 상수는 대문자로 표현
-			int beginRow = (currentPage - 1) * ROW_PER_PAGE;
-			System.out.println(beginRow + "< index beginRow");
 			// 전체 회원 수
 			int totalCount = 0;
 			// 화면에 보여질 페이지 번호의 갯수
 			int displayPage = 10;
-			System.out.println(displayPage + "index displayPage");
-			// 화면에 보여질 시작 페이지 번호
-			// (currentPage - 1)을 하는 이유는 현재페이지가 10일시에도 startPage가 1이기 위해서
+			// 한 페이지에 보여질 리스트의 행 수
+			final int ROW_PER_PAGE = 10; // 상수 : 10으로 초기화와 동시에 끝까지 변하지 않는 수, 상수는 대문자로 표현
+			int beginRow = (currentPage - 1) * ROW_PER_PAGE;
+			System.out.println(beginRow + "< index beginRow");
+			// 화면에 보여질 시작 페이지 번호, (currentPage - 1)을 하는 이유는 현재페이지가 10일시에도 startPage가 1이기 위해서
 			int startPage = ((currentPage - 1) / displayPage) * displayPage + 1;
 			System.out.println(startPage + "< index startPage");
-			// 화면에 보여질 마지막 페이지 번호
-			// -1을 하는 이유는 페이지 번호의 갯수가 10개이기 때문에 statPage에서 더한 1을 빼준다
+			// 화면에 보여질 마지막 페이지 번호, -1을 하는 이유는 페이지 번호의 갯수가 10개이기 때문에 statPage에서 더한 1을 빼준다
 			int endPage = startPage + displayPage - 1;
 			System.out.println(endPage + "< index endPage");
+			
 			// 전자책 목록 메서드 출력
 			ArrayList<Ebook> ebookList = null;
+			// 전체 전자책 목록 
 			ebookList = ebookDao.selectEbookList(beginRow, ROW_PER_PAGE, searchEbookTitle);
+			// 상위 인기 목록 5개(주문 순)
+			ArrayList<Ebook> popularEbookList = ebookDao.selectPopularEbookList();
+			// 신상 목록 5개
+			ArrayList<Ebook> newProductEbookList = ebookDao.selectNewProductEbookList();
+			
+			// 전체 갯수
 			totalCount = ebookDao.selectEbookListAllByTotalPage(searchEbookTitle);
 			// 마지막 페이지 구하는 호출
 			int lastPage = ebookDao.selectEbookListAllByLastPage(totalCount, ROW_PER_PAGE);
 			System.out.println(lastPage + "< index lastPage");
-			
 		%>
 		<br>
 		<div>
-			<h2>전자책 목록</h2>
+			<h2>신상품 목록</h2>
+		</div>
+		<table class="table table-bordered">
+			<tr>
+				<%
+					for(Ebook e: newProductEbookList){
+				%>
+						<td>
+							<div>
+								<a href="#"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
+							</div>
+							<div><a href="#"><%=e.getEbookTitle()%></a></div>
+							<div><%=e.getEbookPrice()%> 원</div>
+						</td>
+				<%
+					}
+				%>
+			</tr>
+		</table>
+		<br>
+		<div>
+			<h2>인기 전자책 목록</h2>
+		</div>
+		<table class="table table-bordered">
+			<tr>
+				<%
+					for(Ebook e: popularEbookList){
+				%>
+						<td>
+							<div>
+								<a href="#"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
+							</div>
+							<div><a href="#"><%=e.getEbookTitle()%></a></div>
+							<div><%=e.getEbookPrice()%> 원</div>
+						</td>
+				<%
+					}
+				%>
+			</tr>
+		</table>
+		<br>
+		<div>
+			<h2>전체 전자책 목록</h2>
 		</div>
 		<table class="table table-bordered">
 			<tr>
@@ -103,9 +149,9 @@
 				%>
 						<td>
 							<div>
-								<img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200">
+								<a href="#"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
 							</div>
-							<div><%=e.getEbookTitle()%></div>
+							<a href="#"><div><%=e.getEbookTitle()%></div></a>
 							<div><%=e.getEbookPrice()%> 원</div>
 						</td>
 				<%
