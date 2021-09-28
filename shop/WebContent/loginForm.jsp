@@ -14,6 +14,7 @@
 <head>
 <meta charset="UTF-8">
 <title>loginForm.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -23,20 +24,37 @@
 		<div class="jumbotron">
 	         <h1>로그인</h1>
 		</div>
-		<form method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
+		<form id="loginForm" method="post" action="<%=request.getContextPath()%>/loginAction.jsp">
 			 <table class="table table-bordered">
 				<tr>
 					<td>아이디</td>
-					<td><input type="text" name="memberId"></td>
+					<td><input type="text" id="memberId" name="memberId" placeholder="ID를 입력하세요"></td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="password" name="memberPw"></td>
+					<td><input type="password" id="memberPw" name="memberPw" placeholder="PW를 입력하세요"></td>
 				</tr>
 			</table>
-			<button type="submit" class="btn btn-light">로그인</button>
+			<button id="loginBtn" type="button" class="btn btn-light">로그인</button>
 			<a href ="<%=request.getContextPath()%>/index.jsp" class="btn btn-light">취소</a>
 		</form>
 	</div>
+	<!-- form의 value값 유효성 검사 -->
+	<script>
+		// jQuery();
+		$('#loginBtn').click(function(){
+			// 버튼을 클릭했을 때
+			if($('#memberId').val() == '') { // id가 공백이면
+				alert('ID를 입력하세요');
+				return;
+			} else if($('#memberPw').val() == '') { // pw가 공백이면
+				alert('PW를 입력하세요');
+				return;
+			} else {
+				
+			}
+			$('#loginForm').submit(); // <button type="button"> --> <button type="submit">
+		});
+	</script>
 </body>
 </html>

@@ -79,17 +79,17 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>아이디</th>
-					<th>권한 레벨</th>
-					<th>이름</th>
-					<th>나이</th>
-					<th>성별</th>
-					<th>최근 갱신 날짜</th>
-					<th>계정 생성 날짜</th>
-					<th>등급수정</th>
-					<th>비밀번호수정</th>
-					<th>강제탈퇴</th>
+					<th style="text-align:center">번호</th>
+					<th style="text-align:center">아이디</th>
+					<th style="text-align:center">권한 레벨</th>
+					<th style="text-align:center">이름</th>
+					<th style="text-align:center">나이</th>
+					<th style="text-align:center">성별</th>
+					<th style="text-align:center">최근 갱신 날짜</th>
+					<th style="text-align:center">계정 생성 날짜</th>
+					<th style="text-align:center">등급수정</th>
+					<th style="text-align:center">비밀번호수정</th>
+					<th style="text-align:center">강제탈퇴</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -97,10 +97,9 @@
 					for(Member m : memberList){
 				%>
 						<tr>
-							<td><%=m.getMemberNo()%></td>
-		
-							<td><%=m.getMemberId()%></td>
-							<td>
+							<td style="text-align:center"><%=m.getMemberNo()%></td>
+							<td style="text-align:center"><%=m.getMemberId()%></td>
+							<td style="text-align:center">
 							<%
 								if(m.getMemberLevel() == 0) {
 							%>
@@ -113,20 +112,20 @@
 								}
 							%>
 							</td>
-							<td><%=m.getMemberName()%></td>
-							<td><%=m.getMemberAge()%></td>
-							<td><%=m.getMemberGender()%></td>
-							<td><%=m.getUpdateDate()%></td>
-							<td><%=m.getCreatDate()%></td>
-							<td>
+							<td style="text-align:center"><%=m.getMemberName()%></td>
+							<td style="text-align:center"><%=m.getMemberAge()%></td>
+							<td style="text-align:center"><%=m.getMemberGender()%></td>
+							<td style="text-align:center"><%=m.getUpdateDate()%></td>
+							<td style="text-align:center"><%=m.getCreatDate()%></td>
+							<td style="text-align:center">
 								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원의 등급을 수정 -->
 								<a href="<%=request.getContextPath()%>/admin/updateMemberLevelForm.jsp?memberNo=<%=m.getMemberNo()%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">등급수정</a>
 							</td>
-							<td>
+							<td style="text-align:center">
 								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원의 비밀번호를 수정 -->
 								<a href="<%=request.getContextPath()%>/admin/updateMemberPwForm.jsp?memberNo=<%=m.getMemberNo()%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">비밀번호수정</a>
 							</td>
-							<td>
+							<td style="text-align:center">
 								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원을 강제 탈퇴 -->
 								<a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberNo=<%=m.getMemberNo()%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">강제탈퇴</a>
 							</td>

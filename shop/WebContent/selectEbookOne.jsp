@@ -96,14 +96,13 @@
 		<%		
 			}
 		%>
+		<br>
+		<hr>
 		<h3>
 			상품 후기 
 		</h3>
 		<div>
-			<h4>총 상품 후기(<%=orderCommentCount%>)</h4>
-		</div>
-		<div>
-			<h4>평균 별점(<%=avgScore%>)</h4>
+			<h4>총 상품 후기(<%=orderCommentCount%>) 평균 별점(<%=avgScore%>)</h4>
 		</div>
 		<!-- 이 상품의 별점의 평균 -->
 		<!-- SELECT AVG(order_score) FROM order_comment WHERE ebook_no=? GROUP BY ebook_no -->
@@ -111,21 +110,32 @@
 		<!-- SELECT * FROM order_comment WHERE ebook_no=? LIMIT ?, ? -->
 		<div>
 		<table class="table table-bordered">
-			<%
-			for(OrderComment c : orderComment) {     
-            %>
+			<thead>
 				<tr>
-					<td>별점 : <%=c.getOrderScore()%></td><td><%=c.getOrderCommentContent()%></td><td><%=c.getCreateDate()%></td>
+					<th style="width:10%; text-align:center">별점</th>
+					<th>후기 내용</th>
+					<th style="width:20%; text-align:center">작성 날짜</th>
 				</tr>
-            <%   
-            	 }
-            %>
-           </table>
+			</thead>
+			<tbody>
+				<%
+				for(OrderComment c : orderComment) {     
+	            %>
+					<tr>
+						<td style="width:10%; text-align:center">별점 : <%=c.getOrderScore()%></td>
+						<td><%=c.getOrderCommentContent()%></td>
+						<td style="width:10%; text-align:center"><%=c.getCreateDate()%></td>
+					</tr>
+	          	<%
+					}
+	          	%>
+	           </table>
+           </tbody>
 		</div>
 		<%
 			// lastPage가 0이면 아무 댓글도 없기때문에 처음으로,이전,숫자페이징,다음,끝으로 안보이게 하기 위해 if문 사용
 			if(lastPage != 0){
-				// total이 commentRowPerPage보다 크면 2페이지 이상이고 commentCurrentPage가 1보다 크면 2페이지 이상의 페이지를 보기 때문에 처음으로 가 보이도록 함
+				// total이 commentRowPerPage보다 크면 2페이지 이상이고 commentCurrentPage가 1보다 크면 2페이지 이상의 페이지를 보기 때문에 처음으로 보이도록 함
 				if(orderCommentCurrentPage > orderCommentRowPerPage && orderCommentRowPerPage > 1 ){
 	%>		
 				<a class="btn btn-info" href="./selectBoardOne.jsp?orderCommentCurrentPage=1&ebookNo=<%=ebookNo%>">처음으로</a>

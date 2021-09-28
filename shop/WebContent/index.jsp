@@ -212,7 +212,6 @@
 				<a class="btn btn-info" href="<%=request.getContextPath()%>/index.jsp?currentPage=<%=i%>&searchEbookTitle=<%=searchEbookTitle%>"><%=i%></a>
 		<%	
 			}
-				// 카테고리 없을시 숫자 페이징이 10까지 나오는 것을 lastPage==0 을 if문에 or로 추가하여 이슈 해결
 				if(i == lastPage || lastPage == 0) {	
 					break;
 				}

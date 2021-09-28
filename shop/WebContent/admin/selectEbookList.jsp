@@ -99,10 +99,10 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>No</th>
-					<th>카테고리 종류</th>
+					<th style="width:10%">No</th>
+					<th style="width:15%">카테고리 종류</th>
 					<th>제목</th>
-					<th>상태</th>
+					<th style="width:10%">상태</th>
 				</tr>
 			</thead>
 			<tbody>

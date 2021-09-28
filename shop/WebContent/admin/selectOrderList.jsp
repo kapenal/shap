@@ -67,12 +67,12 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>주문 번호</th>
+					<th style="width:9%; text-align:center">주문 번호</th>
 					<th>책 제목</th>
-					<th>가격</th>
-					<th>주문 날짜</th>
-					<th>구매자ID</th>
-					<th>상세주문내역</th>
+					<th style="width:8%; text-align:center">가격</th>
+					<th style="width:18%; text-align:center">주문 날짜</th>
+					<th style="width:12%; text-align:center">구매자ID</th>
+					<th style="width:12%; text-align:center">상세주문내역</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -80,12 +80,12 @@
 					for(OrderEbookMember oem : list){
 				%>
 						<tr>
-							<td><%=oem.getOrder().getOrderNo()%></td>
+							<td style="text-align:center"><%=oem.getOrder().getOrderNo()%></td>
 							<td><a href="<%=request.getContextPath()%>/admin/selectEbookOne.jsp?ebookNo=<%=oem.getEbook().getEbookNo()%>"><%=oem.getEbook().getEbookTitle()%></a></td>
-							<td><%=oem.getOrder().getOrderPrice()%></td>
-							<td><%=oem.getOrder().getCreateDate()%></td>
-							<td><a href="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=oem.getMember().getMemberId()%>"><%=oem.getMember().getMemberId()%></a></td>
-							<td><a href="<%=request.getContextPath()%>/admin/selectOrderOne.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>">상세주문내역</a></td>
+							<td style="text-align:center"><%=oem.getOrder().getOrderPrice()%>원</td>
+							<td style="text-align:center"><%=oem.getOrder().getCreateDate()%></td>
+							<td style="text-align:center"><a href="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=oem.getMember().getMemberId()%>"><%=oem.getMember().getMemberId()%></a></td>
+							<td style="text-align:center"><a href="<%=request.getContextPath()%>/admin/selectOrderOne.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>">상세주문내역</a></td>
 						</tr>
 				<%
 					}
