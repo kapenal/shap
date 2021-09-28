@@ -30,6 +30,7 @@
 <head>
 <meta charset="UTF-8">
 <title>updateMemberPwForm.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -39,7 +40,7 @@
 		<div class="jumbotron">
 	         <h1>비밀번호 수정</h1>
 		</div>
-		<form method="post" action="<%=request.getContextPath()%>/admin/updateMemberPwAction.jsp?memberNo=<%=memberNo%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">
+		<form id="updatePwForm" method="post" action="<%=request.getContextPath()%>/admin/updateMemberPwAction.jsp?memberNo=<%=memberNo%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">
 			 <table class="table table-bordered">
 			 	<tr>
 					<td>번호</td>
@@ -51,12 +52,21 @@
 				</tr>
 			 	<tr>
 					<td>변경할 비밀번호를 입력하세요</td>
-					<td><input type="password" name="memberNewPw"></td>
+					<td><input type="password" id="memberNewPw" name="memberNewPw"></td>
 				</tr>
 			 </table>
-			 <button type="submit" class="btn btn-light">비밀번호 수정</button>
+			 <button id="updatePwBtn"type="button" class="btn btn-light">비밀번호 수정</button>
 			 <a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>" class="btn btn-light">취소</a>
 		</form>
 	</div>
+	<script>
+		$('#updatePwBtn').click(function(){
+			if($('#memberNewPw').val() == '') { // 변경할 비밀번호가 공백이면
+				alert('변경할 비밀번호를 입력하세요');
+				return;
+			}
+			$('#updatePwForm').submit();
+		});
+	</script>
 </body>
 </html>

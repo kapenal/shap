@@ -23,6 +23,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>insertCategoryForm.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -32,38 +33,58 @@
 		<div class="jumbotron">
 	         <h1>카테고리 추가</h1>
 		</div>
-		<form method="post" action="<%=request.getContextPath()%>/admin/selectCategoryNameCheckAction.jsp">
+		<form id="categoryCheckForm" method="post" action="<%=request.getContextPath()%>/admin/selectCategoryNameCheckAction.jsp">
 			 <table class="table table-bordered">
 				<tr>
 					<td>카테고리 이름</td>
-					<td><input type="text" name="categoryCheckName"></td>
+					<td><input type="text" id="categoryCheckName" name="categoryCheckName"></td>
 					<td>
-						<button type="submit">아이디 중복 검사</button>
-						<%=request.getParameter("idCheckResult")%>
+						<button id="categoryCheckBtn" type="button">아이디 중복 검사</button>
 					</td>
 				</tr>
 			</table>
 		</form>
 		<!-- 카테고리 추가 폼 -->
-		<form method="post" action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp?">
+		<form id="categoryInsertForm" method="post" action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp?">
 			<table class="table table-bordered">
 				<tr>
 					<td>카테고리 이름</td>
-					<td><input type="text" name="categoryName" value="<%=categoryCheckName%>" readonly="readonly"></td>
+					<td><input type="text" id="categoryName" name="categoryName" value="<%=categoryCheckName%>" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td>사용 여부</td>
 					<td>
-						<select name="categoryState">
+						<select id="categoryState" id="categoryState" name="categoryState">
 							<option value="N">미사용</option>
 							<option value="Y">사용</option>
 						</select>
 					</td>
 				<tr>
 			</table>
-			<button type="submit" class="btn btn-light">추가</button>
+			<button id="categoryInsertBtn" type="button" class="btn btn-light">추가</button>
 			<a href ="<%=request.getContextPath()%>/admin/selectCategoryList.jsp" class="btn btn-light">취소</a>
 		</form>
 	</div>
+	<script>
+		$('#updateImgBtn').click(function(){
+			if($('#categoryCheckName').val() == '') { // 카테고리 이름이 공백이면
+				alert('카테고리를 입력하세요');
+				return;
+			}
+			$('#categoryCheckBtn').submit();
+		});
+		
+		$('#categoryInsertBtn').click(function(){
+			if($('#categoryName').val() == '') { // 카테고리 이름이 공백이면
+				alert('카테고리를 입력하세요');
+				return;
+			}
+			if($('#categoryState').val() == '') { // 카테고리 상태가 공백이면
+				alert('카테고리를 상태를 선택하세요');
+				return;
+			}
+			$('#categoryInsertForm').submit();
+		});
+	</script>
 </body>
 </html>

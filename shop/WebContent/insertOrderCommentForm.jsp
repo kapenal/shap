@@ -77,6 +77,7 @@
 				alert('별점을 입력하세요');
 				return;
 			}
+			$('#orderCommentForm').submit();
 		});
 	</script>
 </body>

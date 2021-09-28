@@ -28,6 +28,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -38,15 +39,24 @@
 	         <h1>가격 수정</h1>
 	         <h3><span class="badge badge-light"><a href ="<%=request.getContextPath()%>/index.jsp" class="text-dark">메인페이지</a></span></h3>
 		</div>
-		<form action="<%=request.getContextPath()%>/admin/updateEbookPriceAction.jsp" method="post" > 
+		<form id="updatePriceForm" action="<%=request.getContextPath()%>/admin/updateEbookPriceAction.jsp" method="post" > 
 		   <div>넘버</div>
 		   <input type="text" name="ebookNo" readonly="readonly" value="<%=ebook.getEbookNo()%>">
 		   <div>책 이름</div>
 		   <input type="text" name="ebookTitle" readonly="readonly" value="<%=ebook.getEbookTitle()%>">
 		   <div>변경할 가격</div>
-		   <input type="text" name="ebookPrice">
-		   <button type="submit" class="btn btn-light">가격 수정</button>
+		   <input type="text" id="ebookPrice" name="ebookPrice">
+		   <button id="updatePriceBtn" type="button" class="btn btn-light">가격 수정</button>
 	   </form>
 	</div>
+	<script>
+		$('#updatePriceBtn').click(function(){
+			if($('#ebookPrice').val() == '') { // 변경할 금액이 공백이면
+				alert('변경할 금액을 입력하세요');
+				return;
+			}
+			$('#updatePriceForm').submit();
+		});
+	</script>
 </body>
 </html>

@@ -31,6 +31,7 @@
 <head>
 <meta charset="UTF-8">
 <title>updateMemberLevelForm.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -40,7 +41,7 @@
 		<div class="jumbotron">
 	         <h1>등급 수정</h1>
 		</div>
-		<form method="post" action="<%=request.getContextPath()%>/admin/updateMemberLevelAction.jsp?memberNo=<%=memberNo%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">
+		<form id="updateLevelForm"method="post" action="<%=request.getContextPath()%>/admin/updateMemberLevelAction.jsp?memberNo=<%=memberNo%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">
 			<table class="table table-bordered">
 				<tr>
 					<td>번호</td>
@@ -53,7 +54,7 @@
 				<tr>
 					<td>변경할 등급을 선택하세요</td>
 					<td>
-						<select name="memberLevel">
+						<select id="memberLevel" name="memberLevel">
 							<option value="0">일반회원</option>
 							<option value="1">관리자</option>
 						</select>
@@ -80,10 +81,18 @@
 					<td><input type="text" name="creatDate" value="<%=member.getCreatDate()%>" readonly="readonly"></td>
 				<tr>
 			</table>
-			<button type="submit" class="btn btn-light">수정 완료</button>
+			<button id="updateLevelBtn"type="button" class="btn btn-light">수정 완료</button>
 			<a href ="<%=request.getContextPath()%>/admin/selectMemberList.jsp?searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>" class="btn btn-light">취소</a>
 		</form>
-		
 	</div>
+	<script>
+		$('#updateLevelBtn').click(function(){
+			if($('#memberLevel').val() == '') { // 변경할 등급이 공백이면
+				alert('변경할 등급을 선택하세요');
+				return;
+			}
+			$('#updatePwForm').submit();
+		});
+	</script>
 </body>
 </html>
