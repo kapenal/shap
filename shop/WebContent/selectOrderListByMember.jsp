@@ -17,6 +17,7 @@
 	OrderDao orderDao = new OrderDao();
 	ArrayList<OrderEbookMember> list = orderDao.selectOrderListByMember(loginMember.getMemberNo());
 	
+	OrderCommentDao orderCommentDao = new OrderCommentDao();
 %>
 <!DOCTYPE html>
 <html>
@@ -59,7 +60,17 @@
 							<td><%=oem.getOrder().getCreateDate()%></td>
 							<td><%=oem.getMember().getMemberId()%></td>
 							<td><a href="<%=request.getContextPath()%>/admin/selectOrderOne.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>">상세주문내역</a></td>
-							<td><a href="<%=request.getContextPath()%>/insertOrderCommentForm.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>&ebookNo=<%=oem.getEbook().getEbookNo()%>&ebookTitle=<%=oem.getEbook().getEbookTitle()%>">책 후기</a></td>
+							<%
+								if(orderCommentDao.orderCommentCheck(oem.getOrder().getOrderNo()) == 0){
+							%>	
+									<td><a href="<%=request.getContextPath()%>/insertOrderCommentForm.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>&ebookNo=<%=oem.getEbook().getEbookNo()%>&ebookTitle=<%=oem.getEbook().getEbookTitle()%>">후기 작성하러 가기</a></td>
+							<%	
+								} else{
+							%>
+									<td>후기 작성 완료</td>
+							<%		
+								}
+							%>
 						</tr>
 				<%
 					}

@@ -17,7 +17,6 @@
 		return;
 	}
 	int orderNo = Integer.parseInt(request.getParameter("orderNo"));
-	
 	OrderDao orderDao = new OrderDao();
 	OrderEbookMember oem = orderDao.selectOrderNoOne(orderNo);
 %>

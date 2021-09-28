@@ -10,15 +10,38 @@ import vo.Ebook;
 import vo.OrderComment;
 
 public class EbookDao {
-	// [고객] 댓글 출력
-	public ArrayList<OrderComment> selectCommentList(int ebookNo) throws ClassNotFoundException, SQLException {
+	// 총 후기 갯수
+	public int orderCommentCount(int ebookNo) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		int count = 0;
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+	    Connection conn = dbUtil.getConnection();
+	    // 쿼리문 생성
+	    String sql = "SELECT COUNT(ebook_no) count FROM order_comment WHERE ebook_no = ? GROUP BY ebook_no";
+	    // 쿼리문 실행
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1, ebookNo);
+	    System.out.println(stmt + " < EbookDao.orderCommentCount stmt");
+	    ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			count = rs.getInt("count");
+		}
+	    return count;
+	}
+	
+	// [고객] 후기 출력
+	public ArrayList<OrderComment> selectCommentList(int ebookNo, int beginRow, int orderCommentRowPerPage) throws ClassNotFoundException, SQLException {
 		ArrayList<OrderComment> list = new ArrayList<>();
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 	    Connection conn = dbUtil.getConnection();
-		String sql = "SELECT order_no orderNo, ebook_no ebookNo, order_score orderScore, order_comment_content orderCommentContent, create_date createDate, update_date updateDate FROM order_comment WHERE ebook_no=? ORDER BY create_date DESC";
+		String sql = "SELECT order_no orderNo, ebook_no ebookNo, order_score orderScore, order_comment_content orderCommentContent, create_date createDate, update_date updateDate FROM order_comment WHERE ebook_no=? ORDER BY create_date DESC Limit ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, ebookNo);
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, orderCommentRowPerPage);
+		System.out.println(stmt + " < EbookDao.selectCommentList stmt");
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			OrderComment orderComment = new OrderComment();
@@ -29,6 +52,10 @@ public class EbookDao {
 			orderComment.setCreateDate(rs.getString("createDate"));
 			list.add(orderComment);
 		}
+		// 자원 해제
+		stmt.close();
+		conn.close();
+		rs.close();
 		return list;
 	}
 	
