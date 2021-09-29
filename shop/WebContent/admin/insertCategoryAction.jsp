@@ -27,7 +27,7 @@
 	// 카테고리 추가 메서드 호출
 	CategoryDao categoryDao = new CategoryDao();
 	categoryDao.insertCategory(category);
-	// 회원가입 insertMeber 메서드 호출 후 카테고리 목록으로 이동
+	// 메서드 호출 후 카테고리 목록으로 이동
 	response.sendRedirect(request.getContextPath()+"/admin/selectCategoryList.jsp");
 	return;
 %>

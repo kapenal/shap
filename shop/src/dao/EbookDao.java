@@ -139,7 +139,7 @@ public class EbookDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 생성, 실행
-		String sql="UPDATE ebook SET ebook_price=? WHERE ebook_no=?";
+		String sql="UPDATE ebook SET ebook_price=?, update_date=Now() WHERE ebook_no=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, ebook.getEbookPrice());
 		stmt.setInt(2, ebook.getEbookNo());
@@ -179,7 +179,7 @@ public class EbookDao {
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "UPDATE ebook SET ebook_img=? WHERE ebook_no=?";
+		String sql = "UPDATE ebook SET ebook_img=?, update_date=Now() WHERE ebook_no=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, ebook.getEbookImg());
 		stmt.setInt(2, ebook.getEbookNo());
@@ -330,95 +330,95 @@ public class EbookDao {
 	}
 	
 	// [관리자] 전자책 목록의 특정 카테고리 페이지
-		public int selectEbookListAllByCategoryNameTotalPage(String categoryName, String searchEbookTitle) throws ClassNotFoundException, SQLException {
-			// 리턴값
-			int totalCount = 0;
-			// 매개변수 디버깅
-			System.out.println(categoryName + "< EbookDao.selectEbookListAllByCategoryNameTotalPage param : categoryName");
-			// DB연결 메서드 호출
-			DBUtil dbUtil = new DBUtil();
-			Connection conn = dbUtil.getConnection();
-			PreparedStatement stmt = null;
-			if(searchEbookTitle.equals("")== true) {
-				// 쿼리문 생성
-				String sql = "SELECT count(*) FROM ebook WHERE category_name=?";
-				// 쿼리문 실행
-				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, categoryName);
-			}else {
-				// 쿼리문 생성
-				String sql = "SELECT count(*) FROM ebook WHERE category_name=? AND ebook_title LIKE ?";
-				// 쿼리문 실행
-				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, categoryName);
-				stmt.setString(2, "%"+searchEbookTitle+"%");
-			}
-			
-			// 디버깅
-			System.out.println(stmt + " < EbookDao.selectEbookListAllByCategoryNameTotalPage stmt");
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
-				totalCount = rs.getInt("count(*)");
-			}
-			// 자원 해제
-			conn.close();
-			stmt.close();
-			rs.close();
-			
-			return totalCount;
+	public int selectEbookListAllByCategoryNameTotalPage(String categoryName, String searchEbookTitle) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		int totalCount = 0;
+		// 매개변수 디버깅
+		System.out.println(categoryName + "< EbookDao.selectEbookListAllByCategoryNameTotalPage param : categoryName");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		PreparedStatement stmt = null;
+		if(searchEbookTitle.equals("")== true) {
+			// 쿼리문 생성
+			String sql = "SELECT count(*) FROM ebook WHERE category_name=?";
+			// 쿼리문 실행
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, categoryName);
+		}else {
+			// 쿼리문 생성
+			String sql = "SELECT count(*) FROM ebook WHERE category_name=? AND ebook_title LIKE ?";
+			// 쿼리문 실행
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, categoryName);
+			stmt.setString(2, "%"+searchEbookTitle+"%");
 		}
 		
-		// [관리자] 전자책 목록의 전체 페이지
-		public int selectEbookListAllByTotalPage(String searchEbookTitle) throws ClassNotFoundException, SQLException {
-			// 리턴값
-			int totalCount = 0;
-			// DB연결 메서드 호출
-			DBUtil dbUtil = new DBUtil();
-			Connection conn = dbUtil.getConnection();
-			PreparedStatement stmt = null;
-			if(searchEbookTitle.equals("")== true) {
-				// 쿼리문 생성
-				String sql = "SELECT count(*) FROM ebook ";
-				// 쿼리문 실행
-				stmt = conn.prepareStatement(sql);
-			}else {
-				// 쿼리문 생성
-				String sql = "SELECT count(*) FROM ebook WHERE ebook_title LIKE ?";
-				// 쿼리문 실행
-				stmt = conn.prepareStatement(sql);
-				stmt.setString(1, "%"+searchEbookTitle+"%");
-			}
-			
-			// 디버깅
-			System.out.println(stmt + " < EbookDao.selectEbookListAllByTotalPage stmt");
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
-				totalCount = rs.getInt("count(*)");
-			}
-			// 자원 해제
-			conn.close();
-			stmt.close();
-			rs.close();
-			
-			return totalCount;
+		// 디버깅
+		System.out.println(stmt + " < EbookDao.selectEbookListAllByCategoryNameTotalPage stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			totalCount = rs.getInt("count(*)");
+		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return totalCount;
+	}
+		
+	// [관리자] 전자책 목록의 전체 페이지
+	public int selectEbookListAllByTotalPage(String searchEbookTitle) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		int totalCount = 0;
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		PreparedStatement stmt = null;
+		if(searchEbookTitle.equals("")== true) {
+			// 쿼리문 생성
+			String sql = "SELECT count(*) FROM ebook ";
+			// 쿼리문 실행
+			stmt = conn.prepareStatement(sql);
+		}else {
+			// 쿼리문 생성
+			String sql = "SELECT count(*) FROM ebook WHERE ebook_title LIKE ?";
+			// 쿼리문 실행
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+searchEbookTitle+"%");
 		}
 		
-		// [관리자] 전자책 목록의 마지막 페이지
-		public int selectEbookListAllByLastPage(int totalCount, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException {
-			// 리턴값
-			int lastPage = 0;
-			// 매개변수 디버깅
-			System.out.println(totalCount + "< EbookDao.selectEbookListAllByLastPage param : totalCount");
-			System.out.println(ROW_PER_PAGE + "< EbookDao.selectEbookListAllByLastPage param : ROW_PER_PAGE");
-			// 마지막 페이지
-			// lastPage를 전체 행의 수와 한 페이지에 보여질 행의 수(rowPerPage)를 이용하여 구한다
-			lastPage = totalCount / ROW_PER_PAGE;
-			if(totalCount % ROW_PER_PAGE != 0) {
-				lastPage+=1;
-			}
-			// 디버깅
-			System.out.println(lastPage + " < EbookDao.selectEbookListAllByLastPage lastPage");
-			
-			return lastPage;
+		// 디버깅
+		System.out.println(stmt + " < EbookDao.selectEbookListAllByTotalPage stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			totalCount = rs.getInt("count(*)");
 		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return totalCount;
+	}
+	
+	// [관리자] 전자책 목록의 마지막 페이지
+	public int selectEbookListAllByLastPage(int totalCount, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		int lastPage = 0;
+		// 매개변수 디버깅
+		System.out.println(totalCount + "< EbookDao.selectEbookListAllByLastPage param : totalCount");
+		System.out.println(ROW_PER_PAGE + "< EbookDao.selectEbookListAllByLastPage param : ROW_PER_PAGE");
+		// 마지막 페이지
+		// lastPage를 전체 행의 수와 한 페이지에 보여질 행의 수(rowPerPage)를 이용하여 구한다
+		lastPage = totalCount / ROW_PER_PAGE;
+		if(totalCount % ROW_PER_PAGE != 0) {
+			lastPage+=1;
+		}
+		// 디버깅
+		System.out.println(lastPage + " < EbookDao.selectEbookListAllByLastPage lastPage");
+		
+		return lastPage;
+	}
 }

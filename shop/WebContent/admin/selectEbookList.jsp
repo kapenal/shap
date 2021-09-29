@@ -118,7 +118,7 @@
 					<%
 						}
 					%>
-		</tbody>
+			</tbody>
 		</table>
 		<div>
 			<form method="post" action="<%=request.getContextPath()%>/admin/selectEbookList.jsp?categoryName=<%=categoryName%>">

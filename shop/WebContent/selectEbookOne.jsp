@@ -135,33 +135,33 @@
 		<%
 			// lastPage가 0이면 아무 댓글도 없기때문에 처음으로,이전,숫자페이징,다음,끝으로 안보이게 하기 위해 if문 사용
 			if(lastPage != 0){
-				// total이 commentRowPerPage보다 크면 2페이지 이상이고 commentCurrentPage가 1보다 크면 2페이지 이상의 페이지를 보기 때문에 처음으로 보이도록 함
+				// orderCommentCount orderCommentRowPerPage 크면 2페이지 이상이고 orderCommentCurrentPage 1보다 크면 2페이지 이상의 페이지를 보기 때문에 처음으로 보이도록 함
 				if(orderCommentCurrentPage > orderCommentRowPerPage && orderCommentRowPerPage > 1 ){
-	%>		
+		%>		
 				<a class="btn btn-info" href="./selectBoardOne.jsp?orderCommentCurrentPage=1&ebookNo=<%=ebookNo%>">처음으로</a>
-	<%
+		<%
 				}
 				// 이전 버튼
 				// 화면에 보여질 시작 페이지 번호가 화면에 보여질 페이지 번호의 갯수보다 크다면 이전 버튼을 생성
 				if(startPage > displayPage){
-	%>
+		%>
 				<a class="btn btn-info" href="./selectBoardOne.jsp?orderCommentCurrentPage=<%=startPage-displayPage%>&ebookNo=<%=ebookNo%>">이전</a>
-	<%
+		<%
 				}
 				// 페이지 번호 버튼
 				for(int i=startPage; i<=endPage; i++) {
 					if(orderCommentCurrentPage == i){
-	%>
+		%>
 						<a class="btn btn-primary" href="<%=request.getContextPath()%>/admin/selectEbookList.jsp?orderCommentCurrentPage=<%=i%>&ebookNo=<%=ebookNo%>"><%=i%></a>
-	<%	
+		<%	
 					} else if(endPage<lastPage){
-	%>
+		%>
 						<a class="btn btn-info" href="./selectBoardOne.jsp?orderCommentCurrentPage=<%=i%>&ebookNo=<%=ebookNo%>"><%=i%></a>
-	<%
+		<%
 					} else if(endPage>lastPage){
-	%>
+		%>
 						<a class="btn btn-info" href="./selectBoardOne.jsp?orderCommentCurrentPage=<%=i%>&ebookNo=<%=ebookNo%>"><%=i%></a>
-	<%	
+		<%	
 					}
 					// lastPage와 같은 수가 되면 break로 더이상 숫자페이징을 만들지 않음
 					if(i == lastPage || lastPage == 0){	
@@ -171,18 +171,18 @@
 				// 다음 버튼
 				// 화면에 보여질 마지막 페이지 번호가 마지막페이지보다 작다다면 이전 버튼을 생성
 				if(endPage < lastPage){
-	%>
+		%>
 				<a class="btn btn-info" href="./selectBoardOne.jsp?orderCommentCurrentPage=<%=startPage+displayPage%>&ebookNo=<%=ebookNo%>">다음</a>
-	<%
+		<%
 				}
-				// totalCount가 10보다 크면 다음페이지가 있기때문에 끝으로 보이도록 설정
+				// orderCommentCount 10보다 크면 다음페이지가 있기때문에 끝으로 보이도록 설정
 				if(orderCommentCount > orderCommentRowPerPage && orderCommentCurrentPage != lastPage ){
-	%>
+		%>
 					<a class="btn btn-info" href="./selectBoardOne.jsp?orderCommentCurrentPage=<%=lastPage%>&ebookNo=<%=ebookNo%>">끝으로</a>
-	<%
+		<%
 				}
 			}
-	%>
+		%>
 	
 	</div>
 </body>

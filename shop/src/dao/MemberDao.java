@@ -92,7 +92,7 @@ public class MemberDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 생성
-		String sql = "UPDATE member SET member_level=? WHERE member_no=?";
+		String sql = "UPDATE member SET member_level=?, update_date=Now() WHERE member_no=?";
 		// 쿼리문 실행
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, member.getMemberLevel());
@@ -117,7 +117,7 @@ public class MemberDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 생성
-		String sql = "UPDATE member SET member_pw=PASSWORD(?) WHERE member_no=?";
+		String sql = "UPDATE member SET member_pw=PASSWORD(?), update_date=Now() WHERE member_no=?";
 		// 쿼리문 실행
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, member.getMemberPw());

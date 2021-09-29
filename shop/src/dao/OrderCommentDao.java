@@ -38,11 +38,17 @@ public class OrderCommentDao {
 	
 	// 전제 후기 페이지 수
 	public int selectOrderCommentTotalPage(int ebookNo) throws ClassNotFoundException, SQLException {
+		// 리턴값
 		int totalCount = 0;
+		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 	    Connection conn = dbUtil.getConnection();
-	    PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM order_comment WHERE ebook_no=?");
+	    // 쿼리문 생성
+	    String sql = "SELECT COUNT(*) FROM order_comment WHERE ebook_no=?";
+	    // 쿼리문 실행
+	    PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, ebookNo);
+		// 디버깅
 		System.out.println("stmt의 값 :" + stmt);
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {

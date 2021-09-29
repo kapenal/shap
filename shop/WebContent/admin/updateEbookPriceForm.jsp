@@ -45,7 +45,7 @@
 		   <div>책 이름</div>
 		   <input type="text" name="ebookTitle" readonly="readonly" value="<%=ebook.getEbookTitle()%>">
 		   <div>변경할 가격</div>
-		   <input type="text" id="ebookPrice" name="ebookPrice">
+		   <input type="text" id="ebookPrice" name="ebookPrice" placeholder="<%=ebook.getEbookPrice()%>">
 		   <button id="updatePriceBtn" type="button" class="btn btn-light">가격 수정</button>
 	   </form>
 	</div>
