@@ -57,9 +57,7 @@
 		</table>
 		<%
 			if(loginMember == null){
-		%>
-				
-		<%	
+	
 			} else if(loginMember.getMemberNo() == qna.getMemberNo()) {
 		%>	
 				<div style="text-align:right">
