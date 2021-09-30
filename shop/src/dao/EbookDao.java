@@ -10,6 +10,91 @@ import vo.Ebook;
 import vo.OrderComment;
 
 public class EbookDao {
+	// [고객 & 일반] 판매중인 전자책 목록의 전체 페이지 (품절, 절판 제외)
+	public int selectSaleEbookListAllByTotalPage(String searchEbookTitle) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		int totalCount = 0;
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		PreparedStatement stmt = null;
+		if(searchEbookTitle.equals("")== true) {
+			// 쿼리문 생성
+			String sql = "SELECT count(*) FROM ebook WHERE ebook_state = 1 OR ebook_state = 4";
+			// 쿼리문 실행
+			stmt = conn.prepareStatement(sql);
+		}else {
+			// 쿼리문 생성
+			String sql = "SELECT count(*) FROM ebook WHERE (ebook_state = 1 OR ebook_state = 4) AND ebook_title LIKE ?";
+			// 쿼리문 실행
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+searchEbookTitle+"%");
+		}
+		
+		// 디버깅
+		System.out.println(stmt + " < EbookDao.selectSaleEbookListAllByTotalPage stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			totalCount = rs.getInt("count(*)");
+		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return totalCount;
+	}
+	// [고객 & 일반] 판매중인 전자책 목록 출력 (품절, 절판 제외)
+	public ArrayList<Ebook> selectSaleEbookList(int beginRow, int ROW_PER_PAGE, String searchEbookTitle) throws ClassNotFoundException, SQLException{
+		/*
+		 *  SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMit ? , ?
+		 */
+		// 리턴값
+		ArrayList<Ebook> list = new ArrayList<>();
+		// 매개변수 디버깅
+		System.out.println(beginRow + "< EbookDao.selectSaleEbookList param : geginRow");
+		System.out.println(ROW_PER_PAGE + "< EbookDao.selectSaleEbookList param : ROW_PER_PAGE");
+		System.out.println(searchEbookTitle + "< EbookDao.selectSaleEbookList param : searchEbookTitle");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		PreparedStatement stmt = null;
+		if(searchEbookTitle.equals("")== true) {
+			// 쿼리문 생성
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_price ebookPrice, ebook_img ebookImg, ebook_state ebookState FROM ebook WHERE ebook_state = 1 OR ebook_state = 4 ORDER BY create_date DESC LIMIT ?,?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, beginRow);
+			stmt.setInt(2, ROW_PER_PAGE);
+		} else {
+			// 쿼리문 생성
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_price ebookPrice, ebook_img ebookImg, ebook_state ebookState FROM ebook WHERE (ebook_state = 1 OR ebook_state = 4) AND ebook_title LIKE ? ORDER BY create_date DESC LIMIT ?,?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+searchEbookTitle+"%");
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, ROW_PER_PAGE);
+		}
+		
+		// 디버깅
+		System.out.println(stmt + " < EbookDao.selectSaleEbookList stmt");
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Ebook ebook = new Ebook();
+			ebook.setEbookNo(rs.getInt("ebookNo"));
+			ebook.setCategoryName(rs.getString("categoryName"));
+			ebook.setEbookTitle(rs.getString("ebookTitle"));
+			ebook.setEbookPrice(rs.getInt("ebookPrice"));
+			ebook.setEbookImg(rs.getString("ebookImg"));
+			ebook.setEbookState(rs.getString("ebookState"));
+			list.add(ebook);
+         }
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return list;
+	}
+	
 	// 총 후기 갯수
 	public int orderCommentCount(int ebookNo) throws ClassNotFoundException, SQLException {
 		// 리턴값
@@ -227,7 +312,7 @@ public class EbookDao {
 	}
 	
 	
-	// [관리자 & 고객]전체 전자책 목록 출력
+	// [관리자]전체 전자책 목록 출력
 	public ArrayList<Ebook> selectEbookList(int beginRow, int ROW_PER_PAGE, String searchEbookTitle) throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMit ? , ?
