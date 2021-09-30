@@ -10,7 +10,7 @@ import vo.*;
 import commons.DBUtil;
 
 public class OrderDao {
-	// 주문 입력
+	// [고객] 주문 입력
 	public void insertOrder(Order order) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
 		System.out.println(order.getEbookNo() + "< OrderDao.insertOrder param : ebookNo");

@@ -7,13 +7,13 @@
 		      <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">[홈으로]</a>
 		    </li>
 		    <li class="nav-item active">
+		      <a class="nav-link" href="<%=request.getContextPath()%>/selectOrderListByMember.jsp">[내 주문]</a>
+		    </li>
+		    <li class="nav-item active">
 		      <a class="nav-link" href="<%=request.getContextPath()%>/selectNoticeList.jsp">[공지사항]</a>
 		    </li>
 		    <li class="nav-item active">
 		      <a class="nav-link" href="<%=request.getContextPath()%>/selectQnaList.jsp">[QnA]</a>
-		    </li>
-		    <li class="nav-item active">
-		      <a class="nav-link" href="">[menu4]</a>
 		    </li>
 		    <li class="nav-item active">
 		      <a class="nav-link" href="">[menu5]</a>

@@ -91,7 +91,7 @@
 				alert('변경할 등급을 선택하세요');
 				return;
 			}
-			$('#updatePwForm').submit();
+			$('#updateLevelForm').submit();
 		});
 	</script>
 </body>

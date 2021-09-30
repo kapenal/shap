@@ -24,6 +24,9 @@
 	}
 	// QnA 삭제 메소드 호출
 	qnaDao.deleteQna(qnaNo);
+	// QnA 답글 삭제 메소드 호출
+	QnaCommentDao qnaCommentDao = new QnaCommentDao();
+	qnaCommentDao.deleteQnaComment(qnaNo);
 	response.sendRedirect(request.getContextPath()+"/selectQnaList.jsp");
 	return;
 %>

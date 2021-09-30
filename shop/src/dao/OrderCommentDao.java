@@ -11,7 +11,7 @@ public class OrderCommentDao {
 	// 후기 중복 방지
 	public int orderCommentCheck(int orderNo) throws ClassNotFoundException, SQLException {
 		// 리턴값
-		int exist = 0;
+		int row = 0;
 		// 매개변수 디버깅
 		System.out.println(orderNo + "< OrderCommentDao.orderCommentCheck param : orderNo");
 		// DB연결 메서드 호출
@@ -27,13 +27,13 @@ public class OrderCommentDao {
 		ResultSet rs = stmt.executeQuery();
 		// 이미 입력된 후기가 있는지 확인하는 if문
 		if(rs.next()) {
-			exist = 1;
+			row = 1;
 		}
 		// 자원 해제
 		conn.close();
 		stmt.close();
 		rs.close();
-		return exist;
+		return row;
 	}
 	
 	// 전제 후기 페이지 수

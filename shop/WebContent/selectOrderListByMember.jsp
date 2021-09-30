@@ -6,7 +6,7 @@
 	//인증 방어 코드 : 로그인 후에만 페이지 열람 가능
 	if(session.getAttribute("loginMember") == null){
 		System.out.println("로그인하십시오");
-		response.sendRedirect(request.getContextPath()+"/login.jsp");
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
 	Member loginMember = (Member)session.getAttribute("loginMember");

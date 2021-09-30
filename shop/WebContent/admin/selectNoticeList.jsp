@@ -94,7 +94,6 @@
 			</tbody>
 		</table>
 		<div style="text-align:right"><a href="<%=request.getContextPath()%>/admin/insertNoticeForm.jsp" class="btn btn-light">공지사항 작성</a></div>
-		<br>
 		<div>
 			<form method="post" action="<%=request.getContextPath()%>/admin/selectNoticeList.jsp">
 				<table>

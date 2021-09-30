@@ -10,6 +10,45 @@ import commons.DBUtil;
 import vo.*;
 
 public class QnaDao {
+	// [관리자] 답글 안달린 QnA리스트 출력
+	public ArrayList<Qna> selectAdminQnaList(int beginRow, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException{
+		// 리턴값
+		ArrayList<Qna> list = new ArrayList<>();
+		// 매개변수 디버깅
+		System.out.println(beginRow + "< QnaDao.selectAdminQnaList param : bgeginRow");
+		System.out.println(ROW_PER_PAGE + "< QnaDao.selectAdminQnaList param : ROW_PER_PAGE");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 실행
+		
+		String sql = "SELECT q.qna_no qnaNo, q.qna_category qnaCategory, q.qna_title qnaTitle, q.qna_content qnaContent, q.qna_secret qnaSecret, q.member_no memberNo, q.create_date createDate, q.update_date updateDate FROM qna q LEFT JOIN qna_comment qc ON q.qna_no = qc.qna_no WHERE qc.qna_no IS NULL LIMIT ?, ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, ROW_PER_PAGE);
+		// 디버깅
+		System.out.println(stmt + " < QnaDao.selectAdminQnaList stmt");
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Qna qna = new Qna();
+			qna.setQnaNo(rs.getInt("qnaNo"));
+			qna.setQnaCategory(rs.getString("qnaCategory"));
+			qna.setQnaTitle(rs.getString("qnaTitle"));
+			qna.setQnaContent(rs.getString("qnaContent"));
+			qna.setQnaSecret(rs.getString("qnaSecret"));
+			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setCreateDate(rs.getString("createDate"));
+			qna.setUpdateDate(rs.getString("updateDate"));
+			list.add(qna);
+         }
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return list;
+	}
+	
 	// [작성자] QnA 삭제
 	public void deleteQna(int qnaNo) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
