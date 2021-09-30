@@ -56,15 +56,17 @@
 			</tr>
 		</table>
 		<%
-			if(qna.getQnaSecret().equals("Y")){
-				if(loginMember.getMemberNo() == qna.getMemberNo() ){
+			if(loginMember == null){
 		%>
-					<div style="text-align:right">
-					<a href="<%=request.getContextPath()%>/updateQnaForm.jsp?qnaNo=<%=qnaNo%>" class="btn btn-light">수정</a>
-					<a href="<%=request.getContextPath()%>/deleteQnaForm.jsp?qnaNo=<%=qnaNo%>" class="btn btn-light">삭제</a>
-					</div>
+				
 		<%	
-				}
+			} else if(loginMember.getMemberNo() == qna.getMemberNo()) {
+		%>	
+				<div style="text-align:right">
+				<a href="<%=request.getContextPath()%>/updateQnaForm.jsp?qnaNo=<%=qnaNo%>" class="btn btn-light">수정</a>
+				<a href="<%=request.getContextPath()%>/deleteQnaForm.jsp?qnaNo=<%=qnaNo%>" class="btn btn-light">삭제</a>
+				</div>
+		<%	
 			}
 		%>
 	</div>

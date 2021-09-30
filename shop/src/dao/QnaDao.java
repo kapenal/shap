@@ -10,6 +10,33 @@ import commons.DBUtil;
 import vo.*;
 
 public class QnaDao {
+	// [작성자] QnA 수정
+	public void updateQna(Qna qna) throws ClassNotFoundException, SQLException {
+		// 매개변수 디버깅
+		System.out.println(qna.getQnaNo() + " < QnaDao.updateQna param : qnaNo");
+		System.out.println(qna.getQnaCategory() + " < QnaDao.updateQna param : qnaCategory");
+		System.out.println(qna.getQnaTitle() + " < QnaDao.updateQna param : qnaTitle");
+		System.out.println(qna.getQnaContent() + " < QnaDao.updateQna param : qnaContent");
+		System.out.println(qna.getQnaSecret() + " < QnaDao.updateQna param : qnaSecret");
+		// DB연결 메서드 호출  
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성, 실행
+		String sql="UPDATE qna SET qna_category=?, qna_title=?, qna_content=?, qna_secret=?, update_date=Now() WHERE qna_no=?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, qna.getQnaCategory());
+		stmt.setString(2, qna.getQnaTitle());
+		stmt.setString(3, qna.getQnaContent());
+		stmt.setString(4, qna.getQnaSecret());
+		stmt.setInt(5, qna.getQnaNo());
+		// 디버깅
+		System.out.println(stmt + "< QnaDao.updateQna stmt");
+		stmt.executeUpdate();
+		//자원 해제
+		conn.close();
+		stmt.close();
+	}
+	
 	// [고객] QnA 추가
 	public void insertQna(Qna qna) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅

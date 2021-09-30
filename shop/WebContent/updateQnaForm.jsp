@@ -39,7 +39,7 @@
 	         <h1>QnA 수정</h1>
 	         <h3><span class="badge badge-light"><a href ="<%=request.getContextPath()%>/index.jsp" class="text-dark">메인페이지</a></span></h3>
 		</div>
-		<form id="updateQnaForm" method="post" action="<%=request.getContextPath()%>/insertQnaAction.jsp">
+		<form id="updateQnaForm" method="post" action="<%=request.getContextPath()%>/updateQnaAction.jsp">
 			<table class="table table-bordered">
 				<tr>
 					<td>
@@ -68,7 +68,7 @@
 			<div style="text-align:right">
 				<button  id="updateqnaBtn" type="button" class="btn btn-light" >작성 완료</button>
 			</div>
-			<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>" readonly="readonly">
+			<input type="hidden" name="qnaNo" value="<%=qnaNo%>" readonly="readonly">
 		</form>
 	</div>
 	<script>

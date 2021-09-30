@@ -145,7 +145,7 @@
 								<a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
 							</div>
 							<div><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><%=e.getEbookTitle()%></a></div>
-							<div><%=e.getEbookPrice()%> 원</div>
+							<div><%=e.getEbookPrice()%>원</div>
 						</td>
 				<%
 					}
@@ -166,7 +166,7 @@
 								<a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
 							</div>
 							<div><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><%=e.getEbookTitle()%></a></div>
-							<div><%=e.getEbookPrice()%> 원</div>
+							<div><%=e.getEbookPrice()%>원</div>
 						</td>
 				<%
 					}
@@ -188,7 +188,7 @@
 								<a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
 							</div>
 							<div><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><%=e.getEbookTitle()%></a></div>
-							<div><%=e.getEbookPrice()%> 원</div>
+							<div><%=e.getEbookPrice()%>원</div>
 						</td>
 				<%
 						j+=1;
