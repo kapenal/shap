@@ -60,7 +60,7 @@ public class EbookDao {
 	}
 	
 	// [고객] 신상 전자책 목록(5개) 출력
-	public ArrayList<Ebook> selectNewProductEbookList(	) throws ClassNotFoundException, SQLException{
+	public ArrayList<Ebook> selectNewProductEbookList() throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT *
 		 *	FROM ebook

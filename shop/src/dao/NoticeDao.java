@@ -10,6 +10,37 @@ import commons.DBUtil;
 import vo.*;
 
 public class NoticeDao {
+	// [관리자 & 고객 & 일반] 최근 공지사항 5개 출력
+	public ArrayList<Notice> selectNewNoticeList() throws ClassNotFoundException, SQLException{
+		// 리턴값
+		ArrayList<Notice> list = new ArrayList<>();
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성, 실행
+		String sql = "SELECT notice_no noticeNo, notice_title noticeTitle, notice_content noticeContent, member_no memberNo, create_date createDate, update_date updateDate FROM notice ORDER BY create_date DESC LIMIT 0, 5";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		// 디버깅
+		System.out.println(stmt + " < NoticeDao.selectNewNoticeList stmt");
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Notice notice = new Notice();
+			notice.setNoticeNo(rs.getInt("noticeNo"));
+			notice.setNoticeTitle(rs.getString("noticeTitle"));
+			notice.setNoticeContent(rs.getString("noticeContent"));
+			notice.setMemberNo(rs.getInt("memberNo"));
+			notice.setCreateDate(rs.getString("createDate"));
+			notice.setUpdateDate(rs.getString("updateDate"));
+			list.add(notice);
+         }
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return list;
+	}
+	
 	// [관리자] 공지사항 삭제
 	public void deleteNotice(int noticeNo) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅

@@ -39,6 +39,9 @@
 	ArrayList<Ebook> popularEbookList = ebookDao.selectPopularEbookList();
 	// 신상 목록 5개
 	ArrayList<Ebook> newProductEbookList = ebookDao.selectNewProductEbookList();
+	// 최근 공지사항 5개
+	NoticeDao noticeDao = new NoticeDao();
+	ArrayList<Notice> newNoticeList = noticeDao.selectNewNoticeList();
 	
 	// 전체 갯수
 	totalCount = ebookDao.selectEbookListAllByTotalPage(searchEbookTitle);
@@ -101,8 +104,34 @@
 			}
 		%>
 		</div>
-		<!-- 상품 목록  -->
 		<br>
+		<div>
+			<h2>공지 사항</h2>
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="width:7%; text-align:center">No</th>
+					<th>공지 제목</th>
+					<th style="width:18%; text-align:center">작성 날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					for(Notice n: newNoticeList){
+				%>
+						<tr>
+							<td style="text-align:center"><%=n.getNoticeNo()%></td>
+							<td><a href="<%=request.getContextPath()%>/selectNoticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
+							<td style="text-align:center"><%=n.getCreateDate()%></td>
+						</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
+		<br>
+		<!-- 상품 목록  -->
 		<div>
 			<h2>신상품 목록</h2>
 		</div>

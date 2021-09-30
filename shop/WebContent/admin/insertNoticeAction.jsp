@@ -29,7 +29,7 @@
 	// 공지사항 추가 메서드 호출
 	NoticeDao noticeDao = new NoticeDao();
 	noticeDao.insertNotice(notice);
-	// 카테고리 목록으로 이동
+	// 공지게시판으로 이동
 	response.sendRedirect(request.getContextPath()+"/admin/selectNoticeList.jsp");
 	return;
 %>

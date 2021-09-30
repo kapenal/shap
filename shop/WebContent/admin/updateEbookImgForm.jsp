@@ -38,8 +38,8 @@
 		</div>
 		<!-- mult/form-data : 액션으로 기계어코드를 넘길때 사용-->
 		<!-- application/x-www-form-urlencoded : 액션으로 문자열 넘길때 사용-->	
-		<form id="updateImgForm" action="<%=request.getContextPath()%>/admin/updateEbookImgAction.jsp" method="post" enctype="multipart/form-data">
-			<input type="text" name="ebookNo" value="<%=ebookNo%>"readonly="readonly"> <!-- type="hidden" -->
+		<form id="updateImgForm" action="<%=request.getContextPath()%>/admin/updateEbookImgAction.jsp?ebookNo="<%=ebookNo%>" method="post" enctype="multipart/form-data">
+			<input type="text" id="ebookNo" name="ebookNo" value="<%=ebookNo%>" readonly="readonly"> <!-- type="hidden" -->
 			<input type="file" id="ebookImg" name="ebookImg">
 			<button id="updateImgBtn" type="button" class="btn btn-light">이미지파일 수정</button>
 		</form>

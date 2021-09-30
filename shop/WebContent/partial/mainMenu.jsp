@@ -7,11 +7,10 @@
 		      <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">[홈으로]</a>
 		    </li>
 		    <li class="nav-item active">
-		      <a class="nav-link" href="">[menu2]</a>
+		      <a class="nav-link" href="<%=request.getContextPath()%>/selectNoticeList.jsp">[공지사항]</a>
 		    </li>
-		    <!-- 전자책 관리 : 목록, 추가(이미지추가), 수정, 삭제-->
 		    <li class="nav-item active">
-		      <a class="nav-link" href="">[menu3]</a>
+		      <a class="nav-link" href="<%=request.getContextPath()%>/selectQnaList.jsp">[QnA]</a>
 		    </li>
 		    <li class="nav-item active">
 		      <a class="nav-link" href="">[menu4]</a>

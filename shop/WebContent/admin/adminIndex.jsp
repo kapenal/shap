@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="vo.*" %>
+<%@ page import="vo.*"%>
+<%@ page import="dao.*"%>
+<%@ page import="java.util.*"%>
 <%	
 	//인증 방어 코드 : 로그인 후에만 페이지 열람 가능
 	Member loginMember = (Member)session.getAttribute("loginMember");
@@ -10,6 +12,10 @@
 	}
 	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
+	
+	// 최근 공지사항 5개
+	NoticeDao noticeDao = new NoticeDao();
+	ArrayList<Notice> newNoticeList = noticeDao.selectNewNoticeList();
 %>
 <!DOCTYPE html>
 <html>
@@ -24,8 +30,35 @@
 		<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
 		<div class="jumbotron">
 	         <h1>관리자 페이지</h1>
+	         <h3><span class="badge badge-light"><a href ="<%=request.getContextPath()%>/index.jsp" class="text-dark">메인페이지</a></span></h3>
 		</div>
 		<div><h2><span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다.</h2></div>
+		<br>
+		<div>
+			<h2>공지 사항</h2>
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="width:7%; text-align:center">No</th>
+					<th>공지 제목</th>
+					<th style="width:18%; text-align:center">작성 날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					for(Notice n: newNoticeList){
+				%>
+						<tr>
+							<td style="text-align:center"><%=n.getNoticeNo()%></td>
+							<td><a href="<%=request.getContextPath()%>/selectNoticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
+							<td style="text-align:center"><%=n.getCreateDate()%></td>
+						</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>

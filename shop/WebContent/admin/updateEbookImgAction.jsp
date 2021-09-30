@@ -17,13 +17,9 @@
 	// int ebookNo = Integer.parseInt(request.getParameter("ebookNo")); 넘겨받는 형태((multipart/form-data)가 달라 사용불가
 	// reqeust, 저장 주소, 파일의 사이즈, 인코딩값, DefaultFileRenammePolicy()객체		
 	MultipartRequest mr = new MultipartRequest(request, "C:/Users/admin/Desktop/git-shop/shop/WebContent/image", 1024*1024*1024, "utf-8", new DefaultFileRenamePolicy());
-	// 방어 코드
-	if(request.getParameter("ebookNo") == null || request.getParameter("ebookImg") == null){
-		response.sendRedirect(request.getContextPath()+"/admin/selectEbookList.jsp");
-		return;
-	}
 	int ebookNo = Integer.parseInt(mr.getParameter("ebookNo"));
 	String ebookImg = mr.getFilesystemName("ebookImg");
+	System.out.println(ebookImg);
 	Ebook ebook = new Ebook();
 	ebook.setEbookNo(ebookNo);
 	ebook.setEbookImg(ebookImg);
