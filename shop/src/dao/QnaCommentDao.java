@@ -91,7 +91,7 @@ public class QnaCommentDao {
 		return row;
 	}
 	
-	// [관리자 & 고객 & 일반 ] 답글 출력
+	// [관리자 & 회원 & 일반 ] 답글 출력
 	public QnaComment selectQnaComment(int qnaNo) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		QnaComment qnaComment = null;

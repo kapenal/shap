@@ -8,7 +8,7 @@ public class Member {
 	private int memberAge;
 	private String memberGender;
 	private String updateDate;
-	private String creatDate;
+	private String createDate;
 	
 	public int getMemberNo() {
 		return memberNo;
@@ -58,10 +58,10 @@ public class Member {
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
-	public String getCreatDate() {
-		return creatDate;
+	public String getCreateDate() {
+		return createDate;
 	}
-	public void setCreatDate(String creatDate) {
-		this.creatDate = creatDate;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 }

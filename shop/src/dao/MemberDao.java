@@ -65,7 +65,7 @@ public class MemberDao {
 			returnMember.setMemberAge(rs.getInt("memberAge"));
 			returnMember.setMemberGender(rs.getString("memberGender"));
 			returnMember.setUpdateDate(rs.getString("updateDate"));
-			returnMember.setCreatDate(rs.getString("createDate"));
+			returnMember.setCreateDate(rs.getString("createDate"));
 			System.out.println("조회 성공");
 			// 자원 해제
 			stmt.close();
@@ -259,7 +259,7 @@ public class MemberDao {
 			member.setMemberAge(rs.getInt("memberAge"));
 			member.setMemberGender(rs.getString("memberGender"));
 			member.setUpdateDate(rs.getString("updateDate"));
-			member.setCreatDate(rs.getString("createDate"));
+			member.setCreateDate(rs.getString("createDate"));
 			list.add(member);
 	     }
 		// 자원 해제
@@ -297,7 +297,7 @@ public class MemberDao {
 			member.setMemberAge(rs.getInt("memberAge"));
 			member.setMemberGender(rs.getString("memberGender"));
 			member.setUpdateDate(rs.getString("updateDate"));
-			member.setCreatDate(rs.getString("createDate"));
+			member.setCreateDate(rs.getString("createDate"));
 			list.add(member);
          }
 		// 자원 해제

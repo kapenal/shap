@@ -116,7 +116,7 @@
 							<td style="text-align:center"><%=m.getMemberAge()%></td>
 							<td style="text-align:center"><%=m.getMemberGender()%></td>
 							<td style="text-align:center"><%=m.getUpdateDate()%></td>
-							<td style="text-align:center"><%=m.getCreatDate()%></td>
+							<td style="text-align:center"><%=m.getCreateDate()%></td>
 							<td style="text-align:center">
 								<!-- 로그인된 관리자의 비밀번호를 확인 후 특정회원의 등급을 수정 -->
 								<a href="<%=request.getContextPath()%>/admin/updateMemberLevelForm.jsp?memberNo=<%=m.getMemberNo()%>&searchMemberId=<%=searchMemberId%>&currentPage=<%=currentPage%>">등급수정</a>

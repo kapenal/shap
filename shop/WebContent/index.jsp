@@ -98,7 +98,7 @@
 				}
 		%>
 			<a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-info">로그아웃</a>
-			<a href="" class="btn btn-info">회원정보</a>
+			<a href="<%=request.getContextPath()%>/selectMemberOne.jsp?memberNo=<%=loginMember.getMemberNo()%>" class="btn btn-info">회원정보</a>
 			<a href="<%=request.getContextPath()%>/selectOrderListByMember.jsp" class="btn btn-info">내 주문</a>
 		<%
 			}

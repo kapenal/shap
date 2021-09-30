@@ -10,7 +10,7 @@ import commons.DBUtil;
 import vo.*;
 
 public class NoticeDao {
-	// [관리자 & 고객 & 일반] 최근 공지사항 5개 출력
+	// [관리자 & 회원 & 일반] 최근 공지사항 5개 출력
 	public ArrayList<Notice> selectNewNoticeList() throws ClassNotFoundException, SQLException{
 		// 리턴값
 		ArrayList<Notice> list = new ArrayList<>();
@@ -87,7 +87,7 @@ public class NoticeDao {
 		stmt.close();
 	}
 	
-	// [관리자 & 고객 & 일반] 공지사항 상세보기
+	// [관리자 & 회원 & 일반] 공지사항 상세보기
 	public Notice selectNoticeOne(int noticeNo) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		Notice notice = null;
@@ -149,7 +149,7 @@ public class NoticeDao {
 		conn.close();
 	}
 	
-	// [관리자 & 고객 & 일반] 공지게시판의 마지막 페이지
+	// [관리자 & 회원 & 일반] 공지게시판의 마지막 페이지
 	public int selectNoticeListAllByLastPage(int totalCount, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int lastPage = 0;
@@ -167,7 +167,7 @@ public class NoticeDao {
 		return lastPage;
 	}
 	
-	// [관리자 & 고객 & 일반] 검색 공지게시판 전체 페이지
+	// [관리자 & 회원 & 일반] 검색 공지게시판 전체 페이지
 	public int selectNoticeListAllBySearchTotalPage(String searchNoticeTitle) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int totalCount = 0;
@@ -193,7 +193,7 @@ public class NoticeDao {
 		return totalCount;
 	}
 	
-	// [관리자 & 고객 & 일반] 전체 공지게시판 전체 페이지
+	// [관리자 & 회원 & 일반] 전체 공지게시판 전체 페이지
 	public int selectNoticeListAllByTotalPage() throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int totalCount = 0;
@@ -218,7 +218,7 @@ public class NoticeDao {
 		return totalCount;
 	}
 	
-	// [관리자 & 고객 & 일반] 전체 공지게시판 출력
+	// [관리자 & 회원 & 일반] 전체 공지게시판 출력
 	public ArrayList<Notice> selectNoticeList(int beginRow, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException{
 		// 리턴값
 		ArrayList<Notice> list = new ArrayList<>();
@@ -254,7 +254,7 @@ public class NoticeDao {
 		return list;
 	}
 	
-	// [관리자 & 고객 & 일반] 검색 공지게시판 출력
+	// [관리자 & 회원 & 일반] 검색 공지게시판 출력
 	public ArrayList<Notice> selectNoticeListBySearch(int beginRow, int ROW_PER_PAGE, String searchNoticeTitle) throws ClassNotFoundException, SQLException{
 		// 리턴값
 		ArrayList<Notice> list = new ArrayList<>();

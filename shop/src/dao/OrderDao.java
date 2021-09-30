@@ -10,7 +10,7 @@ import vo.*;
 import commons.DBUtil;
 
 public class OrderDao {
-	// [고객] 주문 입력
+	// [회원] 주문 입력
 	public void insertOrder(Order order) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
 		System.out.println(order.getEbookNo() + "< OrderDao.insertOrder param : ebookNo");
@@ -67,7 +67,7 @@ public class OrderDao {
 		return avgScore;
 	}
 	
-	// [고객] 후기 입력
+	// [회원] 후기 입력
 	public void insertOrderComment(OrderComment orderComment) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
 		System.out.println(orderComment.getOrderNo() + "< OrderDao.insertOrderComment param : orderNo");
@@ -122,7 +122,7 @@ public class OrderDao {
 		System.out.println("후기 작성 실패");
 	}
 		
-	// [고객] 주문 목록 출력
+	// [회원] 주문 목록 출력
 	public ArrayList<OrderEbookMember> selectOrderListByMember(int memberNo) throws ClassNotFoundException, SQLException {
 		ArrayList<OrderEbookMember> list = new ArrayList<OrderEbookMember>();
 		// DB연결 메서드 호출

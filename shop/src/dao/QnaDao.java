@@ -136,7 +136,7 @@ public class QnaDao {
 		stmt.close();
 	}
 	
-	// [고객] QnA 추가
+	// [회원] QnA 추가
 	public void insertQna(Qna qna) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
 		System.out.println(qna.getQnaCategory() + " < QnaDao.insertQna param : qnaCategory");
@@ -172,7 +172,7 @@ public class QnaDao {
 		conn.close();
 	}
 	
-	// [관리자 & 고객 & 일반] QnA 상세보기
+	// [관리자 & 회원 & 일반] QnA 상세보기
 	public Qna selectQnaOne(int qnaNo) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		Qna qna = null;
@@ -204,7 +204,7 @@ public class QnaDao {
 		return qna;
 	}
 	
-	// [관리자 & 고객 & 일반] QnA게시판의 마지막 페이지
+	// [관리자 & 회원 & 일반] QnA게시판의 마지막 페이지
 	public int selectQnaListAllByLastPage(int totalCount, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int lastPage = 0;
@@ -222,7 +222,7 @@ public class QnaDao {
 		return lastPage;
 	}
 	
-	// [관리자 & 고객 & 일반] 전체 QnA 페이지
+	// [관리자 & 회원 & 일반] 전체 QnA 페이지
 	public int selectQnaListAllByTotalPage() throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int totalCount = 0;
@@ -247,7 +247,7 @@ public class QnaDao {
 		return totalCount;
 	}
 	
-	// [관리자 & 고객 & 일반] 전체 QnA게시판 출력
+	// [관리자 & 회원 & 일반] 전체 QnA게시판 출력
 	public ArrayList<Qna> selectQnaList(int beginRow, int ROW_PER_PAGE) throws ClassNotFoundException, SQLException{
 		// 리턴값
 		ArrayList<Qna> list = new ArrayList<>();

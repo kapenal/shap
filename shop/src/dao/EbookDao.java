@@ -10,7 +10,7 @@ import vo.Ebook;
 import vo.OrderComment;
 
 public class EbookDao {
-	// [고객 & 일반] 판매중인 전자책 목록의 전체 페이지 (품절, 절판 제외)
+	// [회원 & 일반] 판매중인 전자책 목록의 전체 페이지 (품절, 절판 제외)
 	public int selectSaleEbookListAllByTotalPage(String searchEbookTitle) throws ClassNotFoundException, SQLException {
 		// 리턴값
 		int totalCount = 0;
@@ -44,7 +44,7 @@ public class EbookDao {
 		
 		return totalCount;
 	}
-	// [고객 & 일반] 판매중인 전자책 목록 출력 (품절, 절판 제외)
+	// [회원 & 일반] 판매중인 전자책 목록 출력 (품절, 절판 제외)
 	public ArrayList<Ebook> selectSaleEbookList(int beginRow, int ROW_PER_PAGE, String searchEbookTitle) throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook ORDER BY create_date DESC LIMit ? , ?
@@ -115,7 +115,7 @@ public class EbookDao {
 	    return count;
 	}
 	
-	// [고객] 후기 출력
+	// [회원] 후기 출력
 	public ArrayList<OrderComment> selectCommentList(int ebookNo, int beginRow, int orderCommentRowPerPage) throws ClassNotFoundException, SQLException {
 		ArrayList<OrderComment> list = new ArrayList<>();
 		// DB연결 메서드 호출
@@ -144,7 +144,7 @@ public class EbookDao {
 		return list;
 	}
 	
-	// [고객] 신상 전자책 목록(5개) 출력
+	// [회원] 신상 전자책 목록(5개) 출력
 	public ArrayList<Ebook> selectNewProductEbookList() throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT *
@@ -180,7 +180,7 @@ public class EbookDao {
 		return list;
 	}
 	
-	// [고객] 인기 전자책 목록(5개) 출력
+	// [회원] 인기 전자책 목록(5개) 출력
 	public ArrayList<Ebook> selectPopularEbookList(	) throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT e.*, t.*
