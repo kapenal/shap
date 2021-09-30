@@ -16,6 +16,11 @@
 	// 최근 공지사항 5개
 	NoticeDao noticeDao = new NoticeDao();
 	ArrayList<Notice> newNoticeList = noticeDao.selectNewNoticeList();
+	// 최근 답글 안달린 QnA 5개
+	QnaDao qnaDao = new QnaDao();
+	ArrayList<Qna> newQnaList = qnaDao.selectNewQnAList();
+	// 댓글단 QnA 확인용
+	int qnaClear = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -57,6 +62,44 @@
 				<%
 					}
 				%>
+			</tbody>
+		</table>
+		<hr>
+		<h2>최근 QnA</h2>
+		<div style="text-align:right"><a href="<%=request.getContextPath()%>/selectQnaList.jsp" class="btn btn-light">QnA게시판가기</a></div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th style="width:7%; text-align:center">No</th>
+					<th style="width:12%; text-align:center">카테고리</th>
+					<th>제목</th>
+					<th style="width:10%; text-align:center">작성자</th>
+					<th style="width:18%; text-align:center">작성 날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					for(Qna q : newQnaList){
+						qnaClear ++;
+				%>
+						<tr>
+							<td style="text-align:center"><%=q.getQnaNo()%></td>
+							<td style="text-align:center"><%=q.getQnaCategory()%></td>
+							<td><a href="<%=request.getContextPath()%>/selectQnaOne.jsp?qnaNo=<%=q.getQnaNo()%>"><%=q.getQnaTitle()%></a></td>		
+							<td style="text-align:center"><%=q.getMemberNo()%></td>
+							<td style="text-align:center"><%=q.getCreateDate()%></td>
+						</tr>
+				<%
+					}
+					if(qnaClear == 0){
+				%>
+						<tr>
+							<td style="text-align:center" colspan="5">새로운 QnA가 없습니다</td>
+						</tr>
+				<%
+					}
+				%>
+					
 			</tbody>
 		</table>
 	</div>

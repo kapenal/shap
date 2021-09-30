@@ -38,6 +38,8 @@
 	// 마지막 페이지 구하는 호출
 	int lastPage = qnaDao.selectQnaListAllByLastPage(totalCount, ROW_PER_PAGE);
 	System.out.println(lastPage + "< selectAdminQnaList lastPage");
+	// 댓글단 QnA 확인용
+	int qnaClear = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -71,6 +73,7 @@
 			<tbody>
 				<%
 					for(Qna q : qnaList){
+						qnaClear ++;
 				%>
 						<tr>
 							<td style="text-align:center"><%=q.getQnaNo()%></td>
@@ -81,7 +84,15 @@
 						</tr>
 				<%
 					}
+					if(qnaClear == 0){
 				%>
+						<tr>
+							<td style="text-align:center" colspan="5">새로운 QnA가 없습니다</td>
+						</tr>
+				<%
+					}
+				%>
+					
 			</tbody>
 		</table>
 		<br>
