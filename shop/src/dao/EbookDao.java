@@ -144,7 +144,7 @@ public class EbookDao {
 		return list;
 	}
 	
-	// [회원] 신상 전자책 목록(5개) 출력
+	// [회원] 신상 전자책 목록(5개) 출력 (품절, 절판 제외)
 	public ArrayList<Ebook> selectNewProductEbookList() throws ClassNotFoundException, SQLException{
 		/*
 		 *  SELECT *
@@ -159,7 +159,7 @@ public class EbookDao {
 		Connection conn = dbUtil.getConnection();
 		PreparedStatement stmt = null;
 		// 쿼리문 생성, 실행
-		String sql = "SELECT ebook_no ebookNo, ebook_title ebookTitle, ebook_price ebookPrice, ebook_img ebookImg FROM ebook ORDER BY create_date DESC LIMIT 0, 5";
+		String sql = "SELECT ebook_no ebookNo, ebook_title ebookTitle, ebook_price ebookPrice, ebook_img ebookImg FROM ebook WHERE ebook_state = 1 OR ebook_state = 4 ORDER BY create_date DESC LIMIT 0, 5";
 		stmt = conn.prepareStatement(sql);
 		// 디버깅
 		System.out.println(stmt + " < EbookDao.selectNewProductEbookList stmt");
@@ -197,7 +197,7 @@ public class EbookDao {
 		Connection conn = dbUtil.getConnection();
 		PreparedStatement stmt = null;
 		// 쿼리문 생성, 실행
-		String sql = "SELECT t.ebook_no ebookNo, e.ebook_title ebookTitle, e.ebook_price ebookPrice, e.ebook_img ebookImg FROM ebook e INNER JOIN (SELECT ebook_no, COUNT(ebook_no) FROM orders GROUP BY ebook_no ORDER BY COUNT(ebook_no) DESC LIMIT 0,5) t ON e.ebook_no = t.ebook_no";
+		String sql = "SELECT t.ebook_no ebookNo, e.ebook_title ebookTitle, e.ebook_price ebookPrice, e.ebook_img ebookImg, e.ebook_state ebookState FROM ebook e INNER JOIN (SELECT ebook_no, COUNT(ebook_no) FROM orders GROUP BY ebook_no ORDER BY COUNT(ebook_no) DESC LIMIT 0,5) t ON e.ebook_no = t.ebook_no";
 		stmt = conn.prepareStatement(sql);
 		// 디버깅
 		System.out.println(stmt + " < EbookDao.selectPopularEbookList stmt");
@@ -208,6 +208,7 @@ public class EbookDao {
 			ebook.setEbookTitle(rs.getString("ebookTitle"));
 			ebook.setEbookPrice(rs.getInt("ebookPrice"));
 			ebook.setEbookImg(rs.getString("ebookImg"));
+			ebook.setEbookState(rs.getString("ebookState"));
 			list.add(ebook);
          }
 		// 자원 해제

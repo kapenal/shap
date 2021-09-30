@@ -88,10 +88,25 @@
 			} else {
 		%>
 				<form method="post" action="<%=request.getContextPath()%>/insertOrderAction.jsp">
-				<input type="hidden" name="ebookNo" value="<%=ebookNo%>">
-				<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>">
-				<input type="hidden" name="orderPrice" value="<%=ebook.getEbookPrice()%>">
-				<button type="submit">주문하기</button>
+					<input type="hidden" name="ebookNo" value="<%=ebookNo%>">
+					<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>">
+					<input type="hidden" name="orderPrice" value="<%=ebook.getEbookPrice()%>">
+					<%
+						if(ebook.getEbookState().equals("품절")){
+					%>	
+							품절된 상품입니다
+					<%		
+						}else if(ebook.getEbookState().equals("절판")){
+					%>
+							절판된 상품입니다
+					<%		
+						}else{
+					%>		
+							<button type="submit">주문하기</button>
+					<%	
+						}
+					%>
+					
 				</form>
 		<%		
 			}

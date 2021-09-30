@@ -13,7 +13,7 @@
 		      <a class="nav-link" href="<%=request.getContextPath()%>/selectNoticeList.jsp">[공지사항]</a>
 		    </li>
 		    <li class="nav-item active">
-		      <a class="nav-link" href="<%=request.getContextPath()%>/selectQnaList.jsp">[QnA]</a>
+		      <a class="nav-link" href="<%=request.getContextPath()%>/selectQnaList.jsp">[QnA게시판]</a>
 		    </li>
 		    <li class="nav-item active">
 		      <a class="nav-link" href="">[menu5]</a>

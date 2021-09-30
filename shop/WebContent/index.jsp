@@ -17,7 +17,7 @@
 	EbookDao ebookDao = new EbookDao();
 	
 	// 전체 회원 수
-	int totalCount = 0;
+	int totalCount = ebookDao.selectEbookListAllByTotalPage(searchEbookTitle);
 	// 화면에 보여질 페이지 번호의 갯수
 	int displayPage = 10;
 	// 한 페이지에 보여질 리스트의 행 수
@@ -34,7 +34,7 @@
 	// 전자책 목록 메서드 출력
 	ArrayList<Ebook> ebookList = null;
 	// 전체 전자책 목록 
-	ebookList = ebookDao.selectSaleEbookList(beginRow, ROW_PER_PAGE, searchEbookTitle);
+	ebookList = ebookDao.selectEbookList(beginRow, ROW_PER_PAGE, searchEbookTitle);
 	// 상위 인기 목록 5개(주문 순)
 	ArrayList<Ebook> popularEbookList = ebookDao.selectPopularEbookList();
 	// 신상 목록 5개
@@ -43,8 +43,6 @@
 	NoticeDao noticeDao = new NoticeDao();
 	ArrayList<Notice> newNoticeList = noticeDao.selectNewNoticeList();
 	
-	// 전체 페이지 수
-	totalCount = ebookDao.selectSaleEbookListAllByTotalPage(searchEbookTitle);
 	// 마지막 페이지 구하는 호출
 	int lastPage = ebookDao.selectEbookListAllByLastPage(totalCount, ROW_PER_PAGE);
 	System.out.println(lastPage + "< index lastPage");
@@ -166,7 +164,21 @@
 								<a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
 							</div>
 							<div><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><%=e.getEbookTitle()%></a></div>
-							<div><%=e.getEbookPrice()%>원</div>
+							<%
+								if(e.getEbookState().equals("품절")){
+							%>	
+									품절
+							<%	
+								} else if(e.getEbookState().equals("절판")){
+							%>	
+									절판
+							<%	
+								} else{
+							%>	
+									<div><%=e.getEbookPrice()%>원</div>
+							<%	
+								}
+							%>
 						</td>
 				<%
 					}
@@ -188,7 +200,22 @@
 								<a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
 							</div>
 							<div><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><%=e.getEbookTitle()%></a></div>
-							<div><%=e.getEbookPrice()%>원</div>
+							<%
+								if(e.getEbookState().equals("품절")){
+							%>	
+									품절
+							<%	
+								} else if(e.getEbookState().equals("절판")){
+							%>	
+									절판
+							<%	
+								} else{
+							%>	
+									<div><%=e.getEbookPrice()%>원</div>
+							<%	
+								}
+							%>
+							
 						</td>
 				<%
 						j+=1;
