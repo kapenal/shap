@@ -2,7 +2,7 @@
 <%@ page import="vo.*"%>
 <%@ page import="dao.*"%>
 <%
-//한글 깨짐 방지
+	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
 	// 방어 코드
 	if(request.getParameter("qnaNo") == null || request.getParameter("qnaNo") == "" || request.getParameter("qnaTitle") == null || request.getParameter("qnaTitle") == "" || request.getParameter("qnaContent") == null || request.getParameter("qnaContent") == "" || request.getParameter("qnaCategory") == null || request.getParameter("qnaCategory") == "" || request.getParameter("qnaSecret") == null || request.getParameter("qnaSecret") == "") {
@@ -29,7 +29,7 @@
 	qnaParam.setQnaTitle(request.getParameter("qnaTitle"));
 	qnaParam.setQnaContent(request.getParameter("qnaContent"));
 	qnaParam.setQnaSecret(request.getParameter("qnaSecret"));
-	
+	// QnA 수정 메소드 호출
 	qnaDao.updateQna(qnaParam);
 	response.sendRedirect(request.getContextPath()+"/selectQnaOne.jsp?qnaNo="+qnaNo);
 	return;

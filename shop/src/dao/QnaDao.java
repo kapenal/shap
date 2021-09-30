@@ -10,6 +10,29 @@ import commons.DBUtil;
 import vo.*;
 
 public class QnaDao {
+	// [작성자] QnA 삭제
+	public void deleteQna(int qnaNo) throws ClassNotFoundException, SQLException {
+		// 매개변수 디버깅
+		System.out.println(qnaNo + " < QnaDao.deleteQna param : qnaNo");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "DELETE FROM qna WHERE qna_no=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, qnaNo);
+		// 디버깅
+		System.out.println(stmt + " < QnaDao.deleteQna stmt");
+		int row = stmt.executeUpdate();
+		if(row == 1) {
+			System.out.println("QnA 삭제 완료");
+		}
+		//자원 해제
+		conn.close();
+		stmt.close();
+	}
+	
 	// [작성자] QnA 수정
 	public void updateQna(Qna qna) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
@@ -32,6 +55,10 @@ public class QnaDao {
 		// 디버깅
 		System.out.println(stmt + "< QnaDao.updateQna stmt");
 		stmt.executeUpdate();
+		int row = stmt.executeUpdate();
+		if(row == 1) {
+			System.out.println("QnA 수정 완료");
+		}
 		//자원 해제
 		conn.close();
 		stmt.close();
