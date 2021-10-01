@@ -111,7 +111,7 @@
 					if(qnaClear == 0){
 				%>
 						<tr>
-							<td style="text-align:center" colspan="5">주문 기록이 없습니다</td>
+							<td style="text-align:center" colspan="5">작성한 QnA가 없습니다</td>
 						</tr>
 				<%
 					}
