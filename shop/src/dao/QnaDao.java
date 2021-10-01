@@ -10,6 +10,74 @@ import commons.DBUtil;
 import vo.*;
 
 public class QnaDao {
+	// [회원] 내 QnA 페이지
+	public int selectQnaListMemberByTotalPage(int memberNo) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		int totalCount = 0;
+		// 매개변수 디버깅
+		System.out.println(memberNo + "< QnaDao.selectQnaListMemberByTotalPage param : memberNo");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "SELECT count(*) FROM qna WHERE member_no=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, memberNo);
+		// 디버깅
+		System.out.println(stmt + " < QnaDao.selectQnaListMemberByTotalPage stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			totalCount = rs.getInt("count(*)");
+		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return totalCount;
+	}
+	
+	// [회원] 내 QnA 출력
+	public ArrayList<Qna> selectQnaListByMember(int beginRow, int ROW_PER_PAGE, int memberNo) throws ClassNotFoundException, SQLException{
+		// 리턴값
+		ArrayList<Qna> list = new ArrayList<>();
+		// 매개변수 디버깅
+		System.out.println(beginRow + "< QnaDao.selectQnaListByMember param : bgeginRow");
+		System.out.println(ROW_PER_PAGE + "< QnaDao.selectQnaListByMember param : ROW_PER_PAGE");
+		System.out.println(memberNo + "< QnaDao.selectQnaListByMember param : memberNo");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 실행
+		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, create_date createDate, update_date updateDate  FROM qna WHERE member_no=? ORDER BY create_date DESC LIMIT ?,?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, memberNo);
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, ROW_PER_PAGE);
+		// 디버깅
+		System.out.println(stmt + " < QnaDao.selectQnaListByMember stmt");
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Qna qna = new Qna();
+			qna.setQnaNo(rs.getInt("qnaNo"));
+			qna.setQnaCategory(rs.getString("qnaCategory"));
+			qna.setQnaTitle(rs.getString("qnaTitle"));
+			qna.setQnaContent(rs.getString("qnaContent"));
+			qna.setQnaSecret(rs.getString("qnaSecret"));
+			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setCreateDate(rs.getString("createDate"));
+			qna.setUpdateDate(rs.getString("updateDate"));
+			list.add(qna);
+         }
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return list;
+	}
+	
 	// [관리자] 최근 답근 안달린 QnA리스트 5개 출력
 	public ArrayList<Qna> selectNewQnAList() throws ClassNotFoundException, SQLException{
 		// 리턴값
