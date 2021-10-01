@@ -221,6 +221,73 @@ public class QnaDao {
 		System.out.println(lastPage + " < QnaDao.selectQnaListAllByLastPage lastPage");
 		return lastPage;
 	}
+	// [관리자 & 회원 & 일반] 카테고리 검색 QnA 페이지
+	public int selectQnaListAllByCategoryTotalPage(String categoryName) throws ClassNotFoundException, SQLException {
+		// 리턴값
+		int totalCount = 0;
+		// 매개변수 디버깅
+		System.out.println(categoryName + "< QnaDao.selectQnaListAllByCategoryTotalPage param : categoryName");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 생성
+		String sql = "SELECT count(*) FROM qna WHERE qna_category=?";
+		// 쿼리문 실행
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, categoryName);
+		// 디버깅
+		System.out.println(stmt + " < QnaDao.selectQnaListAllByCategoryTotalPage stmt");
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			totalCount = rs.getInt("count(*)");
+		}
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return totalCount;
+	}
+	
+	// [관리자 & 회원 & 일반] 카테고리 검색 QnA게시판 출력
+	public ArrayList<Qna> selectQnaListByCategory(int beginRow, int ROW_PER_PAGE, String categoryName) throws ClassNotFoundException, SQLException{
+		// 리턴값
+		ArrayList<Qna> list = new ArrayList<>();
+		// 매개변수 디버깅
+		System.out.println(beginRow + "< QnaDao.selectQnaListByCategory param : bgeginRow");
+		System.out.println(ROW_PER_PAGE + "< QnaDao.selectQnaListByCategory param : ROW_PER_PAGE");
+		System.out.println(categoryName + "< QnaDao.selectQnaListByCategory param : categoryName");
+		// DB연결 메서드 호출
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		// 쿼리문 실행
+		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, create_date createDate, update_date updateDate  FROM qna  WHERE qna_category=? ORDER BY create_date DESC LIMIT ?,?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, categoryName);
+		stmt.setInt(2, beginRow);
+		stmt.setInt(3, ROW_PER_PAGE);
+		// 디버깅
+		System.out.println(stmt + " < QnaDao.selectQnaListByCategory stmt");
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Qna qna = new Qna();
+			qna.setQnaNo(rs.getInt("qnaNo"));
+			qna.setQnaCategory(rs.getString("qnaCategory"));
+			qna.setQnaTitle(rs.getString("qnaTitle"));
+			qna.setQnaContent(rs.getString("qnaContent"));
+			qna.setQnaSecret(rs.getString("qnaSecret"));
+			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setCreateDate(rs.getString("createDate"));
+			qna.setUpdateDate(rs.getString("updateDate"));
+			list.add(qna);
+         }
+		// 자원 해제
+		conn.close();
+		stmt.close();
+		rs.close();
+		
+		return list;
+	}
 	
 	// [관리자 & 회원 & 일반] 전체 QnA 페이지
 	public int selectQnaListAllByTotalPage() throws ClassNotFoundException, SQLException {

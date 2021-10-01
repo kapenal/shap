@@ -20,7 +20,7 @@ public class EbookDao {
 		PreparedStatement stmt = null;
 		if(searchEbookTitle.equals("")== true) {
 			// 쿼리문 생성
-			String sql = "SELECT count(*) FROM ebook WHERE ebook_state = 1 OR ebook_state = 4";
+			String sql = "SELECT count(*) FROM ebook WHERE ebook_state=1 OR ebook_state=4";
 			// 쿼리문 실행
 			stmt = conn.prepareStatement(sql);
 		}else {

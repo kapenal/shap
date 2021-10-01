@@ -82,6 +82,7 @@
 		<div>
 			<h2>전자책 관리</h2>
 		</div>
+		<!--  전자책 목록 출력 : 카테고리별 출력 -->
 		<form action="<%=request.getContextPath()%>/admin/selectEbookList.jsp">
 			<select name="categoryName">
 				<option value="">전체목록</option>
@@ -94,7 +95,6 @@
 				%>
 			</select>
 			<button type="submit">선택</button>
-			<!--  전자책 목록 출력 : 카테고리별 출력 -->
 		</form>
 		<table class="table table-bordered">
 			<thead>

@@ -24,6 +24,7 @@
 <head>
 <meta charset="UTF-8">
 <title>selectCategoryList.jsp</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -70,12 +71,12 @@
 							</td>
 									
 							<td>
-								<form method="post" action="<%=request.getContextPath()%>/admin/updateCategoryStateAction.jsp?categoryName=<%=c.getCategoryName()%>">
-								<select name="categoryState">
+								<form id="updateState" method="post" action="<%=request.getContextPath()%>/admin/updateCategoryStateAction.jsp?categoryName=<%=c.getCategoryName()%>">
+								<select id="categoryState" name="categoryState">
 									<option value="N">미사용</option>
 									<option value="Y">사용</option>
 								</select>
-								<button type="submit">변경</button>
+								<button id="updateStateBtn" type="button">변경</button>
 								</form>
 							</td>
 						</tr>
@@ -86,5 +87,14 @@
 		</table>
 		<a href="<%=request.getContextPath()%>/admin/insertCategoryForm.jsp"><button >카테고리 추가</button></a>
 	</div>
+	<script>
+		$('#updateStateBtn').click(function(){
+			if($('#categoryState').val() == '') { // 사용여부가 공백이면
+				alert('사용여부를 선택하세요');
+				return;
+			}
+			$('#updateState').submit();
+		});
+	</script>
 </body>
 </html>

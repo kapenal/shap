@@ -46,6 +46,7 @@
 	// 마지막 페이지 구하는 호출
 	int lastPage = ebookDao.selectEbookListAllByLastPage(totalCount, ROW_PER_PAGE);
 	System.out.println(lastPage + "< index lastPage");
+	
 %>
 <!DOCTYPE html>
 <html>
