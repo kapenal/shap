@@ -23,4 +23,8 @@ public class OrderEbookMember {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+	@Override
+	public String toString() {
+		return "OrderEbookMember [order=" + order + ", ebook=" + ebook + ", member=" + member + "]";
+	}
 }

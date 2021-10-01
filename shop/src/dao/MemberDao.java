@@ -311,11 +311,13 @@ public class MemberDao {
 	// [비회원] 회원가입
 	public void insertMember(Member member) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
-		System.out.println(member.getMemberId() + "< MemberDao.insertMember param : memberId");
-		System.out.println(member.getMemberPw() + "< MemberDao.insertMember param : memberPw");
-		System.out.println(member.getMemberName() + "< MemberDao.insertMember param : memberName");
-		System.out.println(member.getMemberAge() + "< MemberDao.insertMember param : memberAge");
-		System.out.println(member.getMemberGender() + "< MemberDao.insertMember param : memberGender");
+		/* 	System.out.println(member.getMemberId() + "< MemberDao.insertMember param : memberId");
+			System.out.println(member.getMemberPw() + "< MemberDao.insertMember param : memberPw");
+			System.out.println(member.getMemberName() + "< MemberDao.insertMember param : memberName");
+			System.out.println(member.getMemberAge() + "< MemberDao.insertMember param : memberAge");
+			System.out.println(member.getMemberGender() + "< MemberDao.insertMember param : memberGender");
+		 */
+		member.toString();
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
