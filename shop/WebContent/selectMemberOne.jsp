@@ -6,7 +6,7 @@
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null){
 		System.out.println("로그인하십시오.");
-		response.sendRedirect(request.getContextPath()+"/ioginForm.jsp");
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
 	// 한글 깨짐 방지
@@ -63,6 +63,7 @@
 				<td><input type="text" id="createDate" name="createDate" readonly="readonly" value="<%=member.getCreateDate()%>"></td>
 			</tr>
 		</table>
+		<a href="<%=request.getContextPath()%>/deleteMemberForm.jsp?memberNo=<%=member.getMemberNo()%>" class="btn btn-danger">회원 탈퇴</a>
 	</div>
 </body>
 </html>

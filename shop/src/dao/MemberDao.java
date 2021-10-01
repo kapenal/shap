@@ -135,7 +135,7 @@ public class MemberDao {
 		stmt.close();
 	}
 	
-	// [관리자] 회원 목록에서 회원 강제탈퇴(회원의 No를 받아서 DB에서 삭제)
+	// [관리자 & 회원] 회원 목록에서 회원 강제탈퇴, 회원정보에서 회원 탈퇴
 	public void deleteMemberByKey(int memberNo) throws ClassNotFoundException, SQLException {
 		// 매개변수 디버깅
 		System.out.println(memberNo + " < MemberDao.deleteMemberByKey param : memberNo");
@@ -151,7 +151,7 @@ public class MemberDao {
 		System.out.println(stmt + " < MemberDao.deleteMemeberByKey stmt");
 		int row = stmt.executeUpdate();
 		if(row == 1) {
-			System.out.println("강제 회원탈퇴되었습니다.");
+			System.out.println("회원 탈퇴되었습니다.");
 		}
 		//자원 해제
 		conn.close();

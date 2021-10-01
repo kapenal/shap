@@ -2,7 +2,7 @@
 <%@ page import="vo.*"%>
 <%@ page import="dao.*"%>
 <%
-//한글 깨짐 방지
+	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
 	// 방어 코드
 	if(request.getParameter("qnaNo") == null || request.getParameter("qnaNo") == "") {
