@@ -67,7 +67,13 @@
 			} else if(loginMember.getMemberNo() == qna.getMemberNo()) { // 작성자
 		%>	
 				<div style="text-align:right">
-				<a href="<%=request.getContextPath()%>/updateQnaForm.jsp?qnaNo=<%=qnaNo%>" class="btn btn-light">수정</a>
+				<%
+					if(commentRow == 0){
+				%>	
+						<a href="<%=request.getContextPath()%>/updateQnaForm.jsp?qnaNo=<%=qnaNo%>" class="btn btn-light">수정</a>
+				<%	
+					}
+				%>
 				<a href="<%=request.getContextPath()%>/deleteQnaForm.jsp?qnaNo=<%=qnaNo%>" class="btn btn-light">삭제</a>
 				</div>
 		<%
