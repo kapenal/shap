@@ -171,7 +171,7 @@ public class OrderDao {
 		return list;
 	}
 	
-	// [관리자] 주문 상세보기
+	// [관리자 & 회원] 주문 상세보기
 	public OrderEbookMember selectOrderNoOne(int orderNo) throws ClassNotFoundException, SQLException {
 		OrderEbookMember oem = null;
 		// DB연결 메서드 호출

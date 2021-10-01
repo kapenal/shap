@@ -59,7 +59,7 @@
 							<td><%=oem.getOrder().getOrderPrice()%></td>
 							<td><%=oem.getOrder().getCreateDate()%></td>
 							<td><%=oem.getMember().getMemberId()%></td>
-							<td><a href="<%=request.getContextPath()%>/admin/selectOrderOne.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>">상세주문내역</a></td>
+							<td><a href="<%=request.getContextPath()%>/selectOrderOne.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>">상세주문내역</a></td>
 							<%
 								if(orderCommentDao.orderCommentCheck(oem.getOrder().getOrderNo()) == 0){
 							%>	
