@@ -42,6 +42,8 @@
 	// 마지막 페이지 구하는 호출
 	int lastPage = qnaDao.selectQnaListAllByLastPage(totalCount, ROW_PER_PAGE);
 	System.out.println(lastPage + "< selectQnaListByMember lastPage");
+	// 작성한 QnA가 있는지 확인
+	int qnaClear = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -85,6 +87,7 @@
 			<tbody>
 				<%
 					for(Qna q : qnaList){
+						qnaClear++;
 				%>
 						<tr>
 							<td style="text-align:center"><%=q.getQnaNo()%></td>
@@ -102,6 +105,13 @@
 								}
 							%>
 							<td style="text-align:center"><%=q.getCreateDate()%></td>
+						</tr>
+				<%
+					}
+					if(qnaClear == 0){
+				%>
+						<tr>
+							<td style="text-align:center" colspan="5">주문 기록이 없습니다</td>
 						</tr>
 				<%
 					}

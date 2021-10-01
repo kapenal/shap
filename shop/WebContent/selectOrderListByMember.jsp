@@ -18,6 +18,8 @@
 	ArrayList<OrderEbookMember> list = orderDao.selectOrderListByMember(loginMember.getMemberNo());
 	
 	OrderCommentDao orderCommentDao = new OrderCommentDao();
+	// 주문 기록이 있는지 확인
+	int orderClear = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -52,6 +54,7 @@
 			<tbody>
 				<%
 					for(OrderEbookMember oem : list){
+						orderClear++;
 				%>
 						<tr>
 							<td><%=oem.getOrder().getOrderNo()%></td>
@@ -71,6 +74,13 @@
 							<%		
 								}
 							%>
+						</tr>
+				<%
+					}
+					if(orderClear == 0){
+				%>
+						<tr>
+							<td style="text-align:center" colspan="7">주문 기록이 없습니다</td>
 						</tr>
 				<%
 					}

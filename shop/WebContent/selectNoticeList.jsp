@@ -43,6 +43,8 @@
 	// 마지막 페이지 구하는 호출
 	int lastPage = noticeDao.selectNoticeListAllByLastPage(totalCount, ROW_PER_PAGE);
 	System.out.println(lastPage + "< selectNoticeList lastPage");
+	// 공지사항이 존재하는지 확인
+	int noticeClear = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -85,11 +87,19 @@
 			<tbody>
 				<%
 					for(Notice n : noticeList){
-				%>
+						noticeClear++;
+				%>	
 						<tr>
 							<td style="text-align:center"><%=n.getNoticeNo()%></td>
 							<td><a href="<%=request.getContextPath()%>/selectNoticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeTitle()%></a></td>
 							<td style="text-align:center"><%=n.getCreateDate()%></td>
+						</tr>
+				<%
+					}
+					if(noticeClear == 0){
+				%>
+						<tr>
+							<td style="text-align:center" colspan="3">공지사항이 없습니다</td>
 						</tr>
 				<%
 					}
