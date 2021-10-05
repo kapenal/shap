@@ -12,13 +12,16 @@
 	// 한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
 	// 방어 코드
-	if(request.getParameter("ebookNo") == null){
+	if(request.getParameter("ebookNo") == null || request.getParameter("ebookImg") == null){
 		response.sendRedirect(request.getContextPath()+"/admin/selectEbookList.jsp?");
 		return;
 	}
 	int ebookNo = Integer.parseInt(request.getParameter("ebookNo"));
+	String preEbookImg = request.getParameter("ebookImg");
+
 	// 디버깅
 	System.out.println(ebookNo + " < updateEbookImgForm param : ebookNo");
+	System.out.println(preEbookImg + " < updateEbookImgForm param : preEbookImg");
 %>
 <!DOCTYPE html>
 <html>
@@ -38,10 +41,11 @@
 		</div>
 		<!-- mult/form-data : 액션으로 기계어코드를 넘길때 사용-->
 		<!-- application/x-www-form-urlencoded : 액션으로 문자열 넘길때 사용-->	
-		<form id="updateImgForm" action="<%=request.getContextPath()%>/admin/updateEbookImgAction.jsp?ebookNo="<%=ebookNo%>" method="post" enctype="multipart/form-data">
+		<form id="updateImgForm" action="<%=request.getContextPath()%>/admin/updateEbookImgAction.jsp" method="post" enctype="multipart/form-data">
 			<input type="text" id="ebookNo" name="ebookNo" value="<%=ebookNo%>" readonly="readonly"> <!-- type="hidden" -->
 			<input type="file" id="ebookImg" name="ebookImg">
 			<button id="updateImgBtn" type="button" class="btn btn-light">이미지파일 수정</button>
+			<input type="hidden" id="preEbookImg" name="preEbookImg" value="<%=preEbookImg%>">
 		</form>
 	</div>
 	<script>

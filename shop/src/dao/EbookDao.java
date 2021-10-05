@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -261,7 +262,7 @@ public class EbookDao {
 	}
 	
 	// [관리자] 이미지 수정
-	public void updateEbookImg(Ebook ebook) throws ClassNotFoundException, SQLException {
+	public void updateEbookImg(Ebook ebook, String preEbookImg) throws ClassNotFoundException, SQLException {
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
@@ -274,6 +275,18 @@ public class EbookDao {
 		// 자원 해제
 		stmt.close();
 		conn.close();
+		System.out.println(preEbookImg + "<< 이전 이미지");
+		File file = new File("C:/Users/admin/Desktop/git-shop/shop/WebContent/image/"+preEbookImg);
+		System.out.println(file);
+		if( file.exists() ){
+    		if(file.delete()){
+    			System.out.println("파일삭제 성공");
+    		}else{
+    			System.out.println("파일삭제 실패");
+    		}
+    	}else{
+    		System.out.println("파일이 존재하지 않습니다.");
+    	}
 	}
 	
 	

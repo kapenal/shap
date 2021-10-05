@@ -13,11 +13,12 @@
 	}
 	// 한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
-	
 	// int ebookNo = Integer.parseInt(request.getParameter("ebookNo")); 넘겨받는 형태((multipart/form-data)가 달라 사용불가
 	// reqeust, 저장 주소, 파일의 사이즈, 인코딩값, DefaultFileRenammePolicy()객체		
 	MultipartRequest mr = new MultipartRequest(request, "C:/Users/admin/Desktop/git-shop/shop/WebContent/image", 1024*1024*1024, "utf-8", new DefaultFileRenamePolicy());
 	int ebookNo = Integer.parseInt(mr.getParameter("ebookNo"));
+	String preEbookImg = mr.getParameter("preEbookImg");
+	System.out.println(preEbookImg);
 	String ebookImg = mr.getFilesystemName("ebookImg");
 	System.out.println(ebookImg);
 	Ebook ebook = new Ebook();
@@ -25,6 +26,6 @@
 	ebook.setEbookImg(ebookImg);
 	
 	EbookDao ebookDao = new EbookDao();
-	ebookDao.updateEbookImg(ebook);
+	ebookDao.updateEbookImg(ebook, preEbookImg);
 	response.sendRedirect(request.getContextPath()+"/admin/selectEbookOne.jsp?ebookNo="+ebookNo);
 %>

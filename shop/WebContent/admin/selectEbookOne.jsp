@@ -58,7 +58,7 @@
 			<td></td>
 			<td><a href="<%=request.getContextPath()%>/admin/deleteEbook.jsp?ebookNo=<%=ebook.getEbookNo()%>">삭제</a></td>
 			<td><a href="<%=request.getContextPath()%>/admin/updateEbookPriceForm.jsp?ebookNo=<%=ebook.getEbookNo()%>">가격 수정</a></td>
-			<td><a href="<%=request.getContextPath()%>/admin/updateEbookImgForm.jsp?ebookNo=<%=ebook.getEbookNo()%>">이미지 수정</a></td>
+			<td><a href="<%=request.getContextPath()%>/admin/updateEbookImgForm.jsp?ebookNo=<%=ebook.getEbookNo()%>&ebookImg=<%=ebook.getEbookImg()%>">이미지 수정</a></td>
 		</tr>
 		</table>
 	</div>
