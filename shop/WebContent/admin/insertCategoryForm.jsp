@@ -2,6 +2,8 @@
 <%@ page import="vo.*"%>
 <%@ page import="dao.*"%>
 <%
+	//한글 깨짐 방지
+	request.setCharacterEncoding("utf-8");	
 	//인증 방어 코드 : 로그인 후에만 페이지 열람 가능
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	if(loginMember == null || loginMember.getMemberLevel() < 1){
@@ -9,8 +11,7 @@
 		response.sendRedirect(request.getContextPath()+"/index.jsp");
 		return;
 	}
-	// 한글 깨짐 방지
-	request.setCharacterEncoding("utf-8");
+	
 	// 카테고리 이름 체크 방어 코드
 	String categoryCheckName = "";
 	if(request.getParameter("categoryCheckName") != null) {
