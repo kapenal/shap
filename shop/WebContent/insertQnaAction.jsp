@@ -17,8 +17,9 @@
 	System.out.println(request.getParameter("qnaContent") + " < insertQnaAction param : qnaContent");
 	System.out.println(request.getParameter("qnaSecret") + " < insertQnaAction param : qnaSecret");
 	System.out.println(request.getParameter("memberNo") + " < insertQnaAction param : memberNo");
+	System.out.println(request.getParameter("memberName") + " < insertQnaAction param : memberName");
 	// 방어 코드
-	if( request.getParameter("qnaCategory") == null || request.getParameter("qnaCategory").equals("") || request.getParameter("qnaTitle") == null || request.getParameter("qnaTitle").equals("") || request.getParameter("qnaContent") == null || request.getParameter("qnaContent").equals("") || request.getParameter("qnaSecret") == null || request.getParameter("qnaSecret").equals("") || request.getParameter("memberNo") == null || request.getParameter("memberNo").equals("")){
+	if( request.getParameter("qnaCategory") == null || request.getParameter("qnaCategory").equals("") || request.getParameter("qnaTitle") == null || request.getParameter("qnaTitle").equals("") || request.getParameter("qnaContent") == null || request.getParameter("qnaContent").equals("") || request.getParameter("qnaSecret") == null || request.getParameter("qnaSecret").equals("") || request.getParameter("memberNo") == null || request.getParameter("memberNo").equals("") || request.getParameter("memberName") == null || request.getParameter("memberName").equals("")){
 		System.out.println("QnA을 다시 작성해주세요");
 		response.sendRedirect(request.getContextPath()+"/insertQnaForm.jsp");
 		return;
@@ -30,6 +31,7 @@
 	qna.setQnaContent(request.getParameter("qnaContent"));
 	qna.setQnaSecret(request.getParameter("qnaSecret"));
 	qna.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));
+	qna.setMemberName(request.getParameter("memberName"));
 	// QnA 추가 메서드 호출
 	QnaDao qnaDao = new QnaDao();
 	qnaDao.insertQna(qna);

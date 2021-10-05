@@ -17,11 +17,14 @@
 		// 한글을 받을 시 ??로 표현됨
 		categoryCheckName = request.getParameter("categoryCheckName");
 	}
+	System.out.println(request.getParameter("categoryCheckName") + " 여기가 문제");
+	System.out.println(categoryCheckName + " 여기가 문제");
+	
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset=UTF-8">
 <title>insertCategoryForm.jsp</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -66,12 +69,12 @@
 		</form>
 	</div>
 	<script>
-		$('#updateImgBtn').click(function(){
+		$('#categoryCheckBtn').click(function(){
 			if($('#categoryCheckName').val() == '') { // 카테고리 이름이 공백이면
 				alert('카테고리를 입력하세요');
 				return;
 			}
-			$('#categoryCheckBtn').submit();
+			$('#categoryCheckForm').submit();
 		});
 		
 		$('#categoryInsertBtn').click(function(){

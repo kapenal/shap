@@ -139,7 +139,7 @@
 								}
 							%>
 							
-							<td style="text-align:center"><%=q.getMemberNo()%></td>
+							<td style="text-align:center"><%=q.getMemberName()%></td>
 							<td style="text-align:center"><%=q.getCreateDate()%></td>
 						</tr>
 				<%

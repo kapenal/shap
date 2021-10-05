@@ -24,6 +24,7 @@
 	CategoryDao categoryDao = new CategoryDao(); 	
 	String result = categoryDao.selectCategoryCheck(categoryCheckName);
 	System.out.println(result);
+	System.out.println(categoryCheckName);
 	if(result == null) {
 		response.sendRedirect(request.getContextPath()+"/admin/insertCategoryForm.jsp?categoryCheckName="+categoryCheckName);	
 	}else {

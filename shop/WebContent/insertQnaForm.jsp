@@ -57,6 +57,7 @@
 				<button  id="qnaBtn" type="button" class="btn btn-light" >작성 완료</button>
 			</div>
 			<input type="hidden" name="memberNo" value="<%=loginMember.getMemberNo()%>" readonly="readonly">
+			<input type="hidden" name="memberName" value="<%=loginMember.getMemberName()%>" readonly="readonly">
 		</form>
 	</div>
 	<script>

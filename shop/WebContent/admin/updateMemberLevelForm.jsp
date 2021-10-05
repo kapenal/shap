@@ -78,7 +78,7 @@
 				<tr>
 				<tr>
 					<td>생성 날짜</td>
-					<td><input type="text" name="creatDate" value="<%=member.getCreatDate()%>" readonly="readonly"></td>
+					<td><input type="text" name="creatDate" value="<%=member.getCreateDate()%>" readonly="readonly"></td>
 				<tr>
 			</table>
 			<button id="updateLevelBtn"type="button" class="btn btn-light">수정 완료</button>

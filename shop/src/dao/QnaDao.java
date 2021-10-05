@@ -50,7 +50,7 @@ public class QnaDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 실행
-		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, create_date createDate, update_date updateDate  FROM qna WHERE member_no=? ORDER BY create_date DESC LIMIT ?,?";
+		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, member_name memberName, create_date createDate, update_date updateDate  FROM qna WHERE member_no=? ORDER BY create_date DESC LIMIT ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, memberNo);
 		stmt.setInt(2, beginRow);
@@ -66,6 +66,7 @@ public class QnaDao {
 			qna.setQnaContent(rs.getString("qnaContent"));
 			qna.setQnaSecret(rs.getString("qnaSecret"));
 			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setMemberName(rs.getString("memberName"));
 			qna.setCreateDate(rs.getString("createDate"));
 			qna.setUpdateDate(rs.getString("updateDate"));
 			list.add(qna);
@@ -86,7 +87,7 @@ public class QnaDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 생성, 실행
-		String sql = "SELECT q.qna_no qnaNo, q.qna_category qnaCategory, q.qna_title qnaTitle, q.qna_content qnaContent, q.qna_secret qnaSecret, q.member_no memberNo, q.create_date createDate, q.update_date updateDate FROM qna q LEFT JOIN qna_comment qc ON q.qna_no = qc.qna_no WHERE qc.qna_no IS NULL ORDER BY q.create_date LIMIT 0, 5";
+		String sql = "SELECT q.qna_no qnaNo, q.qna_category qnaCategory, q.qna_title qnaTitle, q.qna_content qnaContent, q.qna_secret qnaSecret, q.member_no memberNo, q.member_name memberName, q.create_date createDate, q.update_date updateDate FROM qna q LEFT JOIN qna_comment qc ON q.qna_no = qc.qna_no WHERE qc.qna_no IS NULL ORDER BY q.create_date LIMIT 0, 5";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		// 디버깅
 		System.out.println(stmt + " < QnaDao.selectNewQnAList stmt");
@@ -99,6 +100,7 @@ public class QnaDao {
 			qna.setQnaContent(rs.getString("qnaContent"));
 			qna.setQnaSecret(rs.getString("qnaSecret"));
 			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setMemberName(rs.getString("memberName"));
 			qna.setCreateDate(rs.getString("createDate"));
 			qna.setUpdateDate(rs.getString("updateDate"));
 			list.add(qna);
@@ -123,7 +125,7 @@ public class QnaDao {
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 실행
 		
-		String sql = "SELECT q.qna_no qnaNo, q.qna_category qnaCategory, q.qna_title qnaTitle, q.qna_content qnaContent, q.qna_secret qnaSecret, q.member_no memberNo, q.create_date createDate, q.update_date updateDate FROM qna q LEFT JOIN qna_comment qc ON q.qna_no = qc.qna_no WHERE qc.qna_no IS NULL ORDER BY q.create_date LIMIT ?, ?";
+		String sql = "SELECT q.qna_no qnaNo, q.qna_category qnaCategory, q.qna_title qnaTitle, q.qna_content qnaContent, q.qna_secret qnaSecret, q.member_no memberNo, q.member_name memberName, q.create_date createDate, q.update_date updateDate FROM qna q LEFT JOIN qna_comment qc ON q.qna_no = qc.qna_no WHERE qc.qna_no IS NULL ORDER BY q.create_date LIMIT ?, ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, ROW_PER_PAGE);
@@ -138,6 +140,7 @@ public class QnaDao {
 			qna.setQnaContent(rs.getString("qnaContent"));
 			qna.setQnaSecret(rs.getString("qnaSecret"));
 			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setMemberName(rs.getString("memberName"));
 			qna.setCreateDate(rs.getString("createDate"));
 			qna.setUpdateDate(rs.getString("updateDate"));
 			list.add(qna);
@@ -212,11 +215,12 @@ public class QnaDao {
 		System.out.println(qna.getQnaContent() + " < QnaDao.insertQna param : qnaContent");
 		System.out.println(qna.getQnaSecret() + " < QnaDao.insertQna param : qnaSecret");
 		System.out.println(qna.getMemberNo() + " < QnaDao.insertQna param : memberNo");
+		System.out.println(qna.getMemberName() + " < QnaDao.insertQna param : memberId");
 		// DB연결 메서드 호출
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 생성
-		String sql = "INSERT INTO qna(qna_category, qna_title, qna_content, qna_secret, member_no, create_date, update_date) VALUES(?,?,?,?,?,Now(),Now())";
+		String sql = "INSERT INTO qna(qna_category, qna_title, qna_content, qna_secret,member_no, member_name, create_date, update_date) VALUES(?,?,?,?,?,?,Now(),Now())";
 		// 쿼리문 실행
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, qna.getQnaCategory());
@@ -224,6 +228,7 @@ public class QnaDao {
 		stmt.setString(3, qna.getQnaContent());
 		stmt.setString(4, qna.getQnaSecret());
 		stmt.setInt(5, qna.getMemberNo());
+		stmt.setString(6, qna.getMemberName());
 		// 디버깅
 		System.out.println(stmt + " < QnaDao.insertQna stmt");
 		int row = stmt.executeUpdate();
@@ -248,7 +253,7 @@ public class QnaDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 실행
-		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, create_date createDate, update_date updateDate  FROM qna WHERE qna_no=?";
+		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, member_name memberName,create_date createDate, update_date updateDate  FROM qna WHERE qna_no=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, qnaNo);
 		System.out.println(stmt+ "< QnaDao.selectQnaOne stmt");
@@ -261,6 +266,7 @@ public class QnaDao {
 			qna.setQnaContent(rs.getString("qnaContent"));
 			qna.setQnaSecret(rs.getString("qnaSecret"));
 			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setMemberName(rs.getString("memberName"));
 			qna.setCreateDate(rs.getString("createDate"));
 			qna.setUpdateDate(rs.getString("updateDate"));
          }
@@ -329,7 +335,7 @@ public class QnaDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 실행
-		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, create_date createDate, update_date updateDate  FROM qna  WHERE qna_category=? ORDER BY create_date DESC LIMIT ?,?";
+		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, member_name memberName, create_date createDate, update_date updateDate  FROM qna  WHERE qna_category=? ORDER BY create_date DESC LIMIT ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, categoryName);
 		stmt.setInt(2, beginRow);
@@ -345,6 +351,7 @@ public class QnaDao {
 			qna.setQnaContent(rs.getString("qnaContent"));
 			qna.setQnaSecret(rs.getString("qnaSecret"));
 			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setMemberName(rs.getString("memberName"));
 			qna.setCreateDate(rs.getString("createDate"));
 			qna.setUpdateDate(rs.getString("updateDate"));
 			list.add(qna);
@@ -393,7 +400,7 @@ public class QnaDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 실행
-		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, create_date createDate, update_date updateDate  FROM qna ORDER BY create_date DESC LIMIT ?,?";
+		String sql = "SELECT qna_no qnaNo, qna_category qnaCategory, qna_title qnaTitle, qna_content qnaContent, qna_secret qnaSecret, member_no memberNo, member_name memberName, create_date createDate, update_date updateDate  FROM qna ORDER BY create_date DESC LIMIT ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, beginRow);
 		stmt.setInt(2, ROW_PER_PAGE);
@@ -408,6 +415,7 @@ public class QnaDao {
 			qna.setQnaContent(rs.getString("qnaContent"));
 			qna.setQnaSecret(rs.getString("qnaSecret"));
 			qna.setMemberNo(rs.getInt("memberNo"));
+			qna.setMemberName(rs.getString("memberName"));
 			qna.setCreateDate(rs.getString("createDate"));
 			qna.setUpdateDate(rs.getString("updateDate"));
 			list.add(qna);

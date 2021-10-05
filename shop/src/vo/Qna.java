@@ -7,6 +7,7 @@ public class Qna {
 	private String qnaContent;
 	private String qnaSecret;
 	private int memberNo;
+	private String memberName;
 	private String createDate;
 	private String updateDate;
 	
@@ -57,6 +58,12 @@ public class Qna {
 	}
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	@Override
 	public String toString() {
