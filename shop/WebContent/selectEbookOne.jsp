@@ -26,6 +26,7 @@
 	int beginRow = (orderCommentCurrentPage - 1) * orderCommentRowPerPage;
 	// 댓글 목록 호출
    	ArrayList<OrderComment> orderComment = ebookDao.selectCommentList(ebookNo, beginRow, orderCommentRowPerPage);
+	System.out.println(orderComment + " < orderComment");
 	// 총 댓글 수 호출
 	int orderCommentCount = ebookDao.orderCommentCount(ebookNo);
 	OrderDao orderDao = new OrderDao();
@@ -45,6 +46,8 @@
 	int endPage = startPage + displayPage - 1;
 	// 디버깅
 	System.out.println("endPage : "+endPage);
+	// 후기가 존재하는지 확인용
+	int commentClear = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -145,14 +148,22 @@
 			</thead>
 			<tbody>
 				<%
-				for(OrderComment c : orderComment) {     
+					for(OrderComment c : orderComment) {     
+						commentClear++;
 	            %>
-					<tr>
-						<td style="width:10%; text-align:center">별점 : <%=c.getOrderScore()%></td>
-						<td><%=c.getOrderCommentContent()%></td>
-						<td style="width:10%; text-align:center"><%=c.getCreateDate()%></td>
-					</tr>
+						<tr>
+							<td style="width:10%; text-align:center">별점 : <%=c.getOrderScore()%></td>
+							<td><%=c.getOrderCommentContent()%></td>
+							<td style="width:10%; text-align:center"><%=c.getCreateDate()%></td>
+						</tr>
 	          	<%
+					}
+					if(commentClear == 0){
+				%>
+						<tr>
+							<td style="text-align:center" colspan="3">작성된 후기가 없습니다.</td>
+						</tr>
+				<%	
 					}
 	          	%>
 	           </table>
