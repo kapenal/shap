@@ -55,8 +55,19 @@
 </head>
 <body>
 	<div class="container">
-		<!-- 메인 메뉴 include 절대 주소 -->
-		<jsp:include page="/partial/mainMenu.jsp"></jsp:include>
+		<%
+			if(session.getAttribute("loginMember") == null || loginMember.getMemberLevel() < 1){
+		%>
+				<!-- 메인 메뉴 include 절대 주소 -->
+				<jsp:include page="/partial/mainMenu.jsp"></jsp:include>
+		<%
+			} else if(loginMember.getMemberLevel() > 0){
+		%>
+				<!-- 관리자 메뉴 include 절대 주소 -->
+				<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
+		<%	
+			}
+		%>
 		<div class="jumbotron">
 	         <h1>상세 보기</h1>
 	         <h3><span class="badge badge-light"><a href ="<%=request.getContextPath()%>/index.jsp" class="text-dark">메인페이지</a></span></h3>
