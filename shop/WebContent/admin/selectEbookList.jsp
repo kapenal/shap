@@ -72,9 +72,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-			<!-- 관리자 메뉴 인클루드 -->
-			<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
+	<div class="container">
+		<div style="text-align:right">
+			<span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다 <a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-light" style="width:70pt;height:32pt;">로그아웃</a>
+		</div>
+		<!-- 관리자 메뉴 인클루드 -->
+		<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
 		<div class="jumbotron">
 	         <h1>전자책 관리</h1>
 	         <h3><span class="badge badge-light"><a href ="<%=request.getContextPath()%>/index.jsp" class="text-dark">메인페이지</a></span></h3>

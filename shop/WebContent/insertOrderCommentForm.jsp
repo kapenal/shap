@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="vo.*"%>
 <%
 	//인증 방어 코드 : 로그인 후에만 페이지 열람 가능
 	if(session.getAttribute("loginMember") == null){
@@ -8,7 +9,7 @@
 	}
 	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
-	
+	Member loginMember = (Member)session.getAttribute("loginMember");
 	// 파라메터값 받기
 	int orderNo = Integer.parseInt(request.getParameter("orderNo"));
 	int ebookNo = Integer.parseInt(request.getParameter("ebookNo"));
@@ -28,6 +29,9 @@
 </head>
 <body>
 	<div class="container">
+		<div style="text-align:right">
+			<span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다 <a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-light" style="width:70pt;height:32pt;">로그아웃</a>
+		</div>
 		<!-- 메인 메뉴 include 절대 주소 -->
 		<jsp:include page="/partial/mainMenu.jsp"></jsp:include>
 		<div class="jumbotron">

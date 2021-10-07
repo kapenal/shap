@@ -15,6 +15,7 @@
 	
 	NoticeDao noticeDao = new NoticeDao();
 	Notice notice = noticeDao.selectNoticeOne(noticeNo);
+	Member loginMember = (Member)session.getAttribute("loginMember");
 %>
 <!DOCTYPE html>
 <html>
@@ -26,14 +27,27 @@
 <body>
 	<div class="container">
 		<%
-			Member loginMember = (Member)session.getAttribute("loginMember");
-			if(session.getAttribute("loginMember") == null || loginMember.getMemberLevel() < 1){
+			if(session.getAttribute("loginMember") == null){
 		%>
+				<div style="text-align:right">
+					<a href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-light" style="width:70pt;height:32pt;">로그인</a> <a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-light" style="width:70pt;height:32pt;">회원가입</a>
+				</div>
 				<!-- 메인 메뉴 include 절대 주소 -->
 				<jsp:include page="/partial/mainMenu.jsp"></jsp:include>
 		<%
+			} else if(loginMember.getMemberLevel() < 1){
+		%>
+				<div style="text-align:right">
+					<span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다 <a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-light" style="width:70pt;height:32pt;">로그아웃</a>
+				</div>
+				<!-- 메인 메뉴 include 절대 주소 -->
+				<jsp:include page="/partial/mainMenu.jsp"></jsp:include>
+		<%		
 			} else if(loginMember.getMemberLevel() > 0){
 		%>
+				<div style="text-align:right">
+					<span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다 <a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-light" style="width:70pt;height:32pt;">로그아웃</a>
+				</div>
 				<!-- 관리자 메뉴 include 절대 주소 -->
 				<jsp:include page="/partial/adminMenu.jsp"></jsp:include>
 		<%	
