@@ -82,7 +82,7 @@
 				for(OrderComment c : list) {     
 	            %>
 					<tr>
-						<td style="width:10%; text-align:center"><%=c.getEbookNo()%></td>
+						<td style="width:10%; text-align:center"><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=c.getEbookNo()%>"><%=c.getEbookNo()%></a></td>
 						<td style="width:10%; text-align:center">별점 : <%=c.getOrderScore()%></td>
 						<td><%=c.getOrderCommentContent()%></td>
 						<td style="width:10%; text-align:center"><%=c.getCreateDate()%></td>
