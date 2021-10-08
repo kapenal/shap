@@ -30,7 +30,7 @@
 <body>
 	<div class="container">
 		<div style="text-align:right">
-			<span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다 <a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-light" style="width:70pt;height:32pt;">로그아웃</a>
+			<span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다 <a href="<%=request.getContextPath()%>/logOut.jsp" class="bg-light text-dark" style="width:70pt;height:32pt;text-decoration:none;">로그아웃</a>
 		</div>
 		<!-- 메인 메뉴 include 절대 주소 -->
 		<jsp:include page="/partial/mainMenu.jsp"></jsp:include>

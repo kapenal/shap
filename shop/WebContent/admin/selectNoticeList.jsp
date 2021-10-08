@@ -61,7 +61,7 @@
 <body>
 	<div class="container">
 		<div style="text-align:right">
-			<span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다 <a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-light" style="width:70pt;height:32pt;">로그아웃</a>
+			<span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다 <a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="bg-light text-dark" style="width:70pt;height:32pt;text-decoration:none;">로그아웃</a>
 		</div>
 		<!-- 관리자 메뉴 인클루드 -->
 		<jsp:include page="/partial/adminMenu.jsp"></jsp:include>

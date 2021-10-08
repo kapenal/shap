@@ -28,7 +28,7 @@
 <body>
 	<div class="container">
 		<div style="text-align:right">
-			<a href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-light" style="width:70pt;height:32pt;">로그인</a> <a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-light" style="width:70pt;height:32pt;">회원가입</a>
+			<a href="<%=request.getContextPath()%>/loginForm.jsp" class="bg-light text-dark" style="width:70pt;height:32pt;text-decoration:none;">로그인</a> <a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-light" style="width:70pt;height:32pt;">회원가입</a>
 		</div>
 		<!-- 메인 메뉴 include 절대 주소 -->
 		<jsp:include page="/partial/mainMenu.jsp"></jsp:include>
