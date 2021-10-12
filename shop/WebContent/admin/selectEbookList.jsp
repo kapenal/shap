@@ -48,7 +48,7 @@
 	}else { // 카테고리 있을때
 		ebookList = ebookDao.selectEbookListByCategory(beginRow, ROW_PER_PAGE, categoryName, searchEbookTitle);
 		totalCount = ebookDao.selectEbookListAllByCategoryNameTotalPage(categoryName, searchEbookTitle);
-	}
+	}	
 	// 화면에 보여질 페이지 번호의 갯수
 	int displayPage = 10;
 	System.out.println(displayPage + "selectMemberList displayPage");
@@ -98,6 +98,7 @@
 				%>
 			</select>
 			<button type="submit">선택</button>
+			<input type="hidden" name="searchEbookTitle" value="<%=searchEbookTitle%>">
 		</form>
 		<table class="table table-bordered">
 			<thead>
@@ -128,7 +129,7 @@
 				<table>
 					<tr>
 						<td>제목 검색</td>
-						<td><input type="text" name="searchEbookTitle"></td>
+						<td><input type="text" name="searchEbookTitle" value="<%=searchEbookTitle%>"></td>
 						<td><button type="submit">검색</button></td>
 					</tr>
 				</table>
