@@ -394,14 +394,14 @@ public class EbookDao {
 		PreparedStatement stmt = null;
 		if(searchEbookTitle.equals("")== true) {
 			// 쿼리문 생성
-			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook WHERE category_name=? ORDER BY create_date DESC LIMIT ?,?";
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_price ebookPrice, ebook_img ebookImg, ebook_state ebookState FROM ebook WHERE category_name=? ORDER BY create_date DESC LIMIT ?,?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, categoryName);
 			stmt.setInt(2, beginRow);
 			stmt.setInt(3, ROW_PER_PAGE);
 		}else {
 			// 쿼리문 생성
-			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_state ebookState FROM ebook WHERE category_name=? AND ebook_title LIKE ? ORDER BY create_date DESC LIMIT ?,?";
+			String sql = "SELECT ebook_no ebookNo, category_name categoryName, ebook_title ebookTitle, ebook_price ebookPrice, ebook_img ebookImg, ebook_state ebookState FROM ebook WHERE category_name=? AND ebook_title LIKE ? ORDER BY create_date DESC LIMIT ?,?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, categoryName);
 			stmt.setString(2, "%"+searchEbookTitle+"%");
@@ -417,6 +417,8 @@ public class EbookDao {
 			ebook.setEbookNo(rs.getInt("ebookNo"));
 			ebook.setCategoryName(rs.getString("categoryName"));
 			ebook.setEbookTitle(rs.getString("ebookTitle"));
+			ebook.setEbookPrice(rs.getInt("ebookPrice"));
+			ebook.setEbookImg(rs.getString("ebookImg"));
 			ebook.setEbookState(rs.getString("ebookState"));
 			list.add(ebook);
          }

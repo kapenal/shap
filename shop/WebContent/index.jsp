@@ -20,7 +20,7 @@
 	int totalCount = ebookDao.selectEbookListAllByTotalPage(searchEbookTitle);
 	// 화면에 보여질 페이지 번호의 갯수
 	int displayPage = 10;
-	// 한 페이지에 보여질 리스트의 행 수
+	// 한 페이지에 보여질 책의 수
 	final int ROW_PER_PAGE = 10; // 상수 : 10으로 초기화와 동시에 끝까지 변하지 않는 수, 상수는 대문자로 표현
 	int beginRow = (currentPage - 1) * ROW_PER_PAGE;
 	System.out.println(beginRow + "< index beginRow");
@@ -249,7 +249,7 @@
 				<table>
 					<tr>
 						<td>제목 검색</td>
-						<td><input type="text" name="searchEbookTitle"></td>
+						<td><input type="text" name="searchEbookTitle" value="<%=searchEbookTitle%>"></td>
 						<td><button type="submit">검색</button></td>
 					</tr>
 				</table>

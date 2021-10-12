@@ -13,6 +13,9 @@
 				      <a class="nav-link" href="<%=request.getContextPath()%>/index.jsp">[홈으로]</a>
 				    </li>
 				    <li class="nav-item active">
+				      <a class="nav-link" href="<%=request.getContextPath()%>/selectEbookList.jsp">[전자책 목록]</a>
+				    </li>
+				    <li class="nav-item active">
 				      <a class="nav-link" href="<%=request.getContextPath()%>/selectOrderListByMember.jsp">[내 주문]</a>
 				    </li>
 				    <li class="nav-item active">
