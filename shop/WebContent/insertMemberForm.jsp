@@ -8,7 +8,7 @@
 		}
 		//한글 깨짐 방지
 		request.setCharacterEncoding("utf-8");
-		
+		int check = 0;
 		// 맴버 아이디 체크 방어코드
 		String memberIdCheck = "";
 		if(request.getParameter("memberIdCheck") != null) {
@@ -16,6 +16,7 @@
 		} else {
 			System.out.println("중복된 ID입니다");
 		}
+		
 %>
 <!DOCTYPE html>
 <html>
@@ -28,7 +29,7 @@
 <body>
 	<div class="container">
 		<div style="text-align:right">
-			<a href="<%=request.getContextPath()%>/loginForm.jsp" style="width:70pt;height:32pt;text-decoration:none;">로그인</a> <a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-light" style="width:70pt;height:32pt;text-decoration:none;">회원가입</a>
+			<a href="<%=request.getContextPath()%>/loginForm.jsp" class="bg-light text-dark" style="width:70pt;height:32pt;text-decoration:none;">로그인</a> <a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="bg-light text-dark" style="width:70pt;height:32pt;text-decoration:none;">회원가입</a>
 		</div>
 		<!-- 메인 메뉴 include 절대 주소 -->
 		<jsp:include page="/partial/mainMenu.jsp"></jsp:include>
@@ -36,45 +37,51 @@
 	         <h1>회원가입</h1>
 		</div>
 		<!-- memberId가 사용가능한지 확인 폼 -->
-		<form method="post" action="<%=request.getContextPath()%>/selectMemberIdCheckAction.jsp">
+	 	<form id="checkForm" method="post" action="<%=request.getContextPath()%>/selectMemberIdCheckAction.jsp">
 			<table class="table table-bordered">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="memberIdCheck" value="<%=memberIdCheck%>" placeholder="ID를 입력하세요">
-						<button type="submit">아이디 중복 검사</button>
-					</td>
-				</tr>
-			</table>
+			<tr>
+				<td style="width:15%;" >아이디 중복 검사</td>
+				<td>
+					<input type="text" name="memberIdCheck" id="memberIdCheck" value="<%=memberIdCheck%>" placeholder="ID를 입력하세요">
+					<button type="button" id="checkBtn">아이디 중복 검사</button>
+					<%
+						if(request.getParameter("idCheckResult") != null){
+					%>
+							<span><%=request.getParameter("idCheckResult")%></span>
+					<%		
+						}
+					%>
+				</td>
+			</tr>
 		</form>
 		<!-- 회원가입 폼 -->
 		<form id="joinForm" method="post" action="<%=request.getContextPath()%>/insertMemberAction.jsp">
-			 <table class="table table-bordered">
-				<tr>
-					<td>아이디</td>
-					<td><input type="text" id="memberId" name="memberId" readonly="readonly" value="<%=memberIdCheck%>" placeholder="ID를 입력하세요"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" id="memberPw" name="memberPw" placeholder="PW를 입력하세요"></td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td><input type="text" id="memberName" name="memberName" placeholder="이름을 입력하세요"></td>
-				</tr>
-				<tr>
-					<td>나이</td>
-					<td><input type="text" id="memberAge" name="memberAge" placeholder="나이를 입력하세요"></td>
-				</tr>
-				<tr>
-					<td>성별</td>
-					<td>
-						<input type="radio" class="memberGender" name="memberGender" value="남">남
-						<input type="radio" class="memberGender" name="memberGender" value="여">여
-					</td>
-				<tr>
-			</table>
-			<button type="button" id="btn" class="btn btn-light">회원가입</button>
-			<a href ="<%=request.getContextPath()%>/index.jsp" class="btn btn-light">취소</a>
+			<tr>
+				<td style="width:15%;" >아이디</td>
+				<td><input type="text" id="memberId" name="memberId" readonly="readonly" value="<%=memberIdCheck%>" placeholder="ID 중복 검사를 하십시오"></td>
+			</tr>
+			<tr>
+				<td style="width:15%;" >비밀번호</td>
+				<td><input type="password" id="memberPw" name="memberPw" placeholder="PW를 입력하세요"></td>
+			</tr>
+			<tr>
+				<td style="width:15%;" >이름</td>
+				<td><input type="text" id="memberName" name="memberName" placeholder="이름을 입력하세요"></td>
+			</tr>
+			<tr>
+				<td style="width:15%;" >나이</td>
+				<td><input type="text" id="memberAge" name="memberAge" placeholder="나이를 입력하세요"></td>
+			</tr>
+			<tr>
+				<td style="width:15%;" >성별</td>
+				<td>
+					<input type="radio" class="memberGender" name="memberGender" value="남">남
+					<input type="radio" class="memberGender" name="memberGender" value="여">여
+				</td>
+			<tr>
+		</table>
+		<button type="button" id="btn" class="btn btn-light">회원가입</button>
+		<a href ="<%=request.getContextPath()%>/index.jsp" class="btn btn-light">취소</a>
 		</form>
 	</div>
 	<!-- form의 value값 유효성 검사 -->
@@ -105,6 +112,15 @@
 				return;
 			}
 			$('#joinForm').submit(); // <button type="button"> --> <button type="submit">
+		});
+		
+		$('#checkBtn').click(function(){
+			// 버튼을 클릭했을 때
+			if($('#memberIdCheck').val() == '') { // id가 공백이면
+				alert('ID를 입력하세요');
+				return;
+			}
+			$('#checkForm').submit(); // <button type="button"> --> <button type="submit">
 		});
 	</script>
 </body>

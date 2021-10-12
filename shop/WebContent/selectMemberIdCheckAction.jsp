@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="dao.*"%>
+<%@ page import="dao.*"%>
+<%@ page import="java.net.URLEncoder"%>
 <%
 	// memberIdCheck값이 공백, null인지 유효성 검사
 	if(request.getParameter("memberIdCheck") == null || request.getParameter("memberIdCheck").equals("")) {
@@ -19,6 +20,6 @@
 	if(result == null) {
 		response.sendRedirect(request.getContextPath()+"/insertMemberForm.jsp?memberIdCheck="+memberIdCheck);	
 	}else {
-		response.sendRedirect(request.getContextPath()+"/insertMemberForm.jsp?idCheckResult=This ID is already taken");
+		response.sendRedirect(request.getContextPath()+"/insertMemberForm.jsp?idCheckResult="+URLEncoder.encode("중복되는 ID입니다", "UTF-8"));
 	}
 %>

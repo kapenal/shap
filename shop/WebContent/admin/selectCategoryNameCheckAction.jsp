@@ -1,7 +1,7 @@
-<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.*" %>
 <%@ page import="vo.*" %>
+<%@ page import="java.net.URLEncoder"%>
 <%
 	//한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
@@ -30,6 +30,6 @@
 	if(result == null) {
 		response.sendRedirect(request.getContextPath()+"/admin/insertCategoryForm.jsp?categoryCheckName="+URLEncoder.encode(categoryCheckName, "UTF-8")); // 한글이 ??로 넘겨져서 UTF-8로 지정	
 	}else {
-		response.sendRedirect(request.getContextPath()+"/admin/insertCategoryForm.jsp?idCheckResult=null");
+		response.sendRedirect(request.getContextPath()+"/admin/insertCategoryForm.jsp?idCheckResult="+URLEncoder.encode("중복되는 카테고리입니다", "UTF-8"));
 	}
 %>

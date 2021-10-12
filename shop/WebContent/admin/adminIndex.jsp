@@ -42,9 +42,8 @@
 		</div>
 		<div><h2><span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다.</h2></div>
 		<br>
-		<div>
-			<h2>공지 사항</h2>
-		</div>
+		<h2>공지사항</h2>
+		<div style="text-align:right"><a href="<%=request.getContextPath()%>/admin/selectNoticeList.jsp" class="btn btn-light">공지사항게시판가기</a></div>
 		<table class="table table-bordered">
 			<thead>
 				<tr>

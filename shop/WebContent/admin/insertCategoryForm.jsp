@@ -15,11 +15,9 @@
 	// 카테고리 이름 체크 방어 코드
 	String categoryCheckName = "";
 	if(request.getParameter("categoryCheckName") != null) {
-		// 한글을 받을 시 ??로 표현됨
 		categoryCheckName = request.getParameter("categoryCheckName");
 	}
-	System.out.println(request.getParameter("categoryCheckName") + " 여기가 문제");
-	System.out.println(categoryCheckName + " 여기가 문제");
+	System.out.println(request.getParameter("categoryCheckName"));
 	
 %>
 <!DOCTYPE html>
@@ -43,11 +41,18 @@
 		<form id="categoryCheckForm" method="post" action="<%=request.getContextPath()%>/admin/selectCategoryNameCheckAction.jsp">
 			 <table class="table table-bordered">
 				<tr>
-					<td>카테고리 이름</td>
-					<td><input type="text" id="categoryCheckName" name="categoryCheckName"></td>
+					<td style="width:15%;">카테고리 중복 검사</td>
 					<td>
-						<button id="categoryCheckBtn" type="button">아이디 중복 검사</button>
-					</td>
+						<input type="text" id="categoryCheckName" name="categoryCheckName">
+						<button id="categoryCheckBtn" type="button">카테고리 중복 검사</button>
+						<%
+							if(request.getParameter("idCheckResult") != null){
+						%>
+								<span><%=request.getParameter("idCheckResult")%></span>
+						<%		
+							}
+					%>
+						</td>
 				</tr>
 			</table>
 		</form>
@@ -55,11 +60,11 @@
 		<form id="categoryInsertForm" method="post" action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp?">
 			<table class="table table-bordered">
 				<tr>
-					<td>카테고리 이름</td>
+					<td style="width:15%;">카테고리 이름</td>
 					<td><input type="text" id="categoryName" name="categoryName" value="<%=categoryCheckName%>" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<td>사용 여부</td>
+					<td style="width:15%;">사용 여부</td>
 					<td>
 						<select id="categoryState" id="categoryState" name="categoryState">
 							<option value="N">미사용</option>
@@ -83,7 +88,7 @@
 		
 		$('#categoryInsertBtn').click(function(){
 			if($('#categoryName').val() == '') { // 카테고리 이름이 공백이면
-				alert('카테고리를 입력하세요');
+				alert('카테고리 이름을 입력하세요');
 				return;
 			}
 			if($('#categoryState').val() == '') { // 카테고리 상태가 공백이면

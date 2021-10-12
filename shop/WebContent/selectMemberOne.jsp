@@ -57,23 +57,23 @@
 		</div>
 		<table class="table table-bordered">
 			<tr>
-				<td>아이디</td>
+				<td style="width:15%;">아이디</td>
 				<td><input type="text" id="memberId" name="memberId" readonly="readonly" value="<%=member.getMemberId()%>"></td>
 			</tr>
 			<tr>
-				<td>이름</td>
+				<td style="width:15%;">이름</td>
 				<td><input type="text" id="memberName" name="memberName" readonly="readonly" value="<%=member.getMemberName()%>"></td>
 			</tr>
 			<tr>
-				<td>나이</td>
+				<td style="width:15%;">나이</td>
 				<td><input type="text" id="memberAge" name="memberAge" readonly="readonly" value="<%=member.getMemberAge()%>"></td>
 			</tr>
 			<tr>
-				<td>성별</td>
+				<td style="width:15%;">성별</td>
 				<td><input type="text" id="memberGender" name="memberGender" readonly="readonly" value="<%=member.getMemberGender()%>"></td>
 			</tr>
 			<tr>
-				<td>회원가입 날짜</td>
+				<td style="width:15%;">회원가입 날짜</td>
 				<td><input type="text" id="createDate" name="createDate" readonly="readonly" value="<%=member.getCreateDate()%>"></td>
 			</tr>
 		</table>
