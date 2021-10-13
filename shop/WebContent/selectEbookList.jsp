@@ -120,7 +120,7 @@
 					int j = 0;
 					for(Ebook e : ebookList){
 				%>
-						<td>
+						<td style="width:25%;">
 							<div>
 								<a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
 							</div>
