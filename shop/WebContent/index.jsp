@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
@@ -46,7 +47,7 @@
 	// 마지막 페이지 구하는 호출
 	int lastPage = ebookDao.selectEbookListAllByLastPage(totalCount, ROW_PER_PAGE);
 	System.out.println(lastPage + "< index lastPage");
-	
+	DecimalFormat formatter = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
 <html>
@@ -147,25 +148,27 @@
 		<br>
 		<!-- 상품 목록  -->
 		<div>
-			<h2>신상품 목록</h2>
+			<div>
+				<h2>신상품 목록</h2>
+			</div>
+			<table class="table table-bordered" style="background-color: #FAED7D;">
+				<tr>
+					<%
+						for(Ebook e: newProductEbookList){
+					%>
+							<td>
+								<div>
+									<a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
+								</div>
+								<div><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><%=e.getEbookTitle()%></a></div>
+								<div><%=formatter.format(e.getEbookPrice())%>원</div>
+							</td>
+					<%
+						}
+					%>
+				</tr>
+			</table>
 		</div>
-		<table class="table table-bordered">
-			<tr>
-				<%
-					for(Ebook e: newProductEbookList){
-				%>
-						<td>
-							<div>
-								<a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><img src="<%=request.getContextPath()%>/image/<%=e.getEbookImg()%>" width="200" height="200"></a>
-							</div>
-							<div><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=e.getEbookNo()%>"><%=e.getEbookTitle()%></a></div>
-							<div><%=e.getEbookPrice()%>원</div>
-						</td>
-				<%
-					}
-				%>
-			</tr>
-		</table>
 		<br>
 		<div>
 			<h2>인기 전자책 목록</h2>
@@ -191,7 +194,7 @@
 							<%	
 								} else{
 							%>	
-									<div><%=e.getEbookPrice()%>원</div>
+									<div><%=formatter.format(e.getEbookPrice())%>원</div>
 							<%	
 								}
 							%>
@@ -227,7 +230,7 @@
 							<%	
 								} else{
 							%>	
-									<div><%=e.getEbookPrice()%>원</div>
+									<div><%=formatter.format(e.getEbookPrice())%>원</div>
 							<%	
 								}
 							%>

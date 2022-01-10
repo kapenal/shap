@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
@@ -53,7 +54,7 @@
 	// 마지막 페이지 구하는 호출
 	int lastPage = ebookDao.selectEbookListAllByLastPage(totalCount, ROW_PER_PAGE);
 	System.out.println(lastPage + "< index lastPage");
-	
+	DecimalFormat formatter = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
 <html>
@@ -136,7 +137,7 @@
 							<%	
 								} else{
 							%>	
-									<div><%=e.getEbookPrice()%>원</div>
+									<div><%=formatter.format(e.getEbookPrice())%>원</div>
 							<%	
 								}
 							%>

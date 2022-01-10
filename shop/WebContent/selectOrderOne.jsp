@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*"%>
 <%@ page import="dao.*"%>
@@ -19,6 +20,7 @@
 	int orderNo = Integer.parseInt(request.getParameter("orderNo"));
 	OrderDao orderDao = new OrderDao();
 	OrderEbookMember oem = orderDao.selectOrderNoOne(orderNo);
+	DecimalFormat formatter = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
 <html>
@@ -41,7 +43,7 @@
 		<table class="table table-bordered">
 			<tr>
 				<td>주문 번호 : <%=oem.getOrder().getOrderNo()%></td>
-				<td>가격 : <%=oem.getOrder().getOrderPrice()%>
+				<td>가격 : <%=formatter.format(oem.getOrder().getOrderPrice())%>원</td>
 				<td>주문 날짜 : <%=oem.getOrder().getCreateDate()%></td>
 				
 			</tr>

@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="dao.*"%>
 <%@ page import="vo.*" %>
@@ -20,6 +21,7 @@
 	OrderCommentDao orderCommentDao = new OrderCommentDao();
 	// 주문 기록이 있는지 확인
 	int orderClear = 0;
+	DecimalFormat formatter = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
 <html>
@@ -62,7 +64,7 @@
 						<tr>
 							<td><%=oem.getOrder().getOrderNo()%></td>
 							<td><a href="<%=request.getContextPath()%>/selectEbookOne.jsp?ebookNo=<%=oem.getEbook().getEbookNo()%>"><%=oem.getEbook().getEbookTitle()%></a></td>
-							<td><%=oem.getOrder().getOrderPrice()%></td>
+							<td><%=formatter.format(oem.getOrder().getOrderPrice())%>원</td>
 							<td><%=oem.getOrder().getCreateDate()%></td>
 							<td><%=oem.getMember().getMemberId()%></td>
 							<td><a href="<%=request.getContextPath()%>/selectOrderOne.jsp?orderNo=<%=oem.getOrder().getOrderNo()%>">상세주문내역</a></td>

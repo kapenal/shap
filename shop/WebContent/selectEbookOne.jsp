@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
@@ -48,6 +49,7 @@
 	System.out.println("endPage : "+endPage);
 	// 후기가 존재하는지 확인용
 	int commentClear = 0;
+	DecimalFormat formatter = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
 <html>
@@ -100,7 +102,7 @@
 			<td>제목 : <%=ebook.getEbookTitle()%></td>
 			<td>저자 : <%=ebook.getEbookAuthor()%></td>
 			<td><%=ebook.getEbookPageCount()%>페이지</td>
-			<td><%=ebook.getEbookPrice()%>원</td>
+			<td><%=formatter.format(ebook.getEbookPrice())%>원</td>
 		</tr>
 		<tr>
 			<td style="text-align:center"><img src="<%=request.getContextPath()%>/image/<%=ebook.getEbookImg()%>" width="200" height="200"></td>
