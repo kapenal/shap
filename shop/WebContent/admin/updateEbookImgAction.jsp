@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*" %>
 <%@ page import="dao.*" %>
@@ -14,8 +15,10 @@
 	// 한글 깨짐 방지
 	request.setCharacterEncoding("utf-8");
 	// int ebookNo = Integer.parseInt(request.getParameter("ebookNo")); 넘겨받는 형태((multipart/form-data)가 달라 사용불가
-	// reqeust, 저장 주소, 파일의 사이즈, 인코딩값, DefaultFileRenammePolicy()객체		
-	MultipartRequest mr = new MultipartRequest(request, "C:/Users/admin/Desktop/git-shop/shop/WebContent/image", 1024*1024*1024, "utf-8", new DefaultFileRenamePolicy());
+	// reqeust, 저장 주소, 파일의 사이즈, 인코딩값, DefaultFileRenammePolicy()객체
+	File temp = new File("");
+	String path = temp.getAbsolutePath();
+	MultipartRequest mr = new MultipartRequest(request, path+"/webapps/shop/image", 1024*1024*1024, "utf-8", new DefaultFileRenamePolicy());
 	int ebookNo = Integer.parseInt(mr.getParameter("ebookNo"));
 	String preEbookImg = mr.getParameter("preEbookImg");
 	System.out.println(preEbookImg);

@@ -276,7 +276,9 @@ public class EbookDao {
 		stmt.close();
 		conn.close();
 		System.out.println(preEbookImg + "<< 이전 이미지");
-		File file = new File("C:/Users/admin/Desktop/git-shop/shop/WebContent/image/"+preEbookImg);
+		File temp = new File("");
+		String path = temp.getAbsolutePath();
+		File file = new File(path+"/webapps/shop/image/"+preEbookImg);
 		System.out.println(file);
 		if( file.exists() ){
     		if(file.delete()){
