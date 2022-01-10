@@ -55,6 +55,29 @@
 <meta charset="UTF-8">
 <title>index.jsp</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="apple-touch-icon" href="${pageContext.request.contextPath}/resources/assets/img/apple-icon.png">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/templatemo.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/custom.css">
+
+<!-- 레이아웃 렌더링한 후 폰트 스타일 로드 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/fontawesome.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style> 
+		body { font-family: 'twayair' } 
+		p { font-family: 'twayair' } 
+		
+		@font-face {
+    	font-family: 'twayair';
+    	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_tway@1.0/twayair.woff') format('woff');
+    	font-weight: normal;
+    	font-style: normal;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -90,13 +113,76 @@
 	         <h1>메인페이지</h1>
 		</div>
 		<div>
+		<div>
+			<h2>공지 사항</h2>
+		</div>
+		<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel" style="height: 300px;">
+        <!-- 아래 언더바  -->
+        <ol class="carousel-indicators">
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="3"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner" style="background-image:url('${pageContext.request.contextPath}/resources/assets/img/test.png'); background-size:auto; height: 300px;">
+            <div class="carousel-item active">
+                <div class="container">
+                    <div class=" p-5">
+                   		<!--
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="${pageContext.request.contextPath}/resources/assets/img/white.png" style="width:550px; height:550px; border-radius:5%; alt="">  
+                        </div>
+                        -->
+                        <div class="col-lg-6 mb-0 align-items-center">
+                            <div class="text-align-left align-self-center">
+                                <h1 style="color:#000000; font-family: 'twayair'">E-BOOK 쇼핑몰</h1>
+                                <h4 style="color:#000000; font-family: 'twayair'">간편한 E-BOOK 구매</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 테스트 중 -->
+            <!--  -->
+            <%
+				for(Notice n: newNoticeList){
+			%>
+					<div class="carousel-item">
+			                <div class="container">
+			                    <div class=" p-5" OnClick="location.href ='<%=request.getContextPath()%>/selectNoticeOne.jsp?noticeNo=<%=n.getNoticeNo()%>'" style="cursor:pointer;">
+			                        <div class=" align-items-center">
+			                            <div class="text-align-left">
+			                                <h1 style="color:#000000; font-family:'twayair'"><%=n.getNoticeTitle()%></h1>
+			                                <h4 style="color:#000000; font-family: 'twayair'"><%=n.getCreateDate().substring(0, 11)%></h4>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+				<%
+					}
+				%>
+	            
+        </div>
+        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    	</div>
+    	<br>
+    	<hr>
+    	<!-- 끝 -->
 		<%
 			if(session.getAttribute("loginMember") == null){
 		%>
 			<!-- 로그인 실패 or 전 -->
-			<div><a href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-info">로그인</a></div>
-			<br>
-			<div><a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-info">회원가입</a></div>
+			<div>
+				<a style="margin-right: 20px;" href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-info">로그인</a><a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-info">회원가입</a>
+			</div>
 		<%
 			}else {
 		%>
@@ -120,6 +206,7 @@
 		%>
 		</div>
 		<br>
+		<!--  
 		<div>
 			<h2>공지 사항</h2>
 		</div>
@@ -149,9 +236,12 @@
 		<!-- 상품 목록  -->
 		<div>
 			<div>
-				<h2>신상품 목록</h2>
+				<h2>
+					<img src="<%=request.getContextPath()%>/image/new.png" width="100" height="100">
+					신상품 목록
+				</h2>
 			</div>
-			<table class="table table-bordered" style="background-color: #FAED7D;">
+			<table class="table table-bordered" style="background-color: #FEFDCA;">
 				<tr>
 					<%
 						for(Ebook e: newProductEbookList){
@@ -171,9 +261,12 @@
 		</div>
 		<br>
 		<div>
-			<h2>인기 전자책 목록</h2>
+			<h2>
+				<img src="<%=request.getContextPath()%>/image/best.png" width="100" height="100">
+				인기 전자책 목록
+			</h2>
 		</div>
-		<table class="table table-bordered">
+		<table class="table table-bordered" style="background-color: #E0F9B5;">
 			<tr>
 				<%
 					for(Ebook e: popularEbookList){
@@ -306,5 +399,12 @@
 			}
 		%>
 	</div>
+	 <!-- Start Script -->
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-1.11.0.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/templatemo.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/assets/js/custom.js"></script>
+    <!-- End Script -->
 </body>
 </html>

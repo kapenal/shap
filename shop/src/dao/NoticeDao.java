@@ -10,7 +10,7 @@ import commons.DBUtil;
 import vo.*;
 
 public class NoticeDao {
-	// [관리자 & 회원 & 일반] 최근 공지사항 5개 출력
+	// [관리자 & 회원 & 일반] 최근 공지사항 4개 출력
 	public ArrayList<Notice> selectNewNoticeList() throws ClassNotFoundException, SQLException{
 		// 리턴값
 		ArrayList<Notice> list = new ArrayList<>();
@@ -18,7 +18,7 @@ public class NoticeDao {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		// 쿼리문 생성, 실행
-		String sql = "SELECT notice_no noticeNo, notice_title noticeTitle, notice_content noticeContent, member_no memberNo, create_date createDate, update_date updateDate FROM notice ORDER BY create_date DESC LIMIT 0, 5";
+		String sql = "SELECT notice_no noticeNo, notice_title noticeTitle, notice_content noticeContent, member_no memberNo, create_date createDate, update_date updateDate FROM notice ORDER BY create_date DESC LIMIT 0, 4";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		// 디버깅
 		System.out.println(stmt + " < NoticeDao.selectNewNoticeList stmt");

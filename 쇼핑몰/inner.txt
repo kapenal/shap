@@ -1,0 +1,15 @@
+# 두 개를 합친 테이블
+SELECT orders.*, ebook.*
+FROM orders INNER JOIN ebook
+ON orders.ebook_no = ebook.ebook_no
+WHERE order_no = 1
+
+# 세 개를 합친 테이블
+SELECT 
+	o.order_no orderNo, o.order_price orderPrice, o.create_date createDate,
+	e.ebook_no ebookNo, e.ebook_title ebookTitle, 
+	m.member_no memberNo, m.member_id  memberId
+FROM orders o INNER JOIN ebook e INNER JOIN member m
+ON o.ebook_no = e.ebook_no AND o.member_no = m.member_no
+WHERE order_no = 1
+ORDER BY o.create_date DESC
