@@ -112,6 +112,35 @@
 		<div class="jumbotron">
 	         <h1>메인페이지</h1>
 		</div>
+		<!-- 끝 -->
+		<%
+			if(session.getAttribute("loginMember") == null){
+		%>
+			<!-- 로그인 실패 or 전 -->
+			<div>
+				<a style="margin-right: 20px;" href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-info">로그인</a><a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-info">회원가입</a>
+			</div>
+		<%
+			}else {
+		%>
+			<!-- 로그인 성공 or 유지 -->
+			<div><h2><span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다.</h2></div>
+			<br>
+		<%
+				if(loginMember.getMemberLevel() > 0){
+		%>
+					<div><a href ="<%=request.getContextPath()%>/admin/adminIndex.jsp" class="btn btn-info">관리자 페이지가기</a></div>
+					<br>
+		<%
+				}
+		%>
+			<a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-info">로그아웃</a>
+			<a href="<%=request.getContextPath()%>/selectMemberOne.jsp?memberNo=<%=loginMember.getMemberNo()%>" class="btn btn-info">회원정보</a>
+			<a href="<%=request.getContextPath()%>/selectOrderListByMember.jsp" class="btn btn-info">내 주문</a>
+			<a href="<%=request.getContextPath()%>/selectQnaListByMember.jsp" class="btn btn-info">내 QnA</a>
+		<%
+			}
+		%>
 		<div>
 		<div>
 			<h2>공지 사항</h2>
@@ -175,35 +204,7 @@
     	</div>
     	<br>
     	<hr>
-    	<!-- 끝 -->
-		<%
-			if(session.getAttribute("loginMember") == null){
-		%>
-			<!-- 로그인 실패 or 전 -->
-			<div>
-				<a style="margin-right: 20px;" href="<%=request.getContextPath()%>/loginForm.jsp" class="btn btn-info">로그인</a><a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="btn btn-info">회원가입</a>
-			</div>
-		<%
-			}else {
-		%>
-			<!-- 로그인 성공 or 유지 -->
-			<div><h2><span class="text-warning"><%=loginMember.getMemberName()%></span>님 반갑습니다.</h2></div>
-			<br>
-		<%
-				if(loginMember.getMemberLevel() > 0){
-		%>
-					<div><a href ="<%=request.getContextPath()%>/admin/adminIndex.jsp" class="btn btn-info">관리자 페이지가기</a></div>
-					<br>
-		<%
-				}
-		%>
-			<a href="<%=request.getContextPath()%>/logOut.jsp" class="btn btn-info">로그아웃</a>
-			<a href="<%=request.getContextPath()%>/selectMemberOne.jsp?memberNo=<%=loginMember.getMemberNo()%>" class="btn btn-info">회원정보</a>
-			<a href="<%=request.getContextPath()%>/selectOrderListByMember.jsp" class="btn btn-info">내 주문</a>
-			<a href="<%=request.getContextPath()%>/selectQnaListByMember.jsp" class="btn btn-info">내 QnA</a>
-		<%
-			}
-		%>
+    	
 		</div>
 		<br>
 		<!--  
